@@ -103,7 +103,7 @@ CREATE TABLE daySupporter.d_diary (
 	user_id       VARCHAR(50)  NOT NULL, -- 아이디
 	diary_title   VARCHAR(200) NULL,     -- 제목
 	diary_content TEXT         NULL,     -- 내용
-	diary_day     DATE         NOT NULL DEFAULT now(), -- 날짜
+	diary_day     DATETIME     NOT NULL DEFAULT now(), -- 날짜
 	diary_mark    INT          NOT NULL DEFAULT 0 -- 평점
 );
 

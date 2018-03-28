@@ -1,0 +1,118 @@
+-- 데이서포터
+DROP SCHEMA IF EXISTS daySupporter;
+
+-- 데이서포터
+CREATE SCHEMA daySupporter;
+
+-- 하루
+CREATE TABLE daySupporter.d_today (
+	pri_no       INT          NOT NULL, -- 번호
+	user_id      VARCHAR(50)  NOT NULL, -- 아이디
+	start_date   DATETIME     NULL,     -- 시작시간
+	end_date     DATETIME     NULL,     -- 종료시간
+	plan_type    VARCHAR(50)  NULL,     -- 종류
+	plan_content VARCHAR(300) NULL      -- 내용
+);
+
+-- 하루
+ALTER TABLE daySupporter.d_today
+	ADD CONSTRAINT PK_d_today -- 하루 기본키
+		PRIMARY KEY (
+			pri_no -- 번호
+		);
+
+ALTER TABLE daySupporter.d_today
+	MODIFY COLUMN pri_no INT NOT NULL AUTO_INCREMENT;
+
+-- 회원
+CREATE TABLE daySupporter.d_user (
+	user_id   VARCHAR(50) NOT NULL, -- 아이디
+	user_nick VARCHAR(30) NOT NULL  -- 닉네임
+);
+
+-- 회원
+ALTER TABLE daySupporter.d_user
+	ADD CONSTRAINT PK_d_user -- 회원 기본키
+		PRIMARY KEY (
+			user_id -- 아이디
+		);
+
+-- 게시판
+CREATE TABLE daySupporter.d_board (
+	boa_no        INT          NOT NULL, -- 게시판번호
+	user_id       VARCHAR(50)  NOT NULL, -- 아이디
+	user_nick     VARCHAR(30)  NULL,     -- 닉네임
+	board_title   VARCHAR(200) NOT NULL, -- 게시판제목
+	board_content TEXT         NULL,     -- 게시판내용
+	board_regdate DATETIME     NOT NULL DEFAULT now(), -- 작성시간
+	board_count   INT          NOT NULL DEFAULT 0 -- 조회수
+);
+
+-- 게시판
+ALTER TABLE daySupporter.d_board
+	ADD CONSTRAINT PK_d_board -- 게시판 기본키
+		PRIMARY KEY (
+			boa_no -- 게시판번호
+		);
+
+ALTER TABLE daySupporter.d_board
+	MODIFY COLUMN boa_no INT NOT NULL AUTO_INCREMENT;
+
+-- 댓글
+CREATE TABLE daySupporter.d_reply (
+	rep_no        INT           NOT NULL, -- 댓글번호
+	b_no          INT           NOT NULL, -- 게시판번호
+	reply_content VARCHAR(1000) NOT NULL, -- 댓글내용
+	user_id       VARCHAR(50)   NOT NULL, -- 아이디
+	user_nick     VARCHAR(30)   NULL,     -- 닉네임
+	reply_regdate DATETIME      NOT NULL DEFAULT now(), -- 최초작성시간
+	reply_update  DATETIME      NOT NULL DEFAULT now() -- 최근수정시간
+);
+
+-- 댓글
+ALTER TABLE daySupporter.d_reply
+	ADD CONSTRAINT PK_d_reply -- 댓글 기본키
+		PRIMARY KEY (
+			rep_no -- 댓글번호
+		);
+
+ALTER TABLE daySupporter.d_reply
+	MODIFY COLUMN rep_no INT NOT NULL AUTO_INCREMENT;
+
+-- 사진
+CREATE TABLE daySupporter.d_img (
+	img_no      INT          NOT NULL, -- 이미지번호
+	b_no        INT          NOT NULL, -- 게시판번호
+	img_path    VARCHAR(300) NOT NULL, -- 파일경로
+	img_regdate DATETIME     NOT NULL DEFAULT now() -- 생성시간
+);
+
+-- 사진
+ALTER TABLE daySupporter.d_img
+	ADD CONSTRAINT PK_d_img -- 사진 기본키
+		PRIMARY KEY (
+			img_no -- 이미지번호
+		);
+
+ALTER TABLE daySupporter.d_img
+	MODIFY COLUMN img_no INT NOT NULL AUTO_INCREMENT;
+
+-- 일기
+CREATE TABLE daySupporter.d_diary (
+	dia_no        INT          NOT NULL, -- 번호
+	user_id       VARCHAR(50)  NOT NULL, -- 아이디
+	diary_title   VARCHAR(200) NULL,     -- 제목
+	diary_content TEXT         NULL,     -- 내용
+	diary_day     DATE         NOT NULL DEFAULT now(), -- 날짜
+	diary_mark    INT          NOT NULL DEFAULT 0 -- 평점
+);
+
+-- 일기
+ALTER TABLE daySupporter.d_diary
+	ADD CONSTRAINT PK_d_diary -- 일기 기본키
+		PRIMARY KEY (
+			dia_no -- 번호
+		);
+
+ALTER TABLE daySupporter.d_diary
+	MODIFY COLUMN dia_no INT NOT NULL AUTO_INCREMENT;

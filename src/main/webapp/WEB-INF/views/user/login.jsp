@@ -8,11 +8,17 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
+
     </head>
     <body>
     <a id="kakao-login-btn"></a>
     <a href="http://developers.kakao.com/logout"></a>
     
+    <form action="${pageContext.request.contextPath}/login/" method="post" id="form">
+    	<input type="text" name="id" id="id" hidden="hidden">
+    	<!-- <input type="button"  id="kakao-login-btn"/>
+    	<a href="http://developers.kakao.com/logout"></a> -->
+    </form>
     
     <script type='text/javascript'>
       //<![CDATA[
@@ -51,9 +57,10 @@
         });
         
         
-        
         function loginSuccess(id){
-        	$(location).attr("href","result?id="+id);
+        	$("#id").val(id);
+        	$("#form").submit();
+        	//$(location).attr("href","result?id="+id);
         }
       //]]>
     </script>

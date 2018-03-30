@@ -41,4 +41,8 @@ public class HomeController {
 		return "main_desktop";
 	}
 	
+	@RequestMapping(value = "/todaytest", method = RequestMethod.GET)
+	public String todaytest(){
+		return "today_desktop";
+	}
 }

@@ -36,4 +36,9 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/maintest", method = RequestMethod.GET)
+	public String maintest(){
+		return "main_desktop";
+	}
+	
 }

@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+body{
+	width:100%;
+	padding:0;
+	margin:0 auto;
+}
+.content_box > .row{
+	width:100%;
+	margin:0 auto;
+}

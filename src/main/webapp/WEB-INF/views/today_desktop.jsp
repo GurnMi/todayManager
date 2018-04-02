@@ -5,42 +5,20 @@
 <title>MAIN DESKTOP VERSION</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-	.content_box{
-		width:100%;
-		height:500px;
-		background:skyblue;
-		margin-top:50px;
-	}
-	#carousel_list{
-		list-style:none;
-	}
-	.todayrow{
-		border-top:1px solid black;
-		border-bottom:1px solid black;
-	}
-	@media(min-width:768px){
-		.content_box{
-			width:100%;
-			height:500px;
-			background:red;
-			margin-top:50px;
-		}
-	}
-	@media(min-width:960px){
-		.content_box{
-			width:100%;
-			height:500px;
-			background:gray;
-			margin-top:50px;
-		}
-		
-	}	
-	
-</style>
+<!-- PLUGIN CSS -->
+<link rel="stylesheet" href="css/slick.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- CUSTOM CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css">
+<!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/slick.js"></script>
+<!-- CUSTOM JS -->
 <script type="text/javascript">
 	function make_str_calendar(){
 		var appendStr = "";
@@ -111,47 +89,111 @@
 		</nav>
 		<div class="content_box">
 			<div class="row">
-				<div class="col-sm-3">
-					<div id="myCarousel" class="carousel slide" data-ride="carousel">
-						<ul class="carousel" id="carousel_list">
-							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-							<li data-target="#myCarousel" data-slide-to="1"></li>
-							<li data-target="#myCarousel" data-slide-to="2"></li>
-						</ul>
-						<div class="carousel-inner">
-							<div class="item active" id="date_prev">
-								
-							</div>
-							<div class="item" id="date_now">
-								
-							</div>
-							<div class="item" id="date_next">
-								
-							</div>
-						</div>
-						<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-							<span class="glyphicon glyphicon-chevron-left"></span>
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="right carousel-control" href="#myCarousel" data-slide="next">
-							<span class="glyphicon glyphicon-chevron-right"></span>
-							<span class="sr-only">Next</span>
-						</a>
-					</div>
+				<div id="calendar-zone">
+					TEST CALENDAR ZONE
 				</div>
-				<div class="col-sm-9">
-					<p class="todayrow">테스트 / 00:00</p>
-					<p class="todayrow">테스트 / 00:30</p>
-					<p class="todayrow">테스트 / 01:00</p>
-					<p class="todayrow">테스트 / 01:30</p>
-					<p class="todayrow">테스트 / 02:00</p>
-					<p class="todayrow">테스트 / 02:30</p>
-					<p class="todayrow">테스트 / 03:00</p>
-					<p class="todayrow">테스트 / 03:30</p>
-					<p class="todayrow">테스트 / 04:00</p>
-					<p class="todayrow">테스트 / 04:30</p>
-					<p class="todayrow">테스트 / 05:00</p>
-					<p class="todayrow">테스트 / 05:30</p>
+				<div id="time-line">
+					<div><p>00:00</p></div>
+					<div><p>00:30</p></div>
+					<div><p>01:00</p></div>
+					<div><p>01:30</p></div>
+					<div><p>02:00</p></div>
+					<div><p>02:30</p></div>
+					<div><p>03:00</p></div>
+					<div><p>03:30</p></div>
+					<div><p>04:00</p></div>
+					<div><p>04:30</p></div>
+					<div><p>05:00</p></div>
+					<div><p>05:30</p></div>
+					<div><p>06:00</p></div>
+					<div><p>06:30</p></div>
+					<div><p>07:00</p></div>
+					<div><p>07:30</p></div>
+					<div><p>08:00</p></div>
+					<div><p>08:30</p></div>
+					<div><p>09:00</p></div>
+					<div><p>09:30</p></div>
+					<div><p>10:00</p></div>
+					<div><p>10:30</p></div>
+					<div><p>11:00</p></div>
+					<div><p>11:30</p></div>
+					<div><p>12:00</p></div>
+					<div><p>12:30</p></div>
+					<div><p>13:00</p></div>
+					<div><p>13:30</p></div>
+					<div><p>14:00</p></div>
+					<div><p>14:30</p></div>
+					<div><p>15:00</p></div>
+					<div><p>15:30</p></div>
+					<div><p>16:00</p></div>
+					<div><p>16:30</p></div>
+					<div><p>17:00</p></div>
+					<div><p>17:30</p></div>
+					<div><p>18:00</p></div>
+					<div><p>18:30</p></div>
+					<div><p>19:00</p></div>
+					<div><p>19:30</p></div>
+					<div><p>20:00</p></div>
+					<div><p>20:30</p></div>
+					<div><p>21:00</p></div>
+					<div><p>21:30</p></div>
+					<div><p>22:00</p></div>
+					<div><p>22:30</p></div>
+					<div><p>23:00</p></div>
+					<div><p>23:30</p></div>
+					<div><p>24:00</p></div>
+				</div>
+				<div id="info-line">
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
+					<div><div class="info-color"></div></div>
 				</div>
 			</div>
 		</div>

@@ -6,20 +6,66 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- PLUGIN CSS -->
-<link rel="stylesheet" href="css/slick.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- CUSTOM CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 <!-- CUSTOM JS -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=2"></script>
+<style>
+	#mid_day_slick{
+		width:100%;
+		margin:0 auto;
+	}
+	#mid_day_slick > ul{
+		list-style:none;
+		overflow:hidden;
+		padding:0;
+		margin:0;
+	}
+	.date_slick{
+		padding:0;
+		margin:0;
+	}
+	.calendar_table{
+		width:95%;
+		margin:0 auto;
+	}
+	.calendar_table th{
+		text-align:center;
+	}
+	.calendar_table td{
+		text-align:center;
+	}
+	#mid_day_slick > ul > li{
+		float:left;
+	}
+	#mid_day_slick > ul > li:nth-child(1){
+		width:10%;
+	}
+	#mid_day_slick > ul > li:nth-child(2){
+		width:80%;
+	}
+	#mid_day_slick > ul > li:nth-child(3){
+		width:10%;
+	}
+	.arrow_left > img{
+		width:100%;
+		height:50px;
+	}
+	.arrow_right > img{
+		width:100%;
+		height:50px;
+	}
+</style>
 <script type="text/javascript">
 	var pageLoadControl = 0; 
 	$(function(){
@@ -27,8 +73,16 @@
 		if(pageLoadControl == 0){
 			pageLoadControl = 1;
 			var date = new Date();
-			var lastday = find_Lastday(date.getFullYear(), date.getMonth());
-			
+			make_TagString(date.getFullYear(), date.getMonth());
+			make_TagString(date.getFullYear(), date.getMonth()+1);
+			make_TagString(date.getFullYear(), date.getMonth()+2);
+			$("#mid_day_slick").find(".date_slick").slick({
+				infinite:false,
+				initialSlide:1,
+				arrows:true,
+				prevArrow:'.arrow_left',
+				nextArrow:'.arrow_right'
+			});
 		}
 	});
 </script>
@@ -64,7 +118,16 @@
 		<div class="content_box">
 			<div class="row">
 				<div id="calendar-zone">
-					<table></table>
+					<div id="mid_day_slick">
+						<ul id="test_slick">
+							<li class="arrow_left"><img src="${pageContext.request.contextPath}/resources/left.png"></li>
+							<li>
+								<ul class="date_slick"></ul>
+							</li>
+							<li class="arrow_right"><img src="${pageContext.request.contextPath}/resources/right.png"></li>
+						</ul>
+					</div>
+					
 				</div>
 				<div id="time-line">
 					<div><p>00:00</p></div>

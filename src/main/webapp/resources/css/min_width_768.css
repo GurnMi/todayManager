@@ -24,12 +24,4 @@
 		float:left;
 		background:green;
 	}
-	#calendar-zone > table{
-		width:80%;
-		margin:0 auto;
-		text-align:center;
-	}
-	#calendar-zone > table th{
-		text-align:center;
-	}
 }

@@ -26,10 +26,14 @@ function make_TagString(year, month){
 	// 마지막 날짜 파악
 	var lastDay = find_Lastday(year, month);
 	
+	// 문자열 생성[위치]
+	dataStr+="<li>";
+	// 문자열 생성[테이블]
+	dataStr+="<table class='calendar_table'>";
 	// 문자열 생성[년]
-	dataStr+= "<tr><th colspan='7'>" + year + "</th></tr>";
+	dataStr+="<tr><th colspan='7'>" + year + "</th></tr>";
 	// 문자열 생성[월]
-	dataStr+= "<tr><th colspan='7'>" + month + "</th></tr>";
+	dataStr+="<tr><th colspan='7'>" + month + "</th></tr>";
 	// 문자열 생성[요일]
 	dataStr+="<tr>";
 	dataStr+="<th>SUN</th>";
@@ -54,9 +58,11 @@ function make_TagString(year, month){
 			monthWeek++;
 		dataStr += "</tr>";	
 	}
+	dataStr+="</table>";
+	dataStr+="</li>";
 	
 	//달력 적용
-	$("#calendar-zone table").append(dataStr);
+	$(".date_slick").append(dataStr);
 	
 	console.log("make_TagString() Success");
 }

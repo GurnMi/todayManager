@@ -17,46 +17,20 @@
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/slick.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 <!-- CUSTOM JS -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js"></script>
 <script type="text/javascript">
-	function make_str_calendar(){
-		var appendStr = "";
-		// 요일 출력을 위한 DATE객체 생성
-		var findDay = new Date(year, month-1);
-		// 요일 배열 생성
-		var arrDays = new Array("SUN","MON","TUE","WED","THU","FRI","SAT");
-		// 문자열 생성 및 조합
-		appendStr += "<li>";
-		appendStr += "<span id='text_year'>"+year+"</span><br>";
-		if(month<10)
-			appendStr += "0";
-		appendStr += "<span id='text_month'>"+month+"</span>/";
-		appendStr += "<span id='text_day'>";
-		if(day<10)
-			appendStr += "0";
-		appendStr += day+"</span><br>";
-		findDay.setDate(day);
-		appendStr += "<span class='text_weekday'>"+arrDays[findDay.getDay()]+"</span>";
-		appendStr += "</li>";
-		
-		switch(mode){
-			case 0:
-				$("#slider_slick").prepend(appendStr);
-				return;
-			case 1:
-				// DAYTEXT 문자열 추가
-				$("#slider_slick").append(appendStr);
-				return;
-		}
-	}
-
-
+	var pageLoadControl = 0; 
 	$(function(){
-		// BOOTSTRAP_CAROUSEL SLIDE 정지
-		$("#myCarousel").carousel("pause");
-		// 페이지 최초 로드 시 현재날짜 SET
-	})	
+		// 페이지 최초 로드시 달력 자동 생성
+		if(pageLoadControl == 0){
+			pageLoadControl = 1;
+			var date = new Date();
+			var lastday = find_Lastday(date.getFullYear(), date.getMonth());
+			
+		}
+	});
 </script>
 </head>
 <body>
@@ -90,7 +64,7 @@
 		<div class="content_box">
 			<div class="row">
 				<div id="calendar-zone">
-					TEST CALENDAR ZONE
+					<table></table>
 				</div>
 				<div id="time-line">
 					<div><p>00:00</p></div>

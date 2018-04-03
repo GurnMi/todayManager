@@ -3,6 +3,43 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dgit.mapper.DiaryMapper">
-
+	<insert id="insert">
+		insert into d_diary (user_id, diary_title, diary_content, diary_day, diary_mark)
+		values (#{user_id},#{diary_title},#{diary_content},#{diary_day},#{diary_mark})
+	</insert>
 	
+	<update id="update">
+		update d_diary set 
+		diary_title=#{diary_title},diary_content=#{diary_content},
+		diary_day=#{diary_day},diary_mark=#{diary_mark}
+		where dia_no=#{dia_no}
+	</update>
+	
+	<delete id="delete">
+		delete from d_diary where user_id=#{user_id}
+		<if test="dia_no != 0">
+			and dia_no=#{dia_no}
+		</if>
+		<if test="diary_day!=null">
+			and date(diary_day) = date(#{diary_day})
+		</if>
+	</delete>
+	
+	<select id="select" resultType="DiaryVO">
+		select * from d_diary where user_id=#{user_id}
+		<if test="dia_no !=0">
+			and dia_no=#{dia_no}
+		</if>
+		<if test="diary_title !=null">
+			and diary_title =#{diary_title}
+		</if>
+		<if test="diary_content !=null">
+			and diary_content like CONCAT('%',#{diary_content},'%')
+		</if>
+		order by diary_day
+	</select>
+	
+	<select id="selectNo" resultType="DiaryVO">
+		select * from d_diary where dia_no=#{dia_no}
+	</select>
 </mapper>

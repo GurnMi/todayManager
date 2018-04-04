@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgit.mapper.RepeatSubMapper">
+	<insert id="insert">
+		insert into d_repeatsub (user_id, rep_no ,sub_start,sub_end)
+		values (#{user_id},#{rep_no},#{sub_start},#{sub_end})
+	</insert>
+	
+	<update id="update">
+		update d_repeatsub set 
+		sub_start=#{sub_start},sub_end=#{sub_end}
+		where rep_no=#{rep_no}
+	</update>
+	
+	<delete id="delete">
+		delete from d_repeatsub where user_id=#{user_id}
+		<if test="rep_no != 0">
+			and rep_no=#{rep_no}
+		</if>
+		<if test="rep_no != 0">
+			and sub_no=#{sub_no}
+		</if>
+	</delete>
+	
+	<select id="select" resultType="RepeatSubVO">
+		select * from d_repeatsub where user_id=#{user_id}
+		<if test="rep_no != 0">
+			and rep_no=#{rep_no}
+		</if>
+		<if test="sub_start !=null">
+			and date(sub_start) = date(#{sub_start})
+		</if>
+		<if test="sub_start !=null and sub_end !=null">
+			and date(sub_end) <![CDATA[<=]]> date(#{sub_end})
+		</if>
+		order by rep_start
+	</select>
+	
+	<select id="selectRepNo" resultType="RepeatSubVO">
+		select * from d_repeatsub where rep_no=#{rep_no}
+	</select>
+	<select id="selectSubNo" resultType="RepeatSubVO">
+		select * from d_repeatsub where sub_no=#{sub_no}
+	</select>
+	
+</mapper>

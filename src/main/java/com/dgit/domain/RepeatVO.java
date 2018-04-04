@@ -7,7 +7,7 @@ public class RepeatVO {
 	private String user_id;
 	private String rep_type;
 	private String rep_title;
-	private Date rep_day;
+	private String rep_day;
 	private Date rep_start;
 	private Date rep_end;
 
@@ -43,11 +43,13 @@ public class RepeatVO {
 		this.rep_title = rep_title;
 	}
 
-	public Date getRep_day() {
+	
+
+	public String getRep_day() {
 		return rep_day;
 	}
 
-	public void setRep_day(Date rep_day) {
+	public void setRep_day(String rep_day) {
 		this.rep_day = rep_day;
 	}
 
@@ -67,7 +69,9 @@ public class RepeatVO {
 		this.rep_end = rep_end;
 	}
 
-	public RepeatVO(int rep_no, String user_id, String rep_type, String rep_title, Date rep_day, Date rep_start,
+	
+
+	public RepeatVO(int rep_no, String user_id, String rep_type, String rep_title, String rep_day, Date rep_start,
 			Date rep_end) {
 		super();
 		this.rep_no = rep_no;

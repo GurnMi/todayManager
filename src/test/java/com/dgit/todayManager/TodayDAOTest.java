@@ -25,9 +25,11 @@ public class TodayDAOTest {
 	@Test
 	public void testjoin() throws Exception{
 		Date date = new Date();
-		//TodayVO vo = new TodayVO(1, "test",date, date,"운동","운동내용","운동제목");
+		TodayVO vo = new TodayVO(1, "test",date, date,"운동","운동내용","운동제목");
 		
-		//dao.insert(vo);
+		System.out.println("============="+date);
+		
+		dao.insert(vo);
 		
 		TodayVO vo1 = new TodayVO();
 		vo1.setUser_id("test");
@@ -56,11 +58,11 @@ public class TodayDAOTest {
 			System.out.println("==========="+vo3.toString());
 		}*/
 		
-		TodayVO vo = new TodayVO();
+		/*TodayVO vo = new TodayVO();
 		vo.setUser_id("test");
 		vo.setStart_date(date);
 				
-		dao.delete(vo);
+		dao.delete(vo);*/
 		
 	}
 	

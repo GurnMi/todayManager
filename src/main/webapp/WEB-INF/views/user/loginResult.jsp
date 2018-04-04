@@ -27,7 +27,12 @@
 	아이디 : ${sessionScope.user.user_id }
 	닉네임 : ${sessionScope.user.user_nick }님 로그인 되었습니다.
 	
+	<br><br>
 	
+	<a href="${pageContext.request.contextPath}/repeat/insert">반복 학습 입력</a>
+	<a href="${pageContext.request.contextPath}/repeat/select">반복 학습 보기</a>
+	
+	<br>
 	
 	<a href="${pageContext.request.contextPath}/login/update">닉네임 변경</a>
 	<a href="${pageContext.request.contextPath}/login/logout">로그아웃</a>

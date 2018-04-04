@@ -36,6 +36,13 @@ public class LoginController {
 		return "user/login";
 	}
 	
+	@RequestMapping(value="/main" ,method=RequestMethod.GET)
+	public String loginMain() throws Exception{
+		logger.info("main");
+		
+		return "user/loginResult";
+	}
+	
 	@RequestMapping(value="/" ,method=RequestMethod.POST)
 	public String loginResult(HttpServletRequest req,String id) throws Exception{
 		logger.info("loginresult");

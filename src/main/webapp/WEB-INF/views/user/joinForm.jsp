@@ -68,7 +68,7 @@
 			if(!nickCheck){
 				alert("닉네임 중복을 확인해주세요");
 				return false;
-			}
+			} 
 			var nick1 = $("input[name='user_nick']").val();
 			if(nick!=nick1){
 				alert("닉네임 중복을 확인해주세요");

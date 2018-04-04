@@ -1,0 +1,56 @@
+@CHARSET "UTF-8";
+
+/* 기본형 달력 */
+#day_slick{
+	width:100%;
+	margin:0 auto;
+}
+#day_slick > ul{
+	list-style:none;
+	overflow:hidden;
+	padding:0;
+	margin:0;
+}
+.date_slick{
+	padding:0;
+	margin:0;
+}
+.calendar_table{
+	width:95%;
+	margin:0 auto;
+}
+.calendar_table th{
+	text-align:center;
+}
+.calendar_table td{
+	text-align:center;
+}
+#day_slick > ul > li{
+	float:left;
+}
+#day_slick > ul > li:nth-child(1){
+	width:10%;
+}
+#day_slick > ul > li:nth-child(2){
+	width:80%;
+}
+#day_slick > ul > li:nth-child(3){
+	width:10%;
+}
+.arrow_left > img{
+	width:100%;
+	height:50px;
+}
+.arrow_right > img{
+	width:100%;
+	height:50px;
+}
+#cal_today{
+	background:white;
+}
+.cal_select{
+	font-weight:bold;
+	color:red;
+}
+
+/* 소형 달력 */

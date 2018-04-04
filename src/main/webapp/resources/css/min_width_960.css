@@ -8,6 +8,11 @@
 		margin-top:50px;
 	}
 	#calendar-zone{
-		display:block;
+		display:inline;
+		float:left;
+		width:30%;
+	}
+	#s_calendar_zone{
+		display:none;
 	}
 }

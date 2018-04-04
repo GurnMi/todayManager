@@ -10,80 +10,71 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- CUSTOM CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=3">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=3">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=3">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=3">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/today_calendar.css">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 <!-- CUSTOM JS -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=2"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=1"></script>
 <style>
-	#mid_day_slick{
-		width:100%;
-		margin:0 auto;
-	}
-	#mid_day_slick > ul{
-		list-style:none;
-		overflow:hidden;
-		padding:0;
-		margin:0;
-	}
-	.date_slick{
-		padding:0;
-		margin:0;
-	}
-	.calendar_table{
-		width:95%;
-		margin:0 auto;
-	}
-	.calendar_table th{
-		text-align:center;
-	}
-	.calendar_table td{
-		text-align:center;
-	}
-	#mid_day_slick > ul > li{
-		float:left;
-	}
-	#mid_day_slick > ul > li:nth-child(1){
-		width:10%;
-	}
-	#mid_day_slick > ul > li:nth-child(2){
-		width:80%;
-	}
-	#mid_day_slick > ul > li:nth-child(3){
-		width:10%;
-	}
-	.arrow_left > img{
-		width:100%;
-		height:50px;
-	}
-	.arrow_right > img{
-		width:100%;
-		height:50px;
-	}
+	
 </style>
 <script type="text/javascript">
-	var pageLoadControl = 0; 
+
+	var date = new Date();
+	var baseDate = date;
+	var year = date.getFullYear();
+	var month = date.getMonth()+1;
+	var day = date.getDate();
+	var pageLoadControl = 0;
+	
 	$(function(){
 		// 페이지 최초 로드시 달력 자동 생성
 		if(pageLoadControl == 0){
+			cal_create(year, month, day, pageLoadControl);			
 			pageLoadControl = 1;
-			var date = new Date();
-			make_TagString(date.getFullYear(), date.getMonth());
-			make_TagString(date.getFullYear(), date.getMonth()+1);
-			make_TagString(date.getFullYear(), date.getMonth()+2);
-			$("#mid_day_slick").find(".date_slick").slick({
-				infinite:false,
-				initialSlide:1,
-				arrows:true,
-				prevArrow:'.arrow_left',
-				nextArrow:'.arrow_right'
-			});
 		}
+		
+		// 달력 년,월 컨트롤
+		$(".date_slick").on("afterChange", function(event, slick, currentSlide, nextSlide){
+			if($(".arrow_left").attr("aria-disabled") == "true"){
+				if(month > 1){
+					month--;
+				}
+				else{
+					year--;
+					month = 12;
+				}
+				cal_create(year, month, day, pageLoadControl);
+			}
+			if($(".arrow_right").attr("aria-disabled") == "true"){
+				if(month < 12){
+					month++;
+				}
+				else{
+					year++;
+					month = 1;
+				}
+				cal_create(year, month, day, pageLoadControl);
+			}
+		});
+		
+		// 달력 일 선택
+		$(".date_slick").on("click","td",function(){
+			var target = $(this).parent().parent();
+			var sYear = $(target).find(".cal_year").html();
+			var sMonth = $(target).find(".cal_month").html();
+			var sDay = $(this).html();
+			// 달력 선택정보 저장
+			cal_save_select.setFullYear(sYear, sMonth-1, sDay);
+			$(".date_slick").find(".cal_select").removeClass("cal_select");
+			$(this).addClass("cal_select");
+		});
 	});
 </script>
 </head>
@@ -118,8 +109,8 @@
 		<div class="content_box">
 			<div class="row">
 				<div id="calendar-zone">
-					<div id="mid_day_slick">
-						<ul id="test_slick">
+					<div id="day_slick">
+						<ul>
 							<li class="arrow_left"><img src="${pageContext.request.contextPath}/resources/left.png"></li>
 							<li>
 								<ul class="date_slick"></ul>
@@ -127,7 +118,17 @@
 							<li class="arrow_right"><img src="${pageContext.request.contextPath}/resources/right.png"></li>
 						</ul>
 					</div>
-					
+				</div>
+				<div id="s_calendar_zone">
+					<div id="day_slick_small">
+						<ul>
+							<li class="arrow_left_small"><img src="${pageContext.request.contextPath}/resources/left.png"></li>
+							<li>
+								<ul class="date_slick_small"></ul>
+							</li>
+							<li class="arrow_right_small"><img src="${pageContext.request.contextPath}/resources/right.png"></li>
+						</ul>
+					</div>
 				</div>
 				<div id="time-line">
 					<div><p>00:00</p></div>

@@ -100,7 +100,7 @@ function targetBySlick(obj, parent){
 	//포맷변경 후 분리
 	var arrTemp = tempStr.split("/");
 	//임시날짜 지정
-	setTempDate(arrTemp[0], arrTemp[1], arrTemp[2]);
+	set_tempDate(arrTemp[0], arrTemp[1], arrTemp[2]);
 	//SLICK 초기화
 	initSlick(parent);
 	//SLICK 생성

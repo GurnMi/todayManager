@@ -54,3 +54,8 @@
 #calendar-zone{
 	display:none;
 }
+#s_calendar_zone{
+	display:inline;
+	float:left;
+	width:30%;
+}

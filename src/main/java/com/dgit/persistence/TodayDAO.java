@@ -13,6 +13,8 @@ public interface TodayDAO {
 	public void delete (TodayVO vo) throws Exception;
 	
 	public List<TodayVO> select (TodayVO vo) throws Exception;
+	public List<TodayVO> repeatTest (TodayVO vo) throws Exception;
+	
 	public TodayVO selectNo (int no) throws Exception;
 	
 }

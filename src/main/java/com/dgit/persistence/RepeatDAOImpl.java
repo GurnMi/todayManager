@@ -47,4 +47,10 @@ public class RepeatDAOImpl implements RepeatDAO {
 		return sqlSession.selectOne(namespace+".selectNo",no);
 	}
 
+	@Override
+	public List<RepeatVO> RepeatTest(RepeatVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".RepeatTest",vo);
+	}
+
 }

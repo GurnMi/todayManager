@@ -29,8 +29,12 @@
 	
 	<br><br>
 	
-	<a href="${pageContext.request.contextPath}/repeat/insert">반복 학습 입력</a>
-	<a href="${pageContext.request.contextPath}/repeat/select">반복 학습 보기</a>
+	<a href="${pageContext.request.contextPath}/repeat/insert">스케쥴 입력</a>
+	<a href="${pageContext.request.contextPath}/repeat/list">스케쥴 보기</a>
+	<a href="${pageContext.request.contextPath}/repeat/listDay">스케쥴 날짜별 보기</a>
+	
+	<br><br>
+	<a href="${pageContext.request.contextPath}/today/">today</a>
 	
 	<br>
 	
@@ -38,5 +42,11 @@
 	<a href="${pageContext.request.contextPath}/login/logout">로그아웃</a>
 	<a href="#" id="del">회원 탈퇴</a>
 	
+	
+	<%-- <form method="post" action="${pageContext.request.contextPath}/repeat/listDay" name="f1">
+		<input type="date" name="rep_start">
+		<input type="date" name="rep_end">
+		<input type="submit" value="해당 날짜 보기">	
+	</form> --%>
 </body>
 </html>

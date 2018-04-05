@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dgit.domain.TodayVO;
-import com.dgit.persistence.TodayDAOImpl;
+import com.dgit.persistence.TodayDAO;
+
 
 @Service
-public abstract class TodayServiceImpl implements TodayService {
+public class TodayServiceImpl implements TodayService {
 
 	@Autowired
-	private TodayDAOImpl dao;
+	private TodayDAO dao;
 	
 	
 	@Override

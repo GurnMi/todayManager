@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -22,13 +23,14 @@ public class TodayDAOTest {
 	@Autowired
 	private TodayDAO dao;
 	
-	@Test
+	//@Test
 	public void testjoin() throws Exception{
 		Date date = new Date();
-		TodayVO vo = new TodayVO(1, "test",date, date,"운동","운동내용","운동제목");
+		TodayVO vo = new TodayVO(0, "dlrjsak4@gmail.com",date, date,"운동1","운동내용1","운동제목11");
 		
 		System.out.println("============="+date);
 		
+		dao.insert(vo);
 		dao.insert(vo);
 		
 		TodayVO vo1 = new TodayVO();
@@ -62,7 +64,32 @@ public class TodayDAOTest {
 		vo.setUser_id("test");
 		vo.setStart_date(date);
 				
-		dao.delete(vo);*/
+		dao.delete(vo);*/	
+		
+	}
+	
+	@Test
+	public void testjoin11() throws Exception{
+		Date date1 = new Date();
+		Date date2 = new Date();
+		date1.setHours(15);
+		date2.setHours(20);
+		
+		TodayVO vo1=new TodayVO();
+		vo1.setUser_id("dlrjsak4@gmail.com");
+		vo1.setStart_date(date1);
+		vo1.setEnd_date(date2);
+		
+		System.out.println(date1 +"============" +date2);
+		
+		System.out.println(vo1.toString()+"dskajfdlskjfla;sdjklf");
+		
+		List<TodayVO> list = dao.repeatTest(vo1);
+		System.out.println(list.size()+"==============sssssssss");
+		for(TodayVO vo3 :list){
+			System.out.println(date1 +"============" +date2);
+			System.out.println("==========="+vo3.toString());
+		}
 		
 	}
 	

@@ -12,7 +12,6 @@
 	}
 	#s_calendar_zone{
 		display:inline;
-		float:left;
-		width:30%;
+		width:100%;
 	}
 }

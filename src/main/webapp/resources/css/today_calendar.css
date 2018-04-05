@@ -54,3 +54,54 @@
 }
 
 /* 소형 달력 */
+#s_day_slick{
+	width:100%;
+	margin:0 auto;
+}
+#s_day_slick > ul{
+	list-style:none;
+	overflow:hidden;
+	padding:0;
+	margin:0;
+}
+.s_date_slick{
+	padding:0;
+	margin:0;
+}
+.s_calendar_table{
+	width:95%;
+	margin:0 auto;
+}
+.s_calendar_table th{
+	text-align:center;
+}
+.s_calendar_table td{
+	text-align:center;
+}
+#s_day_slick > ul > li{
+	float:left;
+}
+#s_day_slick > ul > li:nth-child(1){
+	width:10%;
+}
+#s_day_slick > ul > li:nth-child(2){
+	width:80%;
+}
+#s_day_slick > ul > li:nth-child(3){
+	width:10%;
+}
+.s_arrow_left > img{
+	width:100%;
+	height:50px;
+}
+.s_arrow_right > img{
+	width:100%;
+	height:50px;
+}
+#s_cal_today{
+	background:white;
+}
+.s_cal_select{
+	font-weight:bold;
+	color:red;
+}

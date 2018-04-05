@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,17 +11,18 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- CUSTOM CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=3">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=3">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=3">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=3">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/today_calendar.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/today_calendar.css?var=2">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 <!-- CUSTOM JS -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=1"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=2"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar_s.js?var=2"></script>
 <style>
 	
 </style>
@@ -36,7 +38,8 @@
 	$(function(){
 		// 페이지 최초 로드시 달력 자동 생성
 		if(pageLoadControl == 0){
-			cal_create(year, month, day, pageLoadControl);			
+			cal_create(year, month, day, pageLoadControl);
+			cal_s_create(year, month, day, pageLoadControl);
 			pageLoadControl = 1;
 		}
 		
@@ -63,6 +66,25 @@
 				cal_create(year, month, day, pageLoadControl);
 			}
 		});
+		// 소형달력 년,월 컨트롤
+		$(".s_date_slick").on("afterChange", function(event, slick, currentSlide, nextSlide){
+			var tables = $(this).find(".s_calendar_table");
+			var t_year = null;
+			var t_month = null;
+			var t_day = null;
+			if($(".s_arrow_left").attr("aria-disabled") == "true"){
+				t_year = Number($(tables).eq(0).find(".s_cal_year").html());
+				t_month = Number($(tables).eq(0).find(".s_cal_month").html());
+				t_day = Number($(tables).eq(0).find("tr").eq(3).find("td").eq(0).html());
+				cal_s_create(t_year, t_month, t_day, pageLoadControl);
+			}
+			if($(".s_arrow_right").attr("aria-disabled") == "true"){
+				t_year = Number($(tables).eq(2).find(".s_cal_year").html());
+				t_month = Number($(tables).eq(2).find(".s_cal_month").html());
+				t_day = Number($(tables).eq(2).find("tr").eq(3).find("td").eq(0).html());
+				cal_s_create(t_year, t_month, t_day, pageLoadControl);
+			}
+		});
 		
 		// 달력 일 선택
 		$(".date_slick").on("click","td",function(){
@@ -71,9 +93,23 @@
 			var sMonth = $(target).find(".cal_month").html();
 			var sDay = $(this).html();
 			// 달력 선택정보 저장
-			cal_save_select.setFullYear(sYear, sMonth-1, sDay);
+			s_cal_save_select.setFullYear(sYear, sMonth-1, sDay);
 			$(".date_slick").find(".cal_select").removeClass("cal_select");
 			$(this).addClass("cal_select");
+		});
+		
+		// 소형달력 일 선택
+		$(".s_date_slick").on("click","td",function(){
+			var target = $(this).parent().parent();
+			$(target).find(".s_cal_month").html(cal_s_change_string($(this).attr("value")));
+			
+			var sYear = $(target).find(".s_cal_year").html();
+			var sMonth = $(target).find(".s_cal_month").html();
+			var sDay = $(this).html();
+			// 달력 선택정보 저장
+			s_cal_save_select.setFullYear(sYear, sMonth-1, sDay);
+			$(".s_date_slick").find(".s_cal_select").removeClass("s_cal_select");
+			$(this).addClass("s_cal_select");
 		});
 	});
 </script>
@@ -120,13 +156,13 @@
 					</div>
 				</div>
 				<div id="s_calendar_zone">
-					<div id="day_slick_small">
+					<div id="s_day_slick">
 						<ul>
-							<li class="arrow_left_small"><img src="${pageContext.request.contextPath}/resources/left.png"></li>
+							<li class="s_arrow_left"><img src="${pageContext.request.contextPath}/resources/left.png"></li>
 							<li>
-								<ul class="date_slick_small"></ul>
+								<ul class="s_date_slick"></ul>
 							</li>
-							<li class="arrow_right_small"><img src="${pageContext.request.contextPath}/resources/right.png"></li>
+							<li class="s_arrow_right"><img src="${pageContext.request.contextPath}/resources/right.png"></li>
 						</ul>
 					</div>
 				</div>

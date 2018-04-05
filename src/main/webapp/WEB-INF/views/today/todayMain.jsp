@@ -78,7 +78,47 @@
 		</c:forEach>
 	</table>
 	
-	
+	<form method="post" action="${pageContext.request.contextPath}/today/" name="f1">
+		<p>
+			<label>종류</label>
+			<input type="text" name="plan_type">
+		</p>
+		<p>
+			<label>제목</label>
+			<input type="text" name="plan_title">
+		</p>
+		<p>
+			<label>내용</label>
+			<input type="text" name="plan_content">
+		</p>
+		<p>
+			<label>오늘</label>
+			<input type="date" name="rep_start_day">
+		</p>
+		<p>
+			<label>오늘</label>
+			<input type="date" name="rep_end_day">
+		</p>
+		<p>
+			<label>시작시간</label>
+			<input type="time" name="rep_start_time">
+		</p>
+		<p>
+			<label>종료시간</label>
+			<input type="time" name="rep_end_time">
+		</p>
+		<p>
+			<input type="submit" value="추가">
+		</p>
+		<p>
+			<label>시작</label>
+			<input type="datetime" name="start_date">
+		</p>
+		<p>
+			<label>종료</label>
+			<input type="datetime" name="end_date">
+		</p>
+	</form>
 	
 	
 	${pageContext.request.contextPath}

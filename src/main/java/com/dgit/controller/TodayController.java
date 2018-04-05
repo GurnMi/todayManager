@@ -88,7 +88,7 @@ public class TodayController {
 		model.addAttribute("list", repeatList);
 		model.addAttribute("tolist", todayList);
 		
-		return "redirect:/today/todayMain";
+		return "today/todayMain";
 	}
 	
 	@RequestMapping(value="/" ,method=RequestMethod.POST)
@@ -98,8 +98,13 @@ public class TodayController {
 		UserVO uservo = getUser(req);
 		
 		
-		return "redirect:/today/todayMain";
+		
+		
+		
+		return "today/todayMain";
 	}
+	
+	
 	
 	@SuppressWarnings("deprecation")
 	public TodayVO repeatVOChangeTodayVO(RepeatVO rVo, Date day, UserVO uservo){

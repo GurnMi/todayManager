@@ -40,6 +40,28 @@
 			and ((date(rep_start) <![CDATA[<=]]> date(#{rep_start}) and date(rep_end) >= date(#{rep_start}))
 			or (date(rep_start) <![CDATA[<=]]> date(#{rep_end}) and date(rep_end) >= date(#{rep_end}))
 			or (date(rep_start) >= date(#{rep_start}) and date(rep_end) <![CDATA[<=]]> date(#{rep_end})))
+		</if>
+		order by rep_start
+	</select>
+	
+	<select id="RepeatTest" resultType="RepeatVO">
+		select * from d_repeat where user_id=#{user_id}
+		<if test="rep_no != 0">
+			and rep_no=#{rep_no}
+		</if>
+		<if test="rep_type !=null">
+			and rep_type =#{rep_type}
+		</if>
+		<if test="rep_title !=null">
+			and rep_title like CONCAT('%',#{rep_title},'%')
+		</if>
+		<if test="rep_day !=null">
+			and rep_day =#{rep_day}
+		</if>
+		<if test="rep_start !=null and rep_end !=null">
+			and ((date(rep_start) <![CDATA[<=]]> date(#{rep_start}) and date(rep_end) >= date(#{rep_start}))
+			or (date(rep_start) <![CDATA[<=]]> date(#{rep_end}) and date(rep_end) >= date(#{rep_end}))
+			or (date(rep_start) >= date(#{rep_start}) and date(rep_end) <![CDATA[<=]]> date(#{rep_end})))
 			
 			and ((TIME_TO_SEC(rep_start) <![CDATA[<=]]> TIME_TO_SEC(#{rep_start}) and TIME_TO_SEC(rep_end) >= TIME_TO_SEC(#{rep_start}))
 			or (TIME_TO_SEC(rep_start) <![CDATA[<=]]> TIME_TO_SEC(#{rep_end}) and TIME_TO_SEC(rep_end) >= TIME_TO_SEC(#{rep_end}))

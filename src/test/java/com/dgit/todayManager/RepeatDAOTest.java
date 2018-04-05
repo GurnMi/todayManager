@@ -56,7 +56,7 @@ public class RepeatDAOTest {
 		vo1.setUser_id("dlrjsak4@gmail.com");
 		vo1.setRep_start(date1);
 		vo1.setRep_end(date2);
-		vo1.setRep_day("월");
+		vo1.setRep_day("화");
 		System.out.println(date1+ "================="+date2);
 		System.out.println("======vo1======="+vo1.toString());
 		

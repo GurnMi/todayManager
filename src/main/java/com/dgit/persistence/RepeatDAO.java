@@ -12,5 +12,7 @@ public interface RepeatDAO {
 	public void delete (RepeatVO vo) throws Exception;
 	
 	public List<RepeatVO> select (RepeatVO vo) throws Exception;
+	public List<RepeatVO> RepeatTest (RepeatVO vo) throws Exception;
+	
 	public RepeatVO selectNo (int no) throws Exception;
 }

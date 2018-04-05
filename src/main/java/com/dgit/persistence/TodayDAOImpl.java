@@ -47,4 +47,10 @@ public class TodayDAOImpl implements TodayDAO {
 		return sqlSession.selectOne(namespace+".selectNo",no);
 	}
 
+	@Override
+	public List<TodayVO> repeatTest(TodayVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".repeatTest",vo);
+	}
+
 }

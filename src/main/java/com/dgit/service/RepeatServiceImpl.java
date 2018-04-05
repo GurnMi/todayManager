@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dgit.domain.RepeatVO;
-import com.dgit.persistence.RepeatDAOImpl;
+import com.dgit.persistence.RepeatDAO;
 
 @Service
 public class RepeatServiceImpl implements RepeatService{
 
 	@Autowired
-	private RepeatDAOImpl dao;
+	private RepeatDAO dao;
 	
 	@Override
 	public void insertRepeat(RepeatVO vo) throws Exception {

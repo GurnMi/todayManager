@@ -45,6 +45,23 @@
 		order by start_date
 	</select>
 	
+	<select id="repeatTest" resultType="TodayVO">
+		select * from d_today where user_id=#{user_id}
+		<if test="start_date!=null">
+			and date(start_date) = date(#{start_date})
+		</if>
+		<if test="start_date !=null and end_date !=null">
+			<!-- and ((date(start_date) <![CDATA[<=]]> date(#{start_date}) and date(end_date) >= date(#{start_date}))
+			or (date(start_date) <![CDATA[<=]]> date(#{end_date}) and date(end_date) >= date(#{end_date}))
+			or (date(start_date) >= date(#{start_date}) and date(end_date) <![CDATA[<=]]> date(#{end_date})))
+			 -->
+			and ((TIME_TO_SEC(start_date) <![CDATA[<=]]> TIME_TO_SEC(#{start_date}) and TIME_TO_SEC(end_date) >= TIME_TO_SEC(#{start_date}))
+			or (TIME_TO_SEC(start_date) <![CDATA[<=]]> TIME_TO_SEC(#{end_date}) and TIME_TO_SEC(end_date) >= TIME_TO_SEC(#{end_date}))
+			or (TIME_TO_SEC(start_date) >= TIME_TO_SEC(#{start_date}) and TIME_TO_SEC(end_date) <![CDATA[<=]]> TIME_TO_SEC(#{end_date})))
+		</if>
+		order by start_date
+	</select>
+	
 	<select id="selectNo" resultType="TodayVO">
 		select * from d_today where pri_no=#{pri_no}
 	</select>

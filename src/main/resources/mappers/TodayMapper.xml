@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgit.mapper.TodayMapper">
+	<insert id="insert">
+		insert into d_today (user_id, start_date, end_date, plan_type, plan_title,plan_content)
+		values (#{user_id},#{start_date},#{end_date},#{plan_type},#{plan_title},#{plan_content})
+	</insert>
+	
+	<update id="update">
+		update d_today set 
+		start_date=#{start_date} ,end_date=#{end_date},plan_type=#{plan_type},
+		plan_title=#{plan_title},plan_content=#{plan_content}
+		where pri_no=#{pri_no}
+	</update>
+	
+	<delete id="delete">
+		delete from d_today where user_id=#{user_id}
+		<if test="pri_no != 0">
+			and pri_no=#{pri_no}
+		</if>
+		<if test="start_date!=null">
+			and date(start_date) = date(#{start_date})
+		</if>
+	</delete>
+	
+	<select id="select" resultType="TodayVO">
+		select * from d_today where user_id=#{user_id}
+		<if test="pri_no!=0">
+			and pri_no=#{pri_no}
+		</if>
+		<if test="start_date!=null">
+			and date(start_date) = date(#{start_date})
+		</if>
+		<if test="plan_type!=null">
+			and plan_type =#{plan_type}
+		</if>
+		<if test="plan_title!=null">
+			and plan_title like CONCAT('%',#{plan_title},'%')
+		</if>
+		<if test="plan_content!=null">
+			and plan_content like CONCAT('%',#{plan_content},'%')
+		</if>
+		order by start_date
+	</select>
+	
+	<select id="repeatTest" resultType="TodayVO">
+		select * from d_today where user_id=#{user_id}
+		<if test="start_date!=null">
+			and date(start_date) = date(#{start_date})
+		</if>
+		<if test="start_date !=null and end_date !=null">
+			<!-- and ((date(start_date) <![CDATA[<=]]> date(#{start_date}) and date(end_date) >= date(#{start_date}))
+			or (date(start_date) <![CDATA[<=]]> date(#{end_date}) and date(end_date) >= date(#{end_date}))
+			or (date(start_date) >= date(#{start_date}) and date(end_date) <![CDATA[<=]]> date(#{end_date})))
+			 -->
+			and ((TIME_TO_SEC(start_date) <![CDATA[<=]]> TIME_TO_SEC(#{start_date}) and TIME_TO_SEC(end_date) >= TIME_TO_SEC(#{start_date}))
+			or (TIME_TO_SEC(start_date) <![CDATA[<=]]> TIME_TO_SEC(#{end_date}) and TIME_TO_SEC(end_date) >= TIME_TO_SEC(#{end_date}))
+			or (TIME_TO_SEC(start_date) >= TIME_TO_SEC(#{start_date}) and TIME_TO_SEC(end_date) <![CDATA[<=]]> TIME_TO_SEC(#{end_date})))
+		</if>
+		order by start_date
+	</select>
+	
+	<select id="selectNo" resultType="TodayVO">
+		select * from d_today where pri_no=#{pri_no}
+	</select>
+	
+	
+</mapper>

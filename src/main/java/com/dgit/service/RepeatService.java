@@ -12,5 +12,7 @@ public interface RepeatService {
 	public void deleteRepeat (RepeatVO vo) throws Exception;
 	
 	public List<RepeatVO> selectRepeat (RepeatVO vo) throws Exception;
+	public List<RepeatVO> RepeatTest (RepeatVO vo) throws Exception;
+	
 	public RepeatVO selectRepeatByNo (int no) throws Exception;
 }

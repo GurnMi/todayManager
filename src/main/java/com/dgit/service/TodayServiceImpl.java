@@ -62,4 +62,10 @@ public class TodayServiceImpl implements TodayService {
 	public TodayVO selectTodayByNo (int no) throws Exception{
 		return dao.selectNo(no);  
 	}
+
+	@Override
+	public List<TodayVO> repeatTest(TodayVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.repeatTest(vo);
+	}
 }

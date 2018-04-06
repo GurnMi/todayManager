@@ -13,4 +13,6 @@ public interface TodayService {
 	
 	public List<TodayVO> selectToday (TodayVO vo) throws Exception;
 	public TodayVO selectTodayByNo (int no) throws Exception;
+	
+	public List<TodayVO> repeatTest(TodayVO vo) throws Exception;
 }

@@ -46,7 +46,7 @@
 	
 	<select id="RepeatTest" resultType="RepeatVO">
 		select * from d_repeat where user_id=#{user_id}
-		<if test="rep_no != 0">
+		<!-- <if test="rep_no != 0">
 			and rep_no=#{rep_no}
 		</if>
 		<if test="rep_type !=null">
@@ -54,7 +54,7 @@
 		</if>
 		<if test="rep_title !=null">
 			and rep_title like CONCAT('%',#{rep_title},'%')
-		</if>
+		</if> -->
 		<if test="rep_day !=null">
 			and rep_day =#{rep_day}
 		</if>

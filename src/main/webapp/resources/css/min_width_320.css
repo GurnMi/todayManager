@@ -58,3 +58,25 @@
 	display:inline;
 	width:100%;
 }
+
+/**************/
+/**REPEAT CSS**/
+/**************/
+#repeate_container #timetable{
+	width:100%;
+	border:1px solid black;
+	border-collapse:collapse;
+}
+#repeate_container #timetable > tbody > tr{
+	border:1px solid black;
+	border-collapse:collapse;
+}
+#repeate_container #timetable > tbody > th{
+	border:1px solid black;
+	border-collapse:collapse;
+}
+#repeate_container #timetable > tbody > td{
+	border:1px solid black;
+	border-collapse:collapse;
+}
+

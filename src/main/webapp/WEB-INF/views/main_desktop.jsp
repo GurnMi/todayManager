@@ -2,46 +2,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MAIN DESKTOP VERSION</title>
+<title>TODAY MANAGER MAIN</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-	.main_intro{
-			width:100%;
-			height:500px;
-			background:skyblue;
-			margin-top:50px;
-		}
-	@media(min-width:768px){
-		.main_intro{
-			width:100%;
-			height:500px;
-			background:red;
-			margin-top:50px;
-		}
-		#wheater_box{
-		
-		}
-	}
-	@media(min-width:960px){
-		.main_intro{
-			width:100%;
-			height:500px;
-			background:gray;
-			margin-top:50px;
-		}
-	}
-</style>
+<!-- PLUGIN CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- CUSTOM CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=2">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=2">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=2">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=2">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=2">
+<!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 </head>
 <body>
 	<div class="container-fluid">
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">SUPPORTER</a>
+					<a class="navbar-brand" href="#">HOME</a>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav navbar-right">
@@ -64,25 +47,114 @@
 				</div>
 			</div>
 		</nav>
-		<div class="main_intro">
-			<div class="row" id="wheater_box">
-				<div class="col-xs-12 text-center">
-					<img src="${pageContext.request.contextPath}/resources/0600010001182.jpg">
-					<p>2018.03.30</p>
-					<p>WHEATER</p>
-					<p>ETC
+		<div id="main_container">
+			<div class="row">
+				<div id="top_box">
+					
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-4 col-xs-12">
-					A
+				<div>
+					Tuesday, 15 November<br>
+					[그림]관악구<br>
+					[그림]서울, 대한민국<br>
 				</div>
-				<div class="col-sm-4 col-xs-12">
-					B
+			</div>
+			<div class="row">
+				<div id="login">
+					<p>로그인 후 사용할수 있습니다.</p><br><br>
+					<input type="button" value="Login" id="add_memo">
 				</div>
-				<div class="col-sm-4 col-xs-12">
-					C
+			</div>
+			<div class="row">
+				<div id="notepad">
+					<p>당신의 웹 해마입니다. 무엇을 기억할까요?</p>
+					<ul>
+						<li>메모하자아아아아아아아아아아아</li>
+						<li>메모하자아아아아아아아아아</li>
+						<li>메모하자아아아아아아아</li>
+						<li>메모하자아아아아아</li>
+						<li>메모하자아아아</li>
+					</ul>
+					<input type="button" value="등록하기" id="add_memo">
 				</div>
+			</div>
+			<div class="row">
+				<div id="notepad">
+					<p>TODAY</p>
+					<ul>
+						<li>메모하자아아아아아아아아아아아</li>
+						<li>메모하자아아아아아아아아아</li>
+						<li>메모하자아아아아아아아</li>
+						<li>메모하자아아아아아</li>
+						<li>메모하자아아아</li>
+						<li>메모하자아아아아아아아아아아아</li>
+						<li>메모하자아아아아아아아아아</li>
+						<li>메모하자아아아아아아아</li>
+						<li>메모하자아아아아아</li>
+						<li>메모하자아아아</li>
+					</ul>
+					<input type="button" value="게시판가기" id="add_memo">
+				</div>
+			</div>
+			<div class="row">
+				<div id="slick_box">
+					<ul>
+						<li class="arrow_left"><img src="${pageContext.request.contextPath}/resources/left.png"></li>
+						<li>
+							<ul id="first_slick">
+								<li>
+									<div id="today">
+										<div>
+											<h1>TODAY</h1>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div id="memo">
+										<div>
+											<h1>MEMO</h1>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div id="menu_a">
+										<div>
+											<h1>A</h1>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div id="menu_b">
+										<div>
+											<h1>B</h1>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div id="menu_c">
+										<div>
+											<h1>C</h1>
+										</div>
+									</div>
+								</li>						
+							</ul>
+						</li>
+						<li class="arrow_right"><img src="${pageContext.request.contextPath}/resources/right.png"></li>
+					</ul>
+				</div>
+				<script type="text/javascript">
+					$(function(){
+						$("#first_slick").slick({
+							infinite: true,
+							slidesToShow: 3,
+							slidesToScroll: 1,
+							arrows:true,
+							prevArrow:'.arrow_left',
+							nextArrow:'.arrow_right'
+						});
+					});
+				</script>
 			</div>
 		</div>
 	</div>

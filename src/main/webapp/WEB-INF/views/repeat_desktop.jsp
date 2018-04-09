@@ -126,7 +126,7 @@
 			</div>
 			<div class="row">
 				<div id="insert_box">
-					<form action="${pageContext.request.contextPath}/repeat/insert" method="post">
+					<form action="${pageContext.request.contextPath}/repeat/insert" method="post" name="f1">
 						<select>
 							<option>휴식</option>
 							<option>공부</option>
@@ -136,6 +136,9 @@
 						<input type="text" placeholder="제목" size="15">
 						<input type="text" placeholder="자동적용(요일)" readonly="readonly" >
 						<input type="text" placeholder="자동적용(기간)" readonly="readonly" size="40">
+						<input type="datetime" name="rep_start">
+						<input type="datetime" name="rep_end">
+						<input type="submit" value="추가">
 					</form>
 				</div>
 			</div>

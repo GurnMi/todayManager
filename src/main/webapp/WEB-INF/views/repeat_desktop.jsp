@@ -14,13 +14,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=3">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=2">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=2">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=3">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=2">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 <!-- CUSTOM JS -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/repeat_insert.js?var=2"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/repeat_insert.js?var=3"></script>
 
 <script type="text/javascript">
 
@@ -56,9 +56,6 @@
 		</nav>
 		<div id="repeat_container">
 			<div class="row">
-				<div id="week_counter">
-					4월 2주차
-				</div>
 				<div id="week_marker">
 					<div>
 						<p>2018 임시</p>
@@ -127,81 +124,101 @@
 			<div class="row">
 				<div id="insert_box">
 					<form action="${pageContext.request.contextPath}/repeat/insert" method="post">
+						<label class="guide">제목</label>
+						<input type="text" class="title" placeholder="화면에 표시될 제목을 입력해주세요.">
+						<br>
+						<label class="guide">카테고리</label>
 						<select>
 							<option>휴식</option>
 							<option>공부</option>
 							<option>운동</option>
 							<option>기타</option>
 						</select>
-						<input type="text" placeholder="제목" size="15">
-						<input type="text" placeholder="자동적용(요일)" readonly="readonly" >
-						<input type="text" placeholder="자동적용(기간)" readonly="readonly" size="40">
+						<br>
+						<label>반복타입을 설정하세요</label>
+						<input type="text" placeholder="1~99">
+						<br>
+						<input type="radio" name="repeat" value="매일">매일
+						<input type="radio" name="repeat" value="매주">매주
+						<input type="radio" name="repeat" value="매월">매월
+						<input type="radio" name="repeat" value="매년">매년
+						<input type="radio" name="repeat" value="개인">사용자설정
+						<div>
+							<input type="checkbox" value="일">일
+							<input type="checkbox" value="월">월
+							<input type="checkbox" value="화">화
+							<input type="checkbox" value="수">수
+							<input type="checkbox" value="목">목
+							<input type="checkbox" value="금">금
+							<input type="checkbox" value="토">토
+						</div>
+						<br>
+						<label class="guide">시작(기간)</label>
+						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly">
+						<br>
+						<label class="guide">종료(기간)</label>
+						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly">
+						<br>
+						<label class="guide">시작(시간)</label>
+						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_start">
+						<br>
+						<label class="guide">종료(시간)</label>
+						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_end">
+						<br>
+						
 					</form>
 				</div>
-			</div>
-			<div class="row">
 				<div id="timetable_box">
-					<div id="week_division">
-						<div>구분</div>
-						<div>일</div>
-						<div>월</div>
-						<div>화</div>
-						<div>수</div>
-						<div>목</div>
-						<div>금</div>
-						<div>토</div>
-					</div>
 					<div id="week_time">
-						<div class="time">00:00</div>
-						<div class="field">
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-						</div>
-						<div class="time">00:30</div>
-						<div class="field">
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-						</div>
-						<div class="time">01:00</div>
-						<div class="field">
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-						</div>
-						<div class="time">01:30</div>
-						<div class="field">
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-						</div>
-						<div class="time">02:00</div>
-						<div class="field">
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-							<div>Select Field</div>
-						</div>
+						<div><p>00:00</p><hr></div>
+						<div><p>00:30</p><hr></div>
+						<div><p>01:00</p><hr></div>
+						<div><p>01:30</p><hr></div>
+						<div><p>02:00</p><hr></div>
+						<div><p>02:30</p><hr></div>
+						<div><p>03:00</p><hr></div>
+						<div><p>03:30</p><hr></div>
+						<div><p>04:00</p><hr></div>
+						<div><p>04:30</p><hr></div>
+						<div><p>05:00</p><hr></div>
+						<div><p>05:30</p><hr></div>
+						<div><p>06:00</p><hr></div>
+						<div><p>06:30</p><hr></div>
+						<div><p>07:00</p><hr></div>
+						<div><p>07:30</p><hr></div>
+						<div><p>08:00</p><hr></div>
+						<div><p>08:30</p><hr></div>
+						<div><p>09:00</p><hr></div>
+						<div><p>09:30</p><hr></div>
+						<div><p>10:00</p><hr></div>
+						<div><p>10:30</p><hr></div>
+						<div><p>11:00</p><hr></div>
+						<div><p>11:30</p><hr></div>
+						<div><p>12:00</p><hr></div>
+						<div><p>12:30</p><hr></div>
+						<div><p>13:00</p><hr></div>
+						<div><p>13:30</p><hr></div>
+						<div><p>14:00</p><hr></div>
+						<div><p>14:30</p><hr></div>
+						<div><p>15:00</p><hr></div>
+						<div><p>15:30</p><hr></div>
+						<div><p>16:00</p><hr></div>
+						<div><p>16:30</p><hr></div>
+						<div><p>17:00</p><hr></div>
+						<div><p>17:30</p><hr></div>
+						<div><p>18:00</p><hr></div>
+						<div><p>18:30</p><hr></div>
+						<div><p>19:00</p><hr></div>
+						<div><p>19:30</p><hr></div>
+						<div><p>20:00</p><hr></div>
+						<div><p>20:30</p><hr></div>
+						<div><p>21:00</p><hr></div>
+						<div><p>21:30</p><hr></div>
+						<div><p>22:00</p><hr></div>
+						<div><p>22:30</p><hr></div>
+						<div><p>23:00</p><hr></div>
+						<div><p>23:30</p><hr></div>
+						<div><p>24:00</p><hr></div>
 					</div>
 				</div>
 			</div>

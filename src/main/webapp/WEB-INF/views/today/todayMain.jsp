@@ -8,6 +8,30 @@
 <meta content="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("form[name='f1']").submit(function(){
+			var day = $("input[name='today']").val();
+			var startTime = $("input[name='start_time']").val();
+			
+			var startDate = new Date(day+"T"+startTime);
+			//alert(startDate);
+			
+			$("input[name='start_date']").val(startDate);
+			
+			
+			var endTime = $("input[name='end_time']").val();
+			
+			var endDate = new Date(day+"T"+endTime);
+			//alert(date);
+			
+			$("input[name='end_date']").val(endDate);
+			
+			
+		})
+	})
+	
+</script>
 </head>
 <body>
 
@@ -62,20 +86,21 @@
 			<th>종료시간</th>
 			<th>삭제</th>
 		</tr>
-	
-		<c:forEach var="TodayVO" items="${tolist }">
-			<tr>
-				<td>${TodayVO.pri_no }</td>
-				<td>${TodayVO.plan_type }</td>
-				<td>${TodayVO.plan_title }</td>
-				<td>${TodayVO.plan_content }</td>
-				<td><fmt:formatDate value="${TodayVO.start_date }" pattern="yyyy-MM-dd"/></td>
-				<td><fmt:formatDate value="${TodayVO.end_date }" pattern="yyyy-MM-dd"/></td>
-				<td><fmt:formatDate value="${TodayVO.start_date }" pattern="HH:mm"/></td>
-				<td><fmt:formatDate value="${TodayVO.end_date }" pattern="HH:mm"/></td>
-				<td><a href="${pageContext.request.contextPath}/today/delete?prino=${TodayVO.pri_no }">삭제</a></td>
-			</tr>
-		</c:forEach>
+		<c:if test="${!dump}">
+			<c:forEach var="TodayVO" items="${tolist }">
+				<tr>
+					<td>${TodayVO.pri_no }</td>
+					<td>${TodayVO.plan_type }</td>
+					<td>${TodayVO.plan_title }</td>
+					<td>${TodayVO.plan_content }</td>
+					<td><fmt:formatDate value="${TodayVO.start_date }" pattern="yyyy-MM-dd"/></td>
+					<td><fmt:formatDate value="${TodayVO.end_date }" pattern="yyyy-MM-dd"/></td>
+					<td><fmt:formatDate value="${TodayVO.start_date }" pattern="HH:mm"/></td>
+					<td><fmt:formatDate value="${TodayVO.end_date }" pattern="HH:mm"/></td>
+					<td><a href="${pageContext.request.contextPath}/today/delete?prino=${TodayVO.pri_no }">삭제</a></td>
+				</tr>
+			</c:forEach>
+		</c:if>
 	</table>
 	
 	<form method="post" action="${pageContext.request.contextPath}/today/" name="f1">
@@ -93,19 +118,15 @@
 		</p>
 		<p>
 			<label>오늘</label>
-			<input type="date" name="rep_start_day">
-		</p>
-		<p>
-			<label>오늘</label>
-			<input type="date" name="rep_end_day">
+			<input type="date" name="today">
 		</p>
 		<p>
 			<label>시작시간</label>
-			<input type="time" name="rep_start_time">
+			<input type="time" name="start_time">
 		</p>
 		<p>
 			<label>종료시간</label>
-			<input type="time" name="rep_end_time">
+			<input type="time" name="end_time">
 		</p>
 		<p>
 			<input type="submit" value="추가">

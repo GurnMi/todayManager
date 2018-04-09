@@ -14,11 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dgit.domain.RepeatVO;
 import com.dgit.domain.UserVO;
 import com.dgit.service.RepeatService;
 import com.dgit.service.UserService;
+import com.dgit.util.DayUtil;
 
 @Controller
 @RequestMapping("/repeat/*")
@@ -37,29 +39,37 @@ public class RepeatController {
 	}
 	
 	@RequestMapping(value="/insert" ,method=RequestMethod.POST)
-	public String insertPost(HttpServletRequest req, RepeatVO vo) throws Exception{
+	public String insertPost(HttpServletRequest req, RepeatVO vo, Model model,RedirectAttributes rttr) throws Exception{
 		logger.info("insert post");
-		
-		HttpSession session=req.getSession();
-		UserVO uservo = (UserVO) session.getAttribute("user");
-		
+		UserVO uservo = DayUtil.getUser(req);
+		/*HttpSession session=req.getSession();
+		UserVO uservo = (UserVO) session.getAttribute("user");*/
 		vo.setUser_id(uservo.getUser_id());
+		
+		List<RepeatVO> testList= service.RepeatTest(vo);
+//		for(RepeatVO rvo : testList){
+//			//System.out.println("///////////////////////////////");
+//			System.out.println(rvo.toString());
+//		}
+		
+		if(testList.size()>0){
+			rttr.addFlashAttribute("result", "error");
+		}else{
+			service.insertRepeat(vo);
+			rttr.addFlashAttribute("result", "success");
+		}
 		
 		System.out.println(vo.toString());
 		
-		service.insertRepeat(vo);
-		
-		
-		return "redirect:/login/main";
+		return "redirect:/repeat/list";
 	}
 	
 	
 	@RequestMapping(value="/list" ,method=RequestMethod.GET)
-	public String listGet(HttpServletRequest req, Model model) throws Exception{
+	public String listGet(HttpServletRequest req,Model model) throws Exception{
 		logger.info("list");
 		
-		HttpSession session=req.getSession();
-		UserVO uservo = (UserVO) session.getAttribute("user");
+		UserVO uservo = DayUtil.getUser(req);
 		
 		RepeatVO repeatvo = new RepeatVO();
 		repeatvo.setUser_id(uservo.getUser_id());
@@ -68,8 +78,6 @@ public class RepeatController {
 		
 		model.addAttribute("list", repeatList);
 		
-		
-		
 		return "repeat/list";
 	}
 	
@@ -77,8 +85,7 @@ public class RepeatController {
 	public String delete(HttpServletRequest req, Model model, int repno) throws Exception{
 		logger.info("delete");
 		
-		HttpSession session=req.getSession();
-		UserVO uservo = (UserVO) session.getAttribute("user");
+		UserVO uservo = DayUtil.getUser(req);
 		
 		RepeatVO repeatvo = new RepeatVO();
 		repeatvo.setUser_id(uservo.getUser_id());
@@ -99,8 +106,7 @@ public class RepeatController {
 	public String listDaySearch(HttpServletRequest req, String startday,String endday, Model model) throws Exception{
 		logger.info("listDay post");
 		
-		HttpSession session=req.getSession();
-		UserVO uservo = (UserVO) session.getAttribute("user");
+		UserVO uservo = DayUtil.getUser(req);
 		
 		//System.out.println(startday+"========="+endday);
 		

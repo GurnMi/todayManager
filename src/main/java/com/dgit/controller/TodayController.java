@@ -1,6 +1,7 @@
 package com.dgit.controller;
 
 import java.sql.Array;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +23,7 @@ import com.dgit.domain.TodayVO;
 import com.dgit.domain.UserVO;
 import com.dgit.service.RepeatService;
 import com.dgit.service.TodayService;
+import com.dgit.util.DayUtil;
 
 @Controller
 @RequestMapping("/today/*")
@@ -39,17 +41,14 @@ public class TodayController {
 	@RequestMapping(value="/" ,method=RequestMethod.GET)
 	public String insertGet(HttpServletRequest req, String today, Model model) throws Exception{
 		logger.info("today main");
-		
-		UserVO uservo = getUser(req);
+		model.addAttribute("dump", false);
+		UserVO uservo = DayUtil.getUser(req);
 		
 //		HttpSession session=req.getSession();
 //		UserVO uservo = (UserVO) session.getAttribute("user");
 		
-		Date start_date = new Date();
 		
-		if(today!=""&&today!=null){
-			start_date = new SimpleDateFormat("yyyy-MM-dd").parse(today);
-		}
+		Date start_date = StringChangeDate(today);
 		
 		int dayInt = start_date.getDay();
 		String day = dayArr[dayInt];
@@ -71,13 +70,28 @@ public class TodayController {
 		todayVO.setStart_date(start_date);
 		List<TodayVO> todayList = todayService.selectToday(todayVO);
 		
-		if(todayList==null){
+		System.out.println(todayList.size()+"////////////////");
+		
+		if(todayList.size()==0){
 			for(RepeatVO rVo : repeatList){
 				System.out.println("=============");
 				System.out.println(rVo.toString());
 				TodayVO tVo = repeatVOChangeTodayVO(rVo,start_date, uservo);
-				todayList.add(tVo);
 				todayService.insertToday(tVo);
+				todayList = todayService.selectToday(todayVO);
+			}
+		}
+		
+		if(todayList.size()==1){
+			for(TodayVO tVo : todayList){
+				System.out.println(tVo.getPlan_type()+"////////////////");
+				if(tVo.getPlan_type().equals("dump")){
+					//todayList.remove(0);
+					model.addAttribute("dump", true);
+					System.out.println("dump//////////////////////////");
+				}else{
+					model.addAttribute("dump", false);
+				}
 			}
 		}
 		
@@ -91,35 +105,110 @@ public class TodayController {
 		return "today/todayMain";
 	}
 	
+	
+	
+	
 	@RequestMapping(value="/" ,method=RequestMethod.POST)
-	public String insertPost(HttpServletRequest req, String today, Model model) throws Exception{
+	public String insertPost(HttpServletRequest req, TodayVO vo, Model model) throws Exception{
 		logger.info("today main");
 		
-		UserVO uservo = getUser(req);
+		UserVO uservo = DayUtil.getUser(req);
+		vo.setUser_id(uservo.getUser_id());
 		
+		List<TodayVO> todayList =  todayService.repeatTest(vo);
+		System.out.println(todayList.size()+"/////////////////////");
+		if(todayList.size()>0){
+			for(TodayVO t : todayList){
+				System.out.println("=======ddddddd==========");
+				System.out.println(t.toString());
+				todayService.deleteToday(t);
+			}
+		}
 		
+		todayService.insertToday(vo);
 		
+		//List<TodayVO> todayList = todayService.selectToday(vo);
 		
-		
-		return "today/todayMain";
+		return "redirect:/today/";
 	}
 	
+	
+	@RequestMapping(value="/delete" ,method=RequestMethod.GET)
+	public String delete(HttpServletRequest req, Model model, int prino) throws Exception{
+		logger.info("delete");
+		
+		UserVO uservo = DayUtil.getUser(req);
+		
+		TodayVO tvo = new TodayVO();
+		tvo.setUser_id(uservo.getUser_id());
+		tvo.setPri_no(prino);
+		
+		tvo = todayService.selectTodayByNo(prino);
+		
+		Date day = tvo.getStart_date();
+		
+		todayService.deleteToday(tvo);
+		
+		
+		TodayVO testvo = new TodayVO();
+		testvo.setUser_id(uservo.getUser_id());
+		testvo.setStart_date(day);
+		List<TodayVO> list = todayService.selectToday(testvo);
+		
+		if(list.size()==0){			
+			TodayVO dumpvo = new TodayVO();
+			dumpvo.setUser_id(uservo.getUser_id());
+			
+			Date sDay = new Date();
+			Date eDay = new Date();
+			
+			sDay.setYear(day.getYear());
+			sDay.setMonth(day.getMonth());
+			sDay.setDate(day.getDate());
+			sDay.setHours(0);
+			sDay.setMinutes(0);
+			
+			eDay.setYear(day.getYear());
+			eDay.setMonth(day.getMonth());
+			eDay.setDate(day.getDate());
+			eDay.setHours(23);
+			eDay.setMinutes(59);
+			
+			
+			dumpvo.setStart_date(sDay);
+			dumpvo.setEnd_date(eDay);
+			dumpvo.setPlan_type("dump");
+			
+			todayService.insertToday(dumpvo);			
+		}
+		
+		return "redirect:/today/";
+	}
+	
+	public Date StringChangeDate(String today) throws ParseException{
+		Date start_date = new Date();
+		
+		if(today!=""&&today!=null){
+			start_date = new SimpleDateFormat("yyyy-MM-dd").parse(today);
+		}
+		return start_date;
+	}
 	
 	
 	@SuppressWarnings("deprecation")
 	public TodayVO repeatVOChangeTodayVO(RepeatVO rVo, Date day, UserVO uservo){
-		Date sDay = new Date();
-		Date eDay = new Date();
+		Date sDay = new Date(day.getTime());
+		Date eDay = new Date(day.getTime());
 		
-		sDay.setYear(day.getYear());
+		/*sDay.setYear(day.getYear());
 		sDay.setMonth(day.getMonth());
-		sDay.setDate(day.getDate());
+		sDay.setDate(day.getDate());*/
 		sDay.setHours(rVo.getRep_start().getHours());
 		sDay.setMinutes(rVo.getRep_start().getMinutes());
 		
-		eDay.setYear(day.getYear());
+		/*eDay.setYear(day.getYear());
 		eDay.setMonth(day.getMonth());
-		eDay.setDate(day.getDate());
+		eDay.setDate(day.getDate());*/
 		eDay.setHours(rVo.getRep_end().getHours());
 		eDay.setMinutes(rVo.getRep_end().getMinutes());
 
@@ -131,18 +220,11 @@ public class TodayController {
 		tVo.setStart_date(sDay);
 		tVo.setEnd_date(eDay);
 		
-		System.out.println(sDay + "===================" +eDay);
-		System.out.println("rvo==============="+rVo.toString());
-		System.out.println("tvo==============="+tVo.toString());
+//		System.out.println(sDay + "===================" +eDay);
+//		System.out.println("rvo==============="+rVo.toString());
+//		System.out.println("tvo==============="+tVo.toString());
 		
 		return tVo;
-	}
-	
-	
-	public UserVO getUser(HttpServletRequest req){
-		HttpSession session=req.getSession();
-		UserVO uservo = (UserVO) session.getAttribute("user");
-		return uservo;
 	}
 	
 	

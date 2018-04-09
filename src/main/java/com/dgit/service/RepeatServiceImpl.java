@@ -62,6 +62,12 @@ public class RepeatServiceImpl implements RepeatService{
 		return dao.selectNo(no);
 	}
 
+	@Override
+	public List<RepeatVO> RepeatTest(RepeatVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.RepeatTest(vo);
+	}
+
 	
 	
 }

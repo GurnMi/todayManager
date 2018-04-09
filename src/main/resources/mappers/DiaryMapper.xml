@@ -30,13 +30,23 @@
 		<if test="dia_no !=0">
 			and dia_no=#{dia_no}
 		</if>
+		<if test="diary_day !=null">
+			and date(diary_day) = date(#{diary_day})
+		</if>
 		<if test="diary_title !=null">
 			and diary_title =#{diary_title}
 		</if>
 		<if test="diary_content !=null">
 			and diary_content like CONCAT('%',#{diary_content},'%')
 		</if>
-		order by diary_day
+		order by diary_day desc
+	</select>
+	
+	<select id="repeatTest">
+		select * from d_diary where user_id=#{user_id}
+		<if test="diary_day !=null">
+			and date(diary_day) = date(#{diary_day})
+		</if>
 	</select>
 	
 	<select id="selectNo" resultType="DiaryVO">

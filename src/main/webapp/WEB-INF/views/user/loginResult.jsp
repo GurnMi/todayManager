@@ -36,6 +36,9 @@
 	<br><br>
 	<a href="${pageContext.request.contextPath}/today/">today</a>
 	
+	<br><br>
+	<a href="${pageContext.request.contextPath}/diary/">diary</a>
+	
 	<br>
 	
 	<a href="${pageContext.request.contextPath}/login/update">닉네임 변경</a>

@@ -165,4 +165,118 @@
 		display:block;
 		float:right;
 	}
+	
+	/**************/
+	/**REPEAT CSS**/
+	/**************/
+	#repeat_container #week_counter{
+		width:58%;
+		border:1px solid gray;
+		border-radius:10px;
+		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+		padding:2%;
+		margin:1% 1%;
+		background:white;
+		display:inline;
+		float:left;
+	}
+	
+	/* WEEK_MARKER */
+	#repeat_container #week_marker{
+		width:38%;
+		border:1px solid gray;
+		border-radius:10px;
+		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+		padding:1%;
+		margin:1% 1%;
+		background:white;
+		display:inline;
+		float:right;
+	}
+	#repeat_container #week_marker div{
+		width:100%;
+		border:1px solid gray;
+		border-radius:10px;
+		background:gray;
+		padding:3%;
+	}
+	#repeat_container #week_marker .calendar_marker{
+		width:100%;
+		text-align:center;
+	}
+	#repeat_container #week_marker .calendar_marker th{
+		text-align:center;
+	}
+	#repeat_container #week_marker .calendar_marker td{
+		text-align:center;
+	}
+	#repeat_container #week_marker .calendar_marker .this_week td{
+		color:white;
+	}
+	#repeat_container #week_marker .calendar_marker .next_month{
+		color:#5D5D5D;
+	}
+	
+	/* INSERT_BOX */
+	#repeat_container #insert_box{
+		width:98%;
+		border:1px solid gray;
+		border-radius:10px;
+		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+		padding:2%;
+		margin:auto;
+		background:white;
+	}
+	
+	/* TIMETABLE_BOX */
+	#repeat_container #timetable_box{
+		width:98%;
+		border:1px solid gray;
+		border-radius:10px;
+		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+		padding:2%;
+		margin:1% auto;
+		background:white;
+	}
+	#repeat_container #timetable_box #week_division{
+		width:100%;
+		padding-top:1%;
+		padding-bottom:1%;
+		text-align:center;
+		background:gray;
+		border-radius:10px;
+	}
+	#repeat_container #timetable_box #week_division div{
+		width:12%;
+		display:inline-block;
+		text-align:center;
+		font-weight:bold;
+	}
+	#repeat_container #timetable_box #week_time{
+		width:100%;
+		padding-top:1%;
+		padding-bottom:1%;
+		text-align:center;
+		background:gray;
+		border-radius:10px;
+		margin-top:1%;
+	}
+	#repeat_container #timetable_box #week_time div.time{
+		width:12%;
+		display:inline-block;
+		text-align:center;
+		color:black;
+	}
+	#repeat_container #timetable_box #week_time div.field{
+		width:84%;
+		display:inline-block;
+		margin-top:1%;
+	}
+	#repeat_container #timetable_box #week_time div.field div{
+		width:12%;
+		display:inline-block;
+		text-align:center;
+		color:white;
+		margin-top:1%;
+	}
 }

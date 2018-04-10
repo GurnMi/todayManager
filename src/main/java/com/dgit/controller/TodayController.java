@@ -1,20 +1,20 @@
 package com.dgit.controller;
 
-import java.sql.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -119,7 +119,7 @@ public class TodayController {
 		System.out.println(todayList.size()+"/////////////////////");
 		if(todayList.size()>0){
 			for(TodayVO t : todayList){
-				System.out.println("=======ddddddd==========");
+				//System.out.println("=======ddddddd==========");
 				System.out.println(t.toString());
 				todayService.deleteToday(t);
 			}
@@ -184,6 +184,36 @@ public class TodayController {
 		
 		return "redirect:/today/";
 	}
+	
+	@RequestMapping(value="/all/{date}",method=RequestMethod.GET)
+	public ResponseEntity<List<TodayVO>> list(HttpServletRequest req,@PathVariable("date") String date) throws ParseException{
+		
+		UserVO uservo = DayUtil.getUser(req);
+		Date start_date = null;
+		
+		if(date==""||date==null){
+			start_date = new Date();
+		}else{
+			start_date = DayUtil.StringChangeDate(date);
+		}
+		
+		ResponseEntity<List<TodayVO>> entity = null;
+		
+		TodayVO tvo = new TodayVO();
+		tvo.setUser_id(uservo.getUser_id());
+		tvo.setStart_date(start_date);
+		
+		try{
+			List<TodayVO> list = todayService.selectToday(tvo);
+			entity = new ResponseEntity<List<TodayVO>>(list, HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<List<TodayVO>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	
 	
 	public Date StringChangeDate(String today) throws ParseException{
 		Date start_date = new Date();

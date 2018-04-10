@@ -123,49 +123,55 @@
 			</div>
 			<div class="row">
 				<div id="insert_box">
-					<form action="${pageContext.request.contextPath}/repeat/insert" method="post">
+					<form action="${pageContext.request.contextPath}/repeat/insert" method="post" name="f1">
 						<label class="guide">제목</label>
 						<input type="text" class="title" placeholder="화면에 표시될 제목을 입력해주세요.">
 						<br>
 						<label class="guide">카테고리</label>
-						<select>
-							<option>휴식</option>
-							<option>공부</option>
-							<option>운동</option>
-							<option>기타</option>
+						<select name="rep_type">
+							<option value="휴식">휴식</option>
+							<option value="공부">공부</option>							
+							<option value="운동">운동</option>
+							<option value="기타">기타</option>
 						</select>
 						<br>
-						<label>반복타입을 설정하세요</label>
-						<input type="text" placeholder="1~99">
+						<!-- <label>반복타입을 설정하세요</label>
+						<input type="text" placeholder="1~99"> -->
+						<label>제목</label>
+						<input type="text" placeholder="제목" name="rep_title">
+						
 						<br>
-						<input type="radio" name="repeat" value="매일">매일
+						<!-- <input type="radio" name="repeat" value="매일">매일
 						<input type="radio" name="repeat" value="매주">매주
 						<input type="radio" name="repeat" value="매월">매월
 						<input type="radio" name="repeat" value="매년">매년
-						<input type="radio" name="repeat" value="개인">사용자설정
+						<input type="radio" name="repeat" value="개인">사용자설정 -->
 						<div>
-							<input type="checkbox" value="일">일
-							<input type="checkbox" value="월">월
-							<input type="checkbox" value="화">화
-							<input type="checkbox" value="수">수
-							<input type="checkbox" value="목">목
-							<input type="checkbox" value="금">금
-							<input type="checkbox" value="토">토
+							<input type="radio" value="일" name="rep_day">일
+							<input type="radio" value="월" name="rep_day">월
+							<input type="radio" value="화" name="rep_day">화
+							<input type="radio" value="수" name="rep_day">수
+							<input type="radio" value="목" name="rep_day">목
+							<input type="radio" value="금" name="rep_day">금
+							<input type="radio" value="토" name="rep_day">토
 						</div>
 						<br>
 						<label class="guide">시작(기간)</label>
-						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly">
+						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly" name="rep_start_day">
 						<br>
 						<label class="guide">종료(기간)</label>
-						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly">
+						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly" name="rep_end_day">
 						<br>
 						<label class="guide">시작(시간)</label>
-						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_start">
+						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_start" name="rep_start_time">
 						<br>
 						<label class="guide">종료(시간)</label>
-						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_end">
+						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_end" name="rep_end_time">
 						<br>
+						<input type="datetime" name="rep_start">
+						<input type="datetime" name="rep_end">
 						
+						<input type="submit" value="추가">
 					</form>
 				</div>
 				<div id="timetable_box">

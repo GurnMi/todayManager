@@ -46,7 +46,7 @@ function cal_slick_apply(){
 	$("#day_slick").find(".date_slick").slick({
 		  infinite:false,
 		  initialSlide:1,
-		  arrows:true,
+		  arrows:false,
 		  prevArrow:'.arrow_left',
 		  nextArrow:'.arrow_right'
 	});

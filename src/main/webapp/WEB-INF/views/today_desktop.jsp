@@ -10,19 +10,19 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- CUSTOM CSS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=3">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/today_calendar.css?var=2">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=4">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/today_calendar.css?var=5">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 <!-- CUSTOM JS -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=2"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar_s.js?var=2"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar_s.js?var=3"></script>
 <style>
 	
 </style>
@@ -142,7 +142,7 @@
 				</div>
 			</div>
 		</nav>
-		<div class="content_box">
+		<div id="today_container">
 			<div class="row">
 				<div id="calendar-zone">
 					<div id="day_slick">
@@ -166,108 +166,60 @@
 						</ul>
 					</div>
 				</div>
-				<div id="time-line">
-					<div><p>00:00</p></div>
-					<div><p>00:30</p></div>
-					<div><p>01:00</p></div>
-					<div><p>01:30</p></div>
-					<div><p>02:00</p></div>
-					<div><p>02:30</p></div>
-					<div><p>03:00</p></div>
-					<div><p>03:30</p></div>
-					<div><p>04:00</p></div>
-					<div><p>04:30</p></div>
-					<div><p>05:00</p></div>
-					<div><p>05:30</p></div>
-					<div><p>06:00</p></div>
-					<div><p>06:30</p></div>
-					<div><p>07:00</p></div>
-					<div><p>07:30</p></div>
-					<div><p>08:00</p></div>
-					<div><p>08:30</p></div>
-					<div><p>09:00</p></div>
-					<div><p>09:30</p></div>
-					<div><p>10:00</p></div>
-					<div><p>10:30</p></div>
-					<div><p>11:00</p></div>
-					<div><p>11:30</p></div>
-					<div><p>12:00</p></div>
-					<div><p>12:30</p></div>
-					<div><p>13:00</p></div>
-					<div><p>13:30</p></div>
-					<div><p>14:00</p></div>
-					<div><p>14:30</p></div>
-					<div><p>15:00</p></div>
-					<div><p>15:30</p></div>
-					<div><p>16:00</p></div>
-					<div><p>16:30</p></div>
-					<div><p>17:00</p></div>
-					<div><p>17:30</p></div>
-					<div><p>18:00</p></div>
-					<div><p>18:30</p></div>
-					<div><p>19:00</p></div>
-					<div><p>19:30</p></div>
-					<div><p>20:00</p></div>
-					<div><p>20:30</p></div>
-					<div><p>21:00</p></div>
-					<div><p>21:30</p></div>
-					<div><p>22:00</p></div>
-					<div><p>22:30</p></div>
-					<div><p>23:00</p></div>
-					<div><p>23:30</p></div>
-					<div><p>24:00</p></div>
-				</div>
-				<div id="info-line">
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
-					<div><div class="info-color"></div></div>
+			</div>
+			<div class="row">
+				<div id="timetable_box">
+					<div id="week_time">
+						<div><p>00:00</p><hr></div>
+						<div><p>00:30</p><hr></div>
+						<div><p>01:00</p><hr></div>
+						<div><p>01:30</p><hr></div>
+						<div><p>02:00</p><hr></div>
+						<div><p>02:30</p><hr></div>
+						<div><p>03:00</p><hr></div>
+						<div><p>03:30</p><hr></div>
+						<div><p>04:00</p><hr></div>
+						<div><p>04:30</p><hr></div>
+						<div><p>05:00</p><hr></div>
+						<div><p>05:30</p><hr></div>
+						<div><p>06:00</p><hr></div>
+						<div><p>06:30</p><hr></div>
+						<div><p>07:00</p><hr></div>
+						<div><p>07:30</p><hr></div>
+						<div><p>08:00</p><hr></div>
+						<div><p>08:30</p><hr></div>
+						<div><p>09:00</p><hr></div>
+						<div><p>09:30</p><hr></div>
+						<div><p>10:00</p><hr></div>
+						<div><p>10:30</p><hr></div>
+						<div><p>11:00</p><hr></div>
+						<div><p>11:30</p><hr></div>
+						<div><p>12:00</p><hr></div>
+						<div><p>12:30</p><hr></div>
+						<div><p>13:00</p><hr></div>
+						<div><p>13:30</p><hr></div>
+						<div><p>14:00</p><hr></div>
+						<div><p>14:30</p><hr></div>
+						<div><p>15:00</p><hr></div>
+						<div><p>15:30</p><hr></div>
+						<div><p>16:00</p><hr></div>
+						<div><p>16:30</p><hr></div>
+						<div><p>17:00</p><hr></div>
+						<div><p>17:30</p><hr></div>
+						<div><p>18:00</p><hr></div>
+						<div><p>18:30</p><hr></div>
+						<div><p>19:00</p><hr></div>
+						<div><p>19:30</p><hr></div>
+						<div><p>20:00</p><hr></div>
+						<div><p>20:30</p><hr></div>
+						<div><p>21:00</p><hr></div>
+						<div><p>21:30</p><hr></div>
+						<div><p>22:00</p><hr></div>
+						<div><p>22:30</p><hr></div>
+						<div><p>23:00</p><hr></div>
+						<div><p>23:30</p><hr></div>
+						<div><p>24:00</p><hr></div>
+					</div>
 				</div>
 			</div>
 		</div>

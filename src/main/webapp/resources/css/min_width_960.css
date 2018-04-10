@@ -1,16 +1,10 @@
 @CHARSET "UTF-8";
 
 @media(min-width:960px){
-	.content_box{
+	#today_container{
 		width:100%;
 		height:500px;
-		background:gray;
 		margin-top:50px;
-	}
-	#calendar-zone{
-		display:inline;
-		float:left;
-		width:30%;
 	}
 	#s_calendar_zone{
 		display:none;
@@ -166,13 +160,13 @@
 		float:right;
 	}
 	
-	/**************/
-	/**REPEAT CSS**/
-	/**************/
+	/*************/
+	/**TODAY CSS**/
+	/*************/
 		
 	/* WEEK_MARKER */
-	#repeat_container #week_marker{
-		width:38%;
+	#today_container #calendar-zone{
+		width:48%;
 		border:1px solid gray;
 		border-radius:10px;
 		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
@@ -182,32 +176,34 @@
 		display:inline;
 		float:right;
 	}
-	#repeat_container #week_marker div{
+	#today_container #calendar-zone div{
 		width:100%;
+		min-height:200px;
 		border:1px solid gray;
 		border-radius:10px;
 		background:gray;
 		padding:3%;
 	}
-	#repeat_container #week_marker .calendar_marker{
-		width:100%;
+	#today_container #calendar-zone .calendar_table{
+		width:90%;
+		margin:0 1% 0 1%;
+	}
+	#today_container #week_marker .calendar_marker th{
+		
 		text-align:center;
 	}
-	#repeat_container #week_marker .calendar_marker th{
+	#today_container #week_marker .calendar_marker td{
 		text-align:center;
 	}
-	#repeat_container #week_marker .calendar_marker td{
-		text-align:center;
-	}
-	#repeat_container #week_marker .calendar_marker .this_week td{
+	#today_container #week_marker .calendar_marker .this_week td{
 		color:white;
 	}
-	#repeat_container #week_marker .calendar_marker .next_month{
+	#today_container #week_marker .calendar_marker .next_month{
 		color:#5D5D5D;
 	}
 	
 	/* TIMETABLE_BOX */
-	#repeat_container #timetable_box{
+	#today_container #timetable_box{
 		width:58%;
 		border:1px solid gray;
 		border-radius:10px;
@@ -218,19 +214,19 @@
 		display:inline;
 		float:left;
 	}
-	#repeat_container #timetable_box #week_time{
+	#today_container #timetable_box #week_time{
 		width:100%;
 		text-align:center;
 		display:inline-block;
 	}
-	#repeat_container #timetable_box #week_time div p{
+	#today_container #timetable_box #week_time div p{
 		width:10%;
 		margin:0;
 		font-size:2rem;
 		display:inline-block;
 		vertical-align:middle;
 	}
-	#repeat_container #timetable_box #week_time div hr{
+	#today_container #timetable_box #week_time div hr{
 		width:90%;
 		display:inline-block;
 		vertical-align:middle;

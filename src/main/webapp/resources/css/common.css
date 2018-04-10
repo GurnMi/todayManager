@@ -15,7 +15,7 @@ body{
 	height:100%;
 	margin:0 auto;
 }
-.content_box > .row{
+#today_container > .row{
 	width:100%;
 	margin:0 auto;
 }
@@ -34,16 +34,12 @@ body{
 	margin:0 auto;
 }
 
-/**************/
-/**REPEAT CSS**/
-/**************/
-#repeat_container{
+/*************/
+/**TODAY CSS**/
+/*************/
+#today_container{
 	width:100%;
 	min-width:300px;
 	height:500px;
 	margin-top:50px;
-}
-#repeat_container > .row{
-	width:100%;
-	margin:0 auto;
 }

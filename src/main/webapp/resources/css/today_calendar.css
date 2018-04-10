@@ -1,10 +1,6 @@
 @CHARSET "UTF-8";
 
 /* 기본형 달력 */
-#day_slick{
-	width:100%;
-	margin:0 auto;
-}
 #day_slick > ul{
 	list-style:none;
 	overflow:hidden;
@@ -14,10 +10,6 @@
 .date_slick{
 	padding:0;
 	margin:0;
-}
-.calendar_table{
-	width:95%;
-	margin:0 auto;
 }
 .calendar_table th{
 	text-align:center;
@@ -39,11 +31,11 @@
 }
 .arrow_left > img{
 	width:100%;
-	height:50px;
+	min-height:220px;
 }
 .arrow_right > img{
 	width:100%;
-	height:50px;
+	min-height:220px;
 }
 #cal_today{
 	background:white;

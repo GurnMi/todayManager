@@ -8,7 +8,7 @@ function cal_save_date(year, month, day){
 	cal_save_select.setFullYear(year, month-1, day);
 }
 
-// 달력정보 불러오기
+//달력정보 불러오기
 function cal_load_date(){
 	var tables = $(".calendar_table");
 	for(var i=0 ; i<tables.length ; i++){
@@ -35,38 +35,10 @@ function cal_load_date(){
 	}
 }
 
-// SLCIK 초기화
-function cal_slick_init(){
-	$("#day_slick").find(".date_slick").eq(0).slick("unslick");	
-	$("#day_slick").find(".date_slick").empty();
-}
-
-// SLICK 적용
-function cal_slick_apply(){
-	$("#day_slick").find(".date_slick").slick({
-		  infinite:false,
-		  initialSlide:1,
-		  arrows:false,
-		  prevArrow:'.arrow_left',
-		  nextArrow:'.arrow_right'
-	});
-}
-
 // 달력 생성
 function cal_create(year, month, day, pageLoadControl){
-	if(pageLoadControl != 0)
-		cal_slick_init();
-	else
-		cal_save_date(year, month, day);
-	
-	make_tagString(year, month-1);
-	if(pageLoadControl == 0)
-		make_tagString(year, month, day);
-	else
-		make_tagString(year, month, 0);
-	make_tagString(year, month+1);
-	
-	cal_slick_apply();
+	$("#calendar").empty();
+	make_tagString(year, month);
 	cal_load_date();
 }
 
@@ -83,8 +55,6 @@ function make_tagString(year, month, day){
 	
 	// 문자열 변수 생성
 	var dataStr = "";
-	// 주차 계산용 지역변수
-	var monthWeek = 1;
 	// 임시날짜 세팅
 	var tempDate = set_tempDate(year, month, 1);
 	// 빈 공간 개수파악
@@ -94,8 +64,6 @@ function make_tagString(year, month, day){
 	// 마지막 날짜 파악
 	var lastDay = search_lastday(year, month);
 	
-	// 문자열 생성[위치]
-	dataStr+="<li>";
 	// 문자열 생성[테이블]
 	dataStr+="<table class='calendar_table'>";
 	// 문자열 생성[년]
@@ -112,7 +80,7 @@ function make_tagString(year, month, day){
 	dataStr+="<th>FRI</th>";
 	dataStr+="<th>SAT</th>";		
 	dataStr+="</tr>";
-	for(var i=0; i<monthWeek; i++){
+	for(var i=0; i<6; i++){
 		dataStr += "<tr>";
 		for(var k=0; k<7; k++){
 			if((i==0 && k<=theDay-1) || dNum > lastDay){
@@ -125,18 +93,15 @@ function make_tagString(year, month, day){
 				dNum++;
 			}
 		}
-		if(dNum <= lastDay)
-			monthWeek++;
 		dataStr += "</tr>";	
 	}
 	dataStr+="</table>";
-	dataStr+="</li>";
 	
 	//달력 적용
-	$(".date_slick").append(dataStr);
+	$("#calendar").append(dataStr);
 }
 
-// 년,월,일 임시 날짜 세팅
+//년,월,일 임시 날짜 세팅
 function set_tempDate(year, month, day){
 	var tempDate = new Date();
 	
@@ -147,7 +112,7 @@ function set_tempDate(year, month, day){
 	return tempDate;
 }
 
-// 년,월을 기준으로 마지막날짜 검색
+//년,월을 기준으로 마지막날짜 검색
 function search_lastday(year, month){
 	// 1~12월까지의 마지막날짜 배열
 	var lastDay = new Array(31,28,31,30,31,30,31,31,30,31,30,31);

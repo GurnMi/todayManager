@@ -14,9 +14,9 @@
 	/**MAIN CSS**/
 	/************/
 	body{
-		background:url("../sky-583724_960_720.jpg") no-repeat;
+		background:url("../images/day.jpg") no-repeat;
 		background-position:center;
-		background-size:100%;
+		background-size:cover;
 	}
 	#main_container #top_box > img{
 		width:100%;
@@ -165,92 +165,121 @@
 	/*************/
 		
 	/* WEEK_MARKER */
-	#today_container #calendar-zone{
-		width:48%;
-		border:1px solid gray;
-		border-radius:10px;
-		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+	#today_container #calendar_box{
+		width:30%;
+		border-radius:5px;
 		padding:1%;
 		margin:1% 1%;
 		background:white;
 		display:inline;
 		float:right;
+		position:relative;
 	}
-	#today_container #calendar-zone div{
+	#today_container #calendar_box #prevkey{
+		width:10%;
+		height:100%;
+		position:absolute;
+		top:0;
+		left:0;
+	}
+	#today_container #calendar_box #prevkey img{
 		width:100%;
-		min-height:200px;
-		border:1px solid gray;
-		border-radius:10px;
-		background:gray;
-		padding:3%;
 	}
-	#today_container #calendar-zone .calendar_table{
+	#today_container #calendar_box #nextkey{
+		width:10%;
+		height:100%;
+		position:absolute;
+		top:0;
+		right:0;
+	}
+	#today_container #calendar_box #nextkey img{
+		width:100%;
+	}
+	#today_container #calendar_box .calendar_table{
 		width:90%;
-		margin:0 1% 0 1%;
+		margin:2% auto;
 	}
-	#today_container #week_marker .calendar_marker th{
-		
+	#today_container #calendar_box .calendar_table th{
 		text-align:center;
 	}
-	#today_container #week_marker .calendar_marker td{
+	#today_container #calendar_box .calendar_table td{
 		text-align:center;
 	}
-	#today_container #week_marker .calendar_marker .this_week td{
-		color:white;
+	#today_container #calendar_box .calendar_table .cal_year{
+		font-size:20px;
 	}
-	#today_container #week_marker .calendar_marker .next_month{
-		color:#5D5D5D;
+	#today_container #calendar_box .calendar_table .cal_month{
+		font-size:24px;
+	}
+	#cal_today{
+		background:gray;
+	}
+	.cal_select{
+		font-weight:bold;
+		color:red;
 	}
 	
 	/* TIMETABLE_BOX */
 	#today_container #timetable_box{
-		width:58%;
-		border:1px solid gray;
-		border-radius:10px;
-		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+		width:60%;
+		overflow:auto;
+		max-height:800px;
+		border-radius:5px;
 		padding:2%;
 		margin:1% 1%;
 		background:white;
 		display:inline;
 		float:left;
 	}
-	#today_container #timetable_box #week_time{
+	#today_container #timetable_box #today_time{
 		width:100%;
 		text-align:center;
 		display:inline-block;
+		vertical-align:top;
 	}
-	#today_container #timetable_box #week_time div p{
-		width:10%;
-		margin:0;
-		font-size:2rem;
-		display:inline-block;
-		vertical-align:middle;
+	#today_container #timetable_box #today_time > div{
+		position:relative;
+		overflow:hidden;
 	}
-	#today_container #timetable_box #week_time div hr{
-		width:90%;
-		display:inline-block;
-		vertical-align:middle;
-		background-color:black;
-		border-color:gray;
-		height:auto;
+	#today_container #timetable_box #today_time div p{
+		width:50px;
+		font-size:14px;
+		position:absolute;
+		left:0;
+		text-align:left;
+		height:41px;
+		line-height:41px;
+		background:white;
+		padding-left:1%;
+	}
+	#today_container #timetable_box #today_time div hr{
+		width:100%;
+		text-align:center;
+		border-color:rgba(0,0,0,0.5);
+	}
+	#today_container #timetable_box #today_time .ing_plan{
+		width:10px;
+		height:10px;
+		position:absolute;
+		left:10%;
+		background:black;
+		z-index:99;
 	}
 	
 	/* INSERT_BOX */
-	#repeat_container #insert_box{
-		width:38%;
-		border:1px solid gray;
-		border-radius:10px;
-		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+	#today_container #insert_box{
+		width:60%;
+		border-radius:5px;
 		padding:1%;
 		margin:1% 1%;
 		background:white;
 		display:inline;
-		float:right;
+		float:left;
 	}
-	#repeat_container #insert_box .guide{
+	#today_container #insert_box .guide{
 		width:20%;
 	}
-	#repeat_container #insert_box .title{
+	#today_container #insert_box .title{
 		width:75%;
 	}
 }

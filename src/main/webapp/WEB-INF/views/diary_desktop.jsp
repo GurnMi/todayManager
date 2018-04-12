@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=8">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=9">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -33,6 +33,8 @@
 		if(pageLoadControl == 0){
 			cal_create(year, month, day, pageLoadControl);
 			pageLoadControl = 1;
+			$("#day #d").text(day);
+			$("#day #m").text(year+"."+month);
 		}
 		
 		// 달력 년,월 컨트롤
@@ -59,14 +61,19 @@
 		
 		// 달력 일 선택
 		$("#calendar").on("click","td",function(){
-			var target = $(this).parent().parent();
-			var sYear = $(target).find(".cal_year").html();
-			var sMonth = $(target).find(".cal_month").html();
-			var sDay = $(this).html();
-			// 달력 선택정보 저장
-			cal_save_select.setFullYear(sYear, sMonth-1, sDay);
-			$("#calendar").find(".cal_select").removeClass("cal_select");
-			$(this).addClass("cal_select");
+			if($(this).html() != "&nbsp;"){
+				var target = $(this).parent().parent();
+				var sYear = $(target).find(".cal_year").html();
+				var sMonth = $(target).find(".cal_month").html();
+				var sDay = $(this).html();
+				// 달력 선택정보 저장
+				cal_save_select.setFullYear(sYear, sMonth-1, sDay);
+				$("#calendar").find(".cal_select").removeClass("cal_select");
+				$(this).addClass("cal_select");
+				// 일기 선택정보 반영
+				$("#day #d").text(sDay);
+				$("#day #m").text(sYear+"."+sMonth);
+			}
 		});
 		
 		$("#mark img").on("click",function(){
@@ -89,18 +96,6 @@
 						<li><a href="maintest">HOME</a></li>
 						<li><a href="todaytest">TODAY</a></li>
 						<li><a href="diarytest">DIARY</a></li>
-						<li><a href="#contact">BOARD</a></li>
-						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#">SETTING
-								<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu">
-								<li><a href="#">SET1</a></li>
-								<li><a href="#">SET2</a></li>
-								<li><a href="#">SET3</a></li> 
-							</ul>
-						</li>
-						<li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -128,7 +123,8 @@
 				<div class="col">
 					<div id="diary_box">
 						<div id="day">
-							<p>31</p>
+							<p id="d"></p>
+							<p id="m"></p>
 						</div>
 						<div id="contents">
 							<div id="mark">

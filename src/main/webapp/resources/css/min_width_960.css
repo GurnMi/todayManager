@@ -164,7 +164,7 @@
 	/**TODAY CSS**/
 	/*************/
 		
-	/* WEEK_MARKER */
+	/* CALENDAR_BOX */
 	#today_container #calendar_box{
 		width:30%;
 		border-radius:5px;
@@ -270,6 +270,7 @@
 		z-index:99;
 	}
 	
+	
 	/* INSERT_BOX */
 	#today_container #insert_box{
 		width:60%;
@@ -285,5 +286,145 @@
 	}
 	#today_container #insert_box .title{
 		width:75%;
+	}
+	
+	/********************/
+	/**DIARY CSS-1200PX**/
+	/********************/
+	
+	/* BASE AREA */
+	#diray_container{
+		width:1200px;
+		min-width:300px;
+		height:500px;
+		margin:50px auto;
+	}
+	#diray_container .row{
+		width:100%;
+		margin:0;
+		padding:0;
+	}
+	#diray_container .col:first-child{
+		width:30%;
+		float:left;
+	}
+	#diray_container .col:last-child{
+		width:70%;
+		float:right;
+	}
+		
+	/* CALENDAR_BOX */
+	#diray_container #calendar_box{
+		width:98%;
+		margin:0 auto;
+		border-radius:5px;
+		background:white;
+		display:inline;
+		float:left;
+		position:relative;
+	}
+	#diray_container #calendar_box #prevkey{
+		width:10%;
+		height:100%;
+		position:absolute;
+		top:0;
+		left:0;
+	}
+	#diray_container #calendar_box #prevkey img{
+		width:100%;
+	}
+	#diray_container #calendar_box #nextkey{
+		width:10%;
+		height:100%;
+		position:absolute;
+		top:0;
+		right:0;
+	}
+	#diray_container #calendar_box #nextkey img{
+		width:100%;
+	}
+	#diray_container #calendar_box .calendar_table{
+		width:90%;
+		margin:2% auto;
+	}
+	#diray_container #calendar_box .calendar_table th{
+		text-align:center;
+	}
+	#diray_container #calendar_box .calendar_table td{
+		text-align:center;
+	}
+	#diray_container #calendar_box .calendar_table .cal_year{
+		font-size:20px;
+	}
+	#diray_container #calendar_box .calendar_table .cal_month{
+		font-size:24px;
+	}
+	#cal_today{
+		background:gray;
+	}
+	.cal_select{
+		font-weight:bold;
+		color:red;
+	}
+	
+	/* DIARY_BOX*/
+	#diray_container #diary_box{
+		width:98%;
+		min-height:800px;
+		margin:0 auto;
+		padding:10px;
+		background:white;
+		border-radius:5px;
+	}
+	#diray_container #diary_box #day{
+		width:25%;
+		height:150px;
+		display:inline-block;
+		vertical-align:top;
+	}
+	#diray_container #diary_box #day p{
+		width:100%;
+		height:100%;
+		margin:0;
+		font-size:112px;
+		font-weight:bold;
+		text-align:center;
+	}
+	#diray_container #diary_box #contents{
+		width:74%;
+		display:inline-block;
+		padding-top:40px;
+		padding-bottom:40px;
+	}
+	#diray_container #diary_box #contents #mark{
+		width:100%;
+	}
+	#diray_container #diary_box #contents #mark img{
+		width:30px;
+	}
+	#diray_container #diary_box #contents #title{
+		width:100%;
+		margin:20px 0;
+	}
+	#diray_container #diary_box #contents #title p{
+		font-size:24px;
+	}
+	#diray_container #diary_box #contents #add_title{
+		display:none;
+		width:95%;
+		font-size:24px;
+	}
+	#diray_container #diary_box #contents #content{
+		width:100%;
+	}
+	#diray_container #diary_box #contents #content p{
+		font-size:18px;
+	}
+	#diray_container #diary_box #contents input{
+		margin-top:20px;
+	}
+	#diray_container #diary_box #contents #modify_content{
+		width:95%;
+		height:500px;
 	}
 }

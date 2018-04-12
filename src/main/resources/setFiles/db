@@ -61,7 +61,7 @@ ALTER TABLE daysupporter.d_board
 
 -- 댓글
 CREATE TABLE daysupporter.d_reply (
-	rep_no        INT           NOT NULL, -- 댓글번호
+	reply_no      INT           NOT NULL, -- 댓글번호
 	boa_no        INT           NOT NULL, -- 게시판번호
 	reply_content VARCHAR(1000) NOT NULL, -- 댓글내용
 	user_id       VARCHAR(50)   NOT NULL, -- 아이디
@@ -74,11 +74,11 @@ CREATE TABLE daysupporter.d_reply (
 ALTER TABLE daysupporter.d_reply
 	ADD CONSTRAINT PK_d_reply -- 댓글 기본키
 		PRIMARY KEY (
-			rep_no -- 댓글번호
+			reply_no -- 댓글번호
 		);
 
 ALTER TABLE daysupporter.d_reply
-	MODIFY COLUMN rep_no INT NOT NULL AUTO_INCREMENT;
+	MODIFY COLUMN reply_no INT NOT NULL AUTO_INCREMENT;
 
 -- 사진
 CREATE TABLE daysupporter.d_img (
@@ -124,7 +124,7 @@ CREATE TABLE daysupporter.d_repeat (
 	user_id   VARCHAR(50)  NOT NULL, -- 아이디
 	rep_type  VARCHAR(100) NULL,     -- 종류
 	rep_title VARCHAR(300) NULL,     -- 제목
-	rep_day   VARCHAR(10)  NOT NULL, -- 요일
+	rep_day   VARCHAR(50)  NOT NULL, -- 요일
 	rep_start DATETIME     NOT NULL, -- 시작시간
 	rep_end   DATETIME     NOT NULL  -- 종료시간
 );
@@ -135,3 +135,43 @@ ALTER TABLE daysupporter.d_repeat
 		PRIMARY KEY (
 			rep_no -- 번호
 		);
+
+ALTER TABLE daysupporter.d_repeat
+	MODIFY COLUMN rep_no INT NOT NULL AUTO_INCREMENT;
+
+-- 반복서브
+CREATE TABLE daysupporter.d_repeatsub (
+	sub_no    INT         NOT NULL, -- 번호
+	user_id   VARCHAR(50) NOT NULL, -- 아이디
+	sub_start DATETIME    NOT NULL, -- 시작시간
+	sub_end   DATETIME    NOT NULL, -- 종료시간
+	rep_no    INT         NOT NULL  -- 반복번호
+);
+
+-- 반복서브
+ALTER TABLE daysupporter.d_repeatsub
+	ADD CONSTRAINT PK_d_repeatsub -- 반복서브 기본키
+		PRIMARY KEY (
+			sub_no -- 번호
+		);
+
+ALTER TABLE daysupporter.d_repeatsub
+	MODIFY COLUMN sub_no INT NOT NULL AUTO_INCREMENT;
+
+-- 카테고리
+CREATE TABLE daysupporter.d_type (
+	type_no    INT         NOT NULL, -- 번호
+	user_id    VARCHAR(50) NOT NULL, -- 아이디
+	type_name  VARCHAR(50) NOT NULL, -- 종류
+	type_color VARCHAR(50) NOT NULL  -- 색상
+);
+
+-- 카테고리
+ALTER TABLE daysupporter.d_type
+	ADD CONSTRAINT PK_d_type -- 카테고리 기본키
+		PRIMARY KEY (
+			type_no -- 번호
+		);
+
+ALTER TABLE daysupporter.d_type
+	MODIFY COLUMN type_no INT NOT NULL AUTO_INCREMENT;

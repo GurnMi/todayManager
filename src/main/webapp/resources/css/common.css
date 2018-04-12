@@ -1,19 +1,22 @@
 @CHARSET "UTF-8";
-
+@IMPORT url("https://fonts.googleapis.com/css?family=Nanum+Gothic");
 /***********/
 /**ALL CSS**/
 /***********/
 *{	
 	padding:0;
 	margin:0;
+	font-family:Nanum Gothic;
 }
 html{
 	height:100%;
+	font-family:Nanum Gothic;
 }
 body{
 	width:100%;
 	height:100%;
 	margin:0 auto;
+	font-family:Nanum Gothic;
 }
 #today_container > .row{
 	width:100%;

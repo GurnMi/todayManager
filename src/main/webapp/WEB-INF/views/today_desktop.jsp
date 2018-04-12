@@ -312,18 +312,6 @@
 						<li><a href="maintest">HOME</a></li>
 						<li><a href="todaytest">TODAY</a></li>
 						<li><a href="diarytest">DIARY</a></li>
-						<li><a href="#contact">BOARD</a></li>
-						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#">SETTING
-								<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu">
-								<li><a href="#">SET1</a></li>
-								<li><a href="#">SET2</a></li>
-								<li><a href="#">SET3</a></li> 
-							</ul>
-						</li>
-						<li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
 					</ul>
 				</div>
 			</div>

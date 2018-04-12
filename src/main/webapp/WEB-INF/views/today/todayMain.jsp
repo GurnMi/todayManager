@@ -60,7 +60,7 @@
 		
 		$.ajax({
 			//해당 날짜로 값 가져오기
-			url:"${pageContext.request.contextPath}/today/all/2018-04-10",
+			url:"${pageContext.request.contextPath}/today/all/2018-04-12",
 			type:"get",
 			headers:{"Content-Type":"application/json"},
 			dataType:"json",

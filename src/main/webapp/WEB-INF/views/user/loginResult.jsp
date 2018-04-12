@@ -35,6 +35,7 @@
 	
 	<br><br>
 	<a href="${pageContext.request.contextPath}/today/">today</a>
+	<a href="${pageContext.request.contextPath}/today/today">today desktop</a>
 	
 	<br><br>
 	<a href="${pageContext.request.contextPath}/diary/">diary</a>

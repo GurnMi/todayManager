@@ -105,6 +105,74 @@ public class TodayController {
 		return "today/todayMain";
 	}
 	
+	@RequestMapping(value="/today" ,method=RequestMethod.GET)
+	public String todayinsertGet(HttpServletRequest req, String today, Model model) throws Exception{
+		logger.info("today main");
+		model.addAttribute("dump", false);
+		UserVO uservo = DayUtil.getUser(req);
+		
+//		HttpSession session=req.getSession();
+//		UserVO uservo = (UserVO) session.getAttribute("user");
+		
+		
+		Date start_date = StringChangeDate(today);
+		
+		int dayInt = start_date.getDay();
+		String day = dayArr[dayInt];
+		
+		
+		RepeatVO repeatvo = new RepeatVO();
+		
+		repeatvo.setUser_id(uservo.getUser_id());
+		repeatvo.setRep_start(start_date);
+		repeatvo.setRep_end(start_date);
+		repeatvo.setRep_day(day);
+		
+		System.out.println(repeatvo.toString()+"===========");
+		
+		List<RepeatVO> repeatList = repeatService.selectRepeat(repeatvo);
+		
+		TodayVO todayVO = new TodayVO();
+		todayVO.setUser_id(uservo.getUser_id());
+		todayVO.setStart_date(start_date);
+		List<TodayVO> todayList = todayService.selectToday(todayVO);
+		
+		System.out.println(todayList.size()+"////////////////");
+		
+		if(todayList.size()==0){
+			for(RepeatVO rVo : repeatList){
+				System.out.println("=============");
+				System.out.println(rVo.toString());
+				TodayVO tVo = repeatVOChangeTodayVO(rVo,start_date, uservo);
+				todayService.insertToday(tVo);
+				todayList = todayService.selectToday(todayVO);
+			}
+		}
+		
+		if(todayList.size()==1){
+			for(TodayVO tVo : todayList){
+				System.out.println(tVo.getPlan_type()+"////////////////");
+				if(tVo.getPlan_type().equals("dump")){
+					//todayList.remove(0);
+					model.addAttribute("dump", true);
+					System.out.println("dump//////////////////////////");
+				}else{
+					model.addAttribute("dump", false);
+				}
+			}
+		}
+		
+		System.out.println(repeatList.size()+"===========");
+		System.out.println(todayList.size()+"===========");
+		
+		model.addAttribute("today", start_date);
+		model.addAttribute("list", repeatList);
+		model.addAttribute("tolist", todayList);
+		
+		
+		
+		return "today_desktop";
+	}
 	
 	
 	
@@ -133,7 +201,109 @@ public class TodayController {
 	}
 	
 	
+	@RequestMapping(value="/today" ,method=RequestMethod.POST)
+	public String todayinsertPost(HttpServletRequest req, TodayVO vo, String today, String time_start, String time_end, Model model) throws Exception{
+		logger.info("today main");
+		
+		UserVO uservo = DayUtil.getUser(req);
+		vo.setUser_id(uservo.getUser_id());
+		Date start_date = new Date(DayUtil.StringChangeDate(today).getTime());
+		Date end_date = new Date(DayUtil.StringChangeDate(today).getTime());
+		
+		String[] sTime = time_start.split(":");
+		String[] eTime = time_end.split(":");
+		
+		start_date.setHours(Integer.parseInt(sTime[0]));
+		start_date.setMinutes(Integer.parseInt(sTime[1]));
+		if(eTime[0].equals("24")){
+			end_date.setHours(23);
+			end_date.setMinutes(59);
+		}else{
+			end_date.setHours(Integer.parseInt(eTime[0]));
+			end_date.setMinutes(Integer.parseInt(eTime[1]));
+		}
+		
+		
+		vo.setStart_date(start_date);
+		vo.setEnd_date(end_date);
+		System.out.println(time_start+"-----------------------------");
+		System.out.println(time_end+"-----------------------------");
+		System.out.println(vo.toString()+"////////////////////////////");
+		
+		//중복처리
+		/*List<TodayVO> todayList =  todayService.repeatTest(vo);
+		System.out.println(todayList.size()+"/////////////////////");
+		if(todayList.size()>0){
+			for(TodayVO t : todayList){
+				//System.out.println("=======ddddddd==========");
+				System.out.println(t.toString());
+				todayService.deleteToday(t);
+			}
+		}*/
+		
+		todayService.insertToday(vo);
+		
+		//List<TodayVO> todayList = todayService.selectToday(vo);
+		
+		return "redirect:/today/today";
+	}
+	
 	@RequestMapping(value="/delete" ,method=RequestMethod.GET)
+	public String delete(HttpServletRequest req, Model model, String prino) throws Exception{
+		logger.info("delete");
+		
+		UserVO uservo = DayUtil.getUser(req);
+		
+		TodayVO tvo = new TodayVO();
+		tvo.setUser_id(uservo.getUser_id());
+		
+		int pri_no = Integer.parseInt(prino.substring(6));
+		
+		tvo.setPri_no(pri_no);
+		
+		tvo = todayService.selectTodayByNo(pri_no);
+		
+		Date day = tvo.getStart_date();
+		
+		todayService.deleteToday(tvo);
+		
+		
+		TodayVO testvo = new TodayVO();
+		testvo.setUser_id(uservo.getUser_id());
+		testvo.setStart_date(day);
+		List<TodayVO> list = todayService.selectToday(testvo);
+		
+		if(list.size()==0){			
+			TodayVO dumpvo = new TodayVO();
+			dumpvo.setUser_id(uservo.getUser_id());
+			
+			Date sDay = new Date();
+			Date eDay = new Date();
+			
+			sDay.setYear(day.getYear());
+			sDay.setMonth(day.getMonth());
+			sDay.setDate(day.getDate());
+			sDay.setHours(0);
+			sDay.setMinutes(0);
+			
+			eDay.setYear(day.getYear());
+			eDay.setMonth(day.getMonth());
+			eDay.setDate(day.getDate());
+			eDay.setHours(23);
+			eDay.setMinutes(59);
+			
+			
+			dumpvo.setStart_date(sDay);
+			dumpvo.setEnd_date(eDay);
+			dumpvo.setPlan_type("dump");
+			
+			todayService.insertToday(dumpvo);			
+		}
+		
+		return "redirect:/today/today";
+	}
+	
+	/*@RequestMapping(value="/delete" ,method=RequestMethod.GET)
 	public String delete(HttpServletRequest req, Model model, int prino) throws Exception{
 		logger.info("delete");
 		
@@ -183,7 +353,7 @@ public class TodayController {
 		}
 		
 		return "redirect:/today/";
-	}
+	}*/
 	
 	@RequestMapping(value="/all/{date}",method=RequestMethod.GET)
 	public ResponseEntity<List<TodayVO>> list(HttpServletRequest req,@PathVariable("date") String date) throws ParseException{

@@ -153,10 +153,154 @@
 				alert("이미 작성중인 계획이 존재합니다.\n작성중인 계획을 완료해주시거나, 초기화버튼을 눌러주세요.")				
 			}
 		});
+		
+	
+		
+		$.ajax({
+			//해당 날짜로 값 가져오기
+			url:"${pageContext.request.contextPath}/today/all/2018-04-12",
+			type:"get",
+			headers:{"Content-Type":"application/json"},
+			dataType:"json",
+			success:function(result){
+				console.log(result);
+				draw_getTime(result);
+				
+			}
+		})
+		
+		
+		$(document).on("click",".load_plan",function(){
+			var id = $(this).attr("id");
+			if(confirm("정말 삭제하시겠습니까?")){
+	            //alert(path);
+	            $(location).attr('href', "${pageContext.request.contextPath}/today/delete?prino="+id);
+	         }else{
+	            return;
+	         }
+		})
+		
 	});
+	
+	
+	
+	function draw_getTime(result){
+		//console.log(result);
+		/* var start_time;
+		var end_time; */
+		
+		for(var i=0;i<result.length;i++){
+			var start_time = new Date(result[i].start_date);
+			var end_time = new Date(result[i].end_date);
+			
+			var shours = start_time.getHours();
+			var sminute = start_time.getMinutes();
+			
+			if(shours==23 && sminute==59){
+				var shours = "24";
+				var sminute ="00";
+			}else{
+				if(shours< 10)
+					shours = "0" + shours;
+				if(sminute==0)
+					sminute = "00"
+			}
+			
+			var stime = shours +":" +sminute;
+			
+			var ehours = end_time.getHours();
+			var eminute = end_time.getMinutes();
+			
+			if(ehours==23 && eminute==59){
+				var ehours = "24";
+				var eminute ="00";
+			}else{
+				if(ehours< 10)
+					ehours = "0" + ehours;
+				if(eminute==0)
+					eminute = "00"
+			}
+			var etime = ehours +":" + eminute;
+			
+			var plan_type = result[i].plan_type;
+			var pri_no = result[i].pri_no;
+			var plan_title = result[i].plan_title;
+			var plan_content = result[i].plan_content;
+			
+			
+			draw_plan(stime , etime, plan_type, pri_no, plan_title,plan_content)
+			//alert(stime);
+		}
+		//alert(start_time);
+		
+	}
+	
+	
+	function draw_plan(stime , etime, plan_type, pri_no, plan_title,plan_content){
+		   var planstart = finder_timeposition(stime);
+		   var planend = finder_timeposition(etime);
+		   
+		   
+		   var tag = "<div class='load_plan' id='pri_no"+pri_no+"'>";
+		   tag += plan_type+"<br>"+ plan_title+"<br>"+plan_content;
+		   //데이터 받아와서
+		   tag += "</div>";
+		   
+		   $("#today_time").append(tag);
+		   //style로 옮기기
+		   $("#today_time").css("position","relative");
+		   $("#pri_no"+pri_no+"").css("top",planstart+20);
+		   
+		   $("#pri_no"+pri_no+"").css("left","100px");
+		   $("#pri_no"+pri_no+"").css("width","75%");
+		   var height = (planend - planstart) + "px";
+		   $("#pri_no"+pri_no+"").css("height",height);
+		   if(plan_type == "공부"){
+			   $("#pri_no"+pri_no+"").css("background","rgba(255,0,0,0.5)");
+		   }else if(plan_type == "일"){
+			   $("#pri_no"+pri_no+"").css("background","rgba(255,94,0,0.5)");
+		   }else if(plan_type == "운동"){
+			   $("#pri_no"+pri_no+"").css("background","rgba(255,228,0,0.5)");
+		   }else if(plan_type == "취미"){
+			   $("#pri_no"+pri_no+"").css("background","rgba(29,219,22,0.5)");
+		   }else if(plan_type == "휴식"){
+			   $("#pri_no"+pri_no+"").css("background","rgba(0,84,255,0.5)");
+		   }else if(plan_type == "수면"){
+			   $("#pri_no"+pri_no+"").css("background","rgba(1,0,255,0.5)");
+		   }else if(plan_type == "기타"){
+			   $("#pri_no"+pri_no+"").css("background","rgba(95,0,255,0.5)");
+		   }
+		 
+		   
+		   $("#pri_no"+pri_no+"").css("z-index",99);
+		   $("#pri_no"+pri_no+"").css("position","absolute");
+		  
+		   
+	}
+	
+	function finder_timeposition(time){
+	   var times = $("#today_time").find("div");
+	   for(var i=0 ; i<times.length ; i++){
+	      if($(times[i]).find("p").text() == time)
+	         return $(times[i]).position().top;
+	   }
+	}
 </script>
+<style type="text/css">
+	#today_container #timetable_box #today_time{
+		position: relative;
+	}
+	/* #today_container #timetable_box #today_time .load_plan{
+      position : absolute;
+      background : red;
+      z-index:99;
+      
+   } */
+	
+</style>
 </head>
 <body>
+
 	<div class="container-fluid">
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container-fluid">
@@ -192,29 +336,32 @@
 			</div>
 			<div class="row">
 				<div id="insert_box">
-					<form action="${pageContext.request.contextPath}/repeat/insert" method="post">
+					<form action="${pageContext.request.contextPath}/today/today" method="post">
 						<label class="guide">카테고리</label>
-						<select>
-							<option>휴식</option>
-							<option>공부</option>
-							<option>운동</option>
-							<option>기타</option>
+						<select name="plan_type">
+							<option value="수면">수면</option>
+							<option value="휴식">휴식</option>
+							<option value="일">일</option>
+							<option value="공부">공부</option>
+							<option value="운동">운동</option>
+							<option value="취미">취미</option>
+							<option value="기타">기타</option>							
 						</select>
 						<br>
 						<label class="guide">제목</label>
-						<input type="text" class="title" placeholder="화면에 표시될 제목을 입력해주세요.">
+						<input type="text" class="title" placeholder="화면에 표시될 제목을 입력해주세요." name="plan_title">
 						<br>
 						<label class="guide">내용</label>
-						<input type="text" class="content" placeholder="세부내용을 입력해 주세요">
+						<input type="text" class="content" placeholder="세부내용을 입력해 주세요" name="plan_content">
 						<br>
 						<label class="guide">날짜</label>
-						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly">
+						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly" value="2018-04-12" name="today">
 						<br>
 						<label class="guide">시작시간</label>
-						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_start">
+						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_start" name="time_start">
 						<br>
 						<label class="guide">종료시간</label>
-						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_end">
+						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_end" name="time_end">
 						<br>
 						<input type="submit" value="계획추가">
 						<input type="reset" value="초기화">

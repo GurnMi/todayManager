@@ -9,16 +9,21 @@ function draw_time(){
 	time.setHours(0, 0, 0, 0);
 	
 	for(var i=0 ; i<49 ; i++){
-		tag += "<div><p>";
-		if(time.getHours()< 10)
-			tag += "0" + time.getHours();
-		else
-			tag += "" + time.getHours();
-		tag += ":";
-		if(time.getMinutes()< 10)
-			tag += "0" + time.getMinutes();
-		else
-			tag += "" + time.getMinutes();
+		tag += "<div class='time"+i+"'><p>";
+		if(i==48){
+			tag += "24:00";
+		}else{
+			if(time.getHours()< 10)
+				tag += "0" + time.getHours();
+			else
+				tag += "" + time.getHours();
+			tag += ":";
+			if(time.getMinutes()< 10)
+				tag += "0" + time.getMinutes();
+			else
+				tag += "" + time.getMinutes();
+		}
+		
 		tag += "</p><hr></div>";
 		time.setMinutes(time.getMinutes()+30);
 	}

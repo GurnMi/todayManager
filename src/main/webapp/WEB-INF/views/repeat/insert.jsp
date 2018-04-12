@@ -7,7 +7,10 @@
 <head>
 <meta content="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript" ></script>
+<script src=" https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript" ></script>
+<script language="JavaScript" src="/common/js/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$("form[name='f1']").submit(function(){
@@ -29,6 +32,18 @@
 			
 			//return false;
 		})
+		
+		$(document).ready(function(){
+		    $('input.timepicker').timepicker({});
+		});
+		$('#CM_CRT_SDTE1').timepicker({
+			 timeFormat: 'HH:mm',
+			 showOn: 'button',
+			 buttonImage: '/common/img/btn_calendar.gif',
+			 buttonImageOnly: true
+			});
+
+	
 	})
 	
 </script>
@@ -75,7 +90,13 @@
 			<label>종료</label>
 			<input type="datetime" name="rep_end">
 		</p>
+		<input type="datetime" name="CM_CRT_SDTE1" id="CM_CRT_SDTE1" value="" size="6" style="text-align:center;">
+
+
 		
+		<input type="datetime" class="timepicker" value="" size="6" style="text-align:center;">
+
+
 	</form>
 	
 

@@ -207,16 +207,13 @@
 						<label class="guide">내용</label>
 						<input type="text" class="content" placeholder="세부내용을 입력해 주세요">
 						<br>
-						<label class="guide">시작(기간)</label>
+						<label class="guide">날짜</label>
 						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly">
 						<br>
-						<label class="guide">종료(기간)</label>
-						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly">
-						<br>
-						<label class="guide">시작(시간)</label>
+						<label class="guide">시작시간</label>
 						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_start">
 						<br>
-						<label class="guide">종료(시간)</label>
+						<label class="guide">종료시간</label>
 						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_end">
 						<br>
 						<input type="submit" value="계획추가">

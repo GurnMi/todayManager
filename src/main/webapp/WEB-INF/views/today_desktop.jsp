@@ -14,14 +14,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=3">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=5">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 <!-- CUSTOM JS -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=3"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_timeplan.js?var=3"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_timeplan.js?var=2"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_insert.js?var=3"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar_s.js?var=3"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_size.js?var=3"></script>
@@ -115,22 +115,24 @@
 		
 		// 마우스가 올라갈 시 시각효과를 위해 CSS 재 적용(선택)
 		$("#today_time").on("mouseover","div",function(){
-			$(this).find("hr").css("border-color","red");
+			$(this).find("hr").addClass("hr_over");
 		});
 		// 마우스가 벗어날 시 시각효과를 위해 CSS 재 적용(선택해제)
 		$("#today_time").on("mouseout","div",function(){
-			$(this).find("hr").css("border-color","gray");
+			$(this).find("hr").removeClass("hr_over");
 		});
 		// 선택한 시간을 컨트롤창의 입력창에 적용
 		$("#today_time").on("click","div",function(){
-			var checker = $("#today_time").find(".sel_start");
-			// 시작시간이 존재할 경우 TRUE
+			var checker = $("#today_time").find(".hr_select");			
+			// 시작시간이 존재할 경우 종료시간으로 설정
 			if(checker.size()>0){
 				var end = $(this).find("p").text();
 				var start = $("#time_start").val();
 				
 				// 시작시간보다 더 이른경우일 때 예외처리 필요
 				if(time_compare_string(start, end)){
+					var target = $(this);
+					insert_end(target);
 					$("#time_end").val(end);
 				}
 				else{
@@ -138,14 +140,17 @@
 					$("#time_start").val("");
 					$("#time_end").val("");
 				}
-				
 			}
-			// 시작시간이 존재하지않을 경우 FALSE
-			else{
+			// 시작시간이 존재하지않을 경우 시작시간으로 설정 && 작성중인 계획 미 존재 시
+			else if($(this).parent().find("div").hasClass("ing_plan") == false){
 				var start = $(this).find("p").text();
 				var target = $(this);
 				insert_start(target);
 				$("#time_start").val(start);
+			}
+			// 작성중인 계획표 존재 시
+			else{
+				alert("이미 작성중인 계획이 존재합니다.\n작성중인 계획을 완료해주시거나, 초기화버튼을 눌러주세요.")				
 			}
 		});
 	});
@@ -162,7 +167,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="maintest">HOME</a></li>
 						<li><a href="todaytest">TODAY</a></li>
-						<li><a href="#tour">DIARY</a></li>
+						<li><a href="diarytest">DIARY</a></li>
 						<li><a href="#contact">BOARD</a></li>
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">SETTING
@@ -188,9 +193,6 @@
 			<div class="row">
 				<div id="insert_box">
 					<form action="${pageContext.request.contextPath}/repeat/insert" method="post">
-						<label class="guide">제목</label>
-						<input type="text" class="title" placeholder="화면에 표시될 제목을 입력해주세요.">
-						<br>
 						<label class="guide">카테고리</label>
 						<select>
 							<option>휴식</option>
@@ -198,6 +200,12 @@
 							<option>운동</option>
 							<option>기타</option>
 						</select>
+						<br>
+						<label class="guide">제목</label>
+						<input type="text" class="title" placeholder="화면에 표시될 제목을 입력해주세요.">
+						<br>
+						<label class="guide">내용</label>
+						<input type="text" class="content" placeholder="세부내용을 입력해 주세요">
 						<br>
 						<label class="guide">시작(기간)</label>
 						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly">
@@ -211,7 +219,8 @@
 						<label class="guide">종료(시간)</label>
 						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_end">
 						<br>
-						
+						<input type="submit" value="계획추가">
+						<input type="reset" value="초기화">
 					</form>
 				</div>
 				<div id="calendar_box">

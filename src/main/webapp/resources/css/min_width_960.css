@@ -236,6 +236,7 @@
 		text-align:center;
 		display:inline-block;
 		vertical-align:top;
+		position:relative;
 	}
 	#today_container #timetable_box #today_time > div{
 		position:relative;
@@ -257,11 +258,14 @@
 		text-align:center;
 		border-color:rgba(0,0,0,0.5);
 	}
+	#today_container #timetable_box #today_time div .hr_over{
+		border-color:rgba(241,95,95,0.5);
+	}
+	#today_container #timetable_box #today_time div .hr_select{
+		border-color:rgba(0,51,153,0.5);
+	}
 	#today_container #timetable_box #today_time .ing_plan{
-		width:10px;
-		height:10px;
 		position:absolute;
-		left:10%;
 		background:black;
 		z-index:99;
 	}

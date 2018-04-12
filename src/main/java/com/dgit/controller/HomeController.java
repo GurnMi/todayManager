@@ -50,4 +50,9 @@ public class HomeController {
 	public String repeattest(){
 		return "repeat_desktop";
 	}
+	
+	@RequestMapping(value = "/diarytest", method = RequestMethod.GET)
+	public String diarytest(){
+		return "diary_desktop";
+	}
 }

@@ -30,7 +30,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="maintest">HOME</a></li>
 						<li><a href="todaytest">TODAY</a></li>
-						<li><a href="#tour">DIARY</a></li>
+						<li><a href="diarytest">DIARY</a></li>
 						<li><a href="#contact">BOARD</a></li>
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">SETTING

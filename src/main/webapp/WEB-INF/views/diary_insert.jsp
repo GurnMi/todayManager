@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +14,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=9">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=2">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- CUSTOM JS -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=3"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/diary_contents.js?var=4"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=5"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/diary_contents.js?var=5"></script>
 <script type="text/javascript">
 	$(function(){
 		var date = new Date();
@@ -81,6 +82,42 @@
 			mark_init();
 			mark_apply(target);			
 		});
+		
+		// DAIRY 내용 추가
+		$("#btn_insert").on("click",function(){
+			// 날짜 확인
+			if($("input[name='day']").val()==""){
+				var arr = $("#day #m").text().split(".");
+				var str = arr[0] + "-";
+				if(arr[1] < 10)
+					str += "0" + arr[1];
+				else
+					str += arr[1];
+				str += "-" + $("#day #d").text();
+				$("input[name='day']").val(str);
+			}
+			// 평점 확인
+			if($("input[name='mark']").val()==""){
+				if(confirm("평점항목이 선택되지 않았습니다.\n확인을 누르실 경우 0점으로 반영되며,\n평점을 선택하시려면 취소를 눌러주세요.")){
+					$("input[name='mark']").val("0");
+				}
+			}
+			// 제목 확인
+			if($("input[name='diary_title']").val()==""){
+				if(confirm("제목이 입력되지 않았습니다.\n확인을 누르실 경우 현재상태로 반영됩니다.\n제목을 입력하시려는 경우 취소를 눌러주세요.")){}
+				else{return false;}
+			}
+			// 내용 확인
+			if($("textarea[name='diary_content']").val()==""){
+				if(confirm("내용이 입력되지 않았습니다.\n확인을 누르실 경우 현재상태로 반영됩니다.\n내용을 입력하시려는 경우 취소를 눌러주세요.")){}
+				else{return false;}
+			}
+			$("form[name='f1']").submit();
+		});
+		
+		$("#btn_cancle").on("click",function(){
+			location.replace("${pageContext.request.contextPath}/diarytest");
+		});
 	});
 </script>
 </head>
@@ -93,14 +130,14 @@
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="maintest">HOME</a></li>
-						<li><a href="todaytest">TODAY</a></li>
-						<li><a href="diarytest">DIARY</a></li>
+						<li><a href="${pageContext.request.contextPath}/maintest">HOME</a></li>
+						<li><a href="${pageContext.request.contextPath}/todaytest">TODAY</a></li>
+						<li><a href="${pageContext.request.contextPath}/diarytest">DIARY</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-		<div id="diray_container">
+		<div id="diray__insert_container">
 			<div class="row">
 				<div>
 					임시 메뉴공간 확보하는 구역
@@ -127,42 +164,27 @@
 							<p id="m"></p>
 						</div>
 						<div id="contents">
-							<div id="mark">
-								<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="1">
-								<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="2">
-								<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="3">
-								<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="4">
-								<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="5">
-							</div>
-							<div id="title">
-								<p>이곳은 제목입니다.</p>
-								<input type="text" id="add_title" placeholder="제목을 입력하세요">
-							</div>
-							<div id="content">
-								<p>
-									작성한 일기가 없습니다.<br>
-									새로운 일기를 작성하시겠어요?
-								</p>
-								<p>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-									이곳은 내용을 넣을 곳입니다.<br>
-								</p>
-							</div>
-							<input type="button" value="추가" onclick="add_content()">
-							<input type="button" value="수정" onclick="modify_content()">
-							<input type="button" value="삭제">
+							<form method="post" action="${pageContext.request.contextPath}/diary/register" name="f1">
+								<input type="hidden" name="day">
+								<input type="hidden" name="mark">								
+								<div id="mark">
+									<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="1">
+									<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="2">
+									<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="3">
+									<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="4">
+									<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="5">
+								</div>
+								<div id="title">
+									<input type="text" id="add_title" placeholder="제목을 입력하세요" name="diary_title">
+								</div>
+								<div id="content">
+									<textarea id="insert_content" name="diary_content"></textarea>
+								</div>
+								<div id="btn">
+									<button type="button" class="btn" id="btn_insert">저장</button>
+									<button type="button" class="btn" id="btn_cancle">취소</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>

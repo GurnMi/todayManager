@@ -39,7 +39,7 @@
 	
 	<br><br>
 	<a href="${pageContext.request.contextPath}/diary/">diary</a>
-	<a href="${pageContext.request.contextPath}/diary/diary">diary desktop</a>
+	<a href="${pageContext.request.contextPath}/diary/">diary desktop</a>
 	
 	<br>
 	<br>

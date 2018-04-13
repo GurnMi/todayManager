@@ -31,25 +31,6 @@ public class DiaryController {
 	private DiaryService diaryService;
 	
 	@RequestMapping(value="/" ,method=RequestMethod.GET)
-	public String main(HttpServletRequest req, Model model) throws Exception{
-		logger.info("main");
-		
-		UserVO uservo = DayUtil.getUser(req);
-		
-		//Date start_date = DayUtil.StringChangeDate(today);
-		
-		DiaryVO dvo = new DiaryVO();
-		
-		dvo.setUser_id(uservo.getUser_id());
-		
-		List<DiaryVO> list = diaryService.selectDiary(dvo);
-		
-		model.addAttribute("list", list);		
-		
-		return "diary/diaryMain";
-	}
-	
-	@RequestMapping(value="/diary" ,method=RequestMethod.GET)
 	public String mainDiary(HttpServletRequest req, Model model, String today) throws Exception{
 		logger.info("main diary");
 		
@@ -75,7 +56,36 @@ public class DiaryController {
 		}
 				
 		
-		return "diary/diary_desktop";
+		return "diary_main";
+	}
+	
+	@RequestMapping(value="/" ,method=RequestMethod.POST)
+	public String mainPostDiary(HttpServletRequest req, Model model, String today) throws Exception{
+		logger.info("main diary");
+		
+		
+		UserVO uservo = DayUtil.getUser(req);
+		Date date = new Date();
+		if(today!=null||today!=""){
+			date = DayUtil.StringChangeDate(today);
+		}
+		
+		
+		DiaryVO dvo = new DiaryVO();
+		
+		dvo.setUser_id(uservo.getUser_id());
+		dvo.setDiary_day(date);
+		
+		List<DiaryVO> list = diaryService.selectDiary(dvo);
+		if(list.size()==0){
+			model.addAttribute("Diary", false);
+		}else{
+			model.addAttribute("Diary", true);
+			model.addAttribute("list", list);
+		}
+				
+		
+		return "diary_main";
 	}
 	
 	@RequestMapping(value="/register" ,method=RequestMethod.GET)
@@ -84,7 +94,7 @@ public class DiaryController {
 		
 		
 		
-		return "diary/diaryRegister";
+		return "diary_insert";
 	}
 	
 	

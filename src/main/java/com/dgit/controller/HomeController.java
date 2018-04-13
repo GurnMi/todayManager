@@ -53,6 +53,10 @@ public class HomeController {
 	
 	@RequestMapping(value = "/diarytest", method = RequestMethod.GET)
 	public String diarytest(){
-		return "diary_desktop";
+		return "diary_main";
+	}
+	@RequestMapping(value = "/diarytest/insert", method = RequestMethod.GET)
+	public String diaryinserttest(){
+		return "diary_insert";
 	}
 }

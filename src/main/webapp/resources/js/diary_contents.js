@@ -27,5 +27,5 @@ function add_content(){
 	$("#add_title").css("display","block");
 	$("#title p").css("display","none");
 	$("#content").empty();
-	$("#content").append("<textarea id='modify_content'></textarea>");
+	$("#content").append("<textarea id='modify_content' name='diary_content'></textarea>");
 }

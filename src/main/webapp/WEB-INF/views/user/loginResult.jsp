@@ -39,9 +39,14 @@
 	
 	<br><br>
 	<a href="${pageContext.request.contextPath}/diary/">diary</a>
+	<a href="${pageContext.request.contextPath}/diary/diary">diary desktop</a>
 	
 	<br>
+	<br>
+	<a href="${pageContext.request.contextPath}/history/">history</a>
 	
+	<br>
+	<br>
 	<a href="${pageContext.request.contextPath}/login/update">닉네임 변경</a>
 	<a href="${pageContext.request.contextPath}/login/logout">로그아웃</a>
 	<a href="#" id="del">회원 탈퇴</a>

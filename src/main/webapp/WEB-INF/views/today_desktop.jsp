@@ -158,7 +158,7 @@
 		
 		$.ajax({
 			//해당 날짜로 값 가져오기
-			url:"${pageContext.request.contextPath}/today/all/2018-04-12",
+			url:"${pageContext.request.contextPath}/today/all/2018-04-13",
 			type:"get",
 			headers:{"Content-Type":"application/json"},
 			dataType:"json",
@@ -343,7 +343,7 @@
 						<input type="text" class="content" placeholder="세부내용을 입력해 주세요" name="plan_content">
 						<br>
 						<label class="guide">날짜</label>
-						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly" value="2018-04-12" name="today">
+						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly" value="2018-04-13" name="today">
 						<br>
 						<label class="guide">시작시간</label>
 						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_start" name="time_start">

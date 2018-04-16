@@ -89,11 +89,11 @@
 				
 				//해당 날짜로 값 가져오기
 				$.ajax({
-					url:"${pageContext.request.contextPath}/diary/?today="+load_diary,
-					type:"post",
+					url:"${pageContext.request.contextPath}/diary/today/"+load_diary,
+					type:"get",
 					dataType:"json",
 					success:function(result){
-						console.log(list);
+						console.log(result);
 						$("#diary_box").empty();
 					
 						var str = "";

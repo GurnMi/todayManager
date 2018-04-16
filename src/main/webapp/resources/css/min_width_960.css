@@ -282,7 +282,7 @@
 		background:white;
 		display:inline;
 		float:left;
-		height: 240px;
+		min-height: 240px;
 	}
 	#today_container #insert_box .guide{
 		width:20%;

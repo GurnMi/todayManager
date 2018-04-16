@@ -33,7 +33,7 @@ public class LoginController {
 	public String login() throws Exception{
 		logger.info("login");
 		
-		return "user/login";
+		return "main_desktop";
 	}
 	
 	@RequestMapping(value="/main" ,method=RequestMethod.GET)
@@ -59,9 +59,20 @@ public class LoginController {
 			//req.setAttribute("id", id);		
 			session.setAttribute("user", vo);
 			
-			return "user/loginResult";
+			return "main_desktop";
 		}
 	}
+	
+	//삭제할거
+	   @RequestMapping(value="/list" ,method=RequestMethod.GET)
+	   public String loginResultlist(HttpServletRequest req,String id) throws Exception{
+	      logger.info("loginresult");
+	      logger.info("id" + id);
+	      
+	      UserVO vo = service.selectUserById(id);
+	      
+	      return "user/loginResult";
+	   }
 	
 	@RequestMapping(value="/nickCheck" ,method=RequestMethod.GET)
 	public ResponseEntity<String> joinNick(String nick) throws Exception{
@@ -139,7 +150,7 @@ public class LoginController {
 		HttpSession session = req.getSession();
 		session.invalidate();
 		
-		return "user/login";
+		return "main_desktop";
 	}
 	
 }

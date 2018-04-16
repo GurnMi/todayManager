@@ -50,7 +50,6 @@
 								if(i+1<result.min.length){
 									data2 += ",";	
 								}
-								
 							}
 							data2+= "]";
 							console.log(data2+"//////////////");  
@@ -61,17 +60,11 @@
 						}
 		    	  })
 		    	  
-		    		    	 
-		    	
-		    	  
-		        
 		      }
 		      
 		      function chart(data2){
 		    	  var data = google.visualization.arrayToDataTable(data2);
 
-			        
-			        
 			        var options = {
 			          title: 'My Daily Activities'
 			        };
@@ -80,7 +73,6 @@
 
 			        chart.draw(data, options);
 		      }
-	      
 	})
 	
 	

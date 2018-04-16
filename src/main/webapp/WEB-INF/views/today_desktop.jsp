@@ -13,8 +13,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=5">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=3">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=6">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

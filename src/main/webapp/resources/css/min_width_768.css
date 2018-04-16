@@ -1,6 +1,7 @@
 @CHARSET "UTF-8";
 
 @media(min-width:768px){
+	
 	#s_calendar_zone{
 		display:none;
 	}
@@ -16,4 +17,452 @@
 		float:left;
 		background:green;
 	}
+	
+	#today_container{
+		min-width:500px;
+		height:500px;
+		/* margin-top:50px; */
+		min-width:300px;
+		margin : 50px auto;
+	}
+	#s_calendar_zone{
+		display:none;
+	}
+	
+	/************/
+	/**MAIN CSS**/
+	/************/
+	body{
+		background:url("../images/day.jpg") no-repeat;
+		background-position:center;
+		background-size:cover;
+	}
+	#main_container #top_box > img{
+		width:100%;
+		height:200px;
+	}
+	#main_container #slick_box{
+		width:100%;
+		height:100%;
+	}
+	#main_container #slick_box ul{
+		width:100%;
+		height:100%;
+		list-style:none;
+	}
+	#main_container #slick_box ul li{
+		float:left;
+	}
+	#main_container #slick_box ul li:nth-child(1){
+		width:10%;
+	}
+	#main_container #slick_box ul li:nth-child(1) img{
+		width:100%;
+	}
+	#main_container #slick_box ul li:nth-child(2){
+		width:80%;
+	}
+	#main_container #slick_box ul li:nth-child(3){
+		width:10%;
+	}
+	#main_container #slick_box ul li:nth-child(3) img{
+		width:100%;
+	}
+	#main_container #slick_box #today{
+		padding:15px;		
+	}
+	#main_container #slick_box #today div{
+		height:300px;
+		background:white;
+		border-radius:10px;
+		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+	}
+	#main_container #slick_box #today div h1{
+		padding:20px;
+	}
+	#main_container #slick_box #memo{
+		padding:15px;		
+	}
+	#main_container #slick_box #memo div{
+		height:300px;
+		background:white;
+		border-radius:10px;
+		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+	}
+	#main_container #slick_box #memo div h1{
+		padding:20px;
+	}
+	#main_container #slick_box #menu_a{
+		padding:15px;		
+	}
+	#main_container #slick_box #menu_a div{
+		height:300px;
+		background:white;
+		border-radius:10px;
+		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+	}
+	#main_container #slick_box #menu_a div h1{
+		padding:20px;
+	}
+	#main_container #slick_box #menu_b{
+		padding:15px;		
+	}
+	#main_container #slick_box #menu_b div{
+		height:300px;
+		background:white;
+		border-radius:10px;
+		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+	}
+	#main_container #slick_box #menu_b div h1{
+		padding:20px;
+	}
+	#main_container #slick_box #menu_c{
+		padding:15px;		
+	}
+	#main_container #slick_box #menu_c div{
+		height:300px;
+		background:white;
+		border-radius:10px;
+		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+	}
+	#main_container #slick_box #menu_c div h1{
+		padding:20px;
+	}
+	
+	/* LOGIN */
+	#main_container #login{
+		width:28%;
+		border:1px solid gray;
+		border-radius:10px;
+		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+		padding:2%;
+		margin:1% 2%;
+		background:white;
+		display:block;
+		float:left;
+	}
+	#main_container #login p{
+		text-align:center;
+	}
+	#main_container #login #add_memo{
+		padding:1%;
+		display:block;
+		float:right;
+	}
+	
+	/* NOTEPAD */
+	#main_container #notepad{
+		width:55%;
+		border:1px solid gray;
+		border-radius:10px;
+		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+		padding:2%;
+		margin:1% 2%;
+		background:white;
+		display:block;
+		float:right;
+	}
+	#main_container #notepad ul{
+		list-style:none;
+		width:100%;
+	}
+	#main_container #notepad ul li{
+		padding:1%;
+		border-bottom:1px solid gray;
+	}
+	#main_container #notepad ul li:first-child{
+		border-top:1px solid gray;
+	}
+	#main_container #notepad #add_memo{
+		padding:1%;
+		display:block;
+		float:right;
+	}
+	
+	/*************/
+	/**TODAY CSS**/
+	/*************/
+		
+	/* CALENDAR_BOX */
+	#today_container #calendar_box{
+		width:100%;
+		border-radius:5px;
+		padding:1%;
+		margin:1% 1%;
+		background:white;
+		display:inline;
+		/* float:left; */
+		position:relative;
+	}
+	#today_container #calendar_box #prevkey{
+		width:10%;
+		height:98%;
+		position:absolute;
+		top:0;
+		left:0;
+	}
+	#today_container #calendar_box #prevkey img{
+		width:100%;
+	}
+	#today_container #calendar_box #nextkey{
+		width:10%;
+		height:100%;
+		position:absolute;
+		top:0;
+		right:0;
+	}
+	#today_container #calendar_box #nextkey img{
+		width:100%;
+	}
+	#today_container #calendar_box .calendar_table{
+		width:90%;
+		margin:2% auto;
+	}
+	#today_container #calendar_box .calendar_table th{
+		text-align:center;
+	}
+	#today_container #calendar_box .calendar_table td{
+		text-align:center;
+	}
+	#today_container #calendar_box .calendar_table .cal_year{
+		font-size:20px;
+	}
+	#today_container #calendar_box .calendar_table .cal_month{
+		font-size:24px;
+	}
+	#cal_today{
+		background:gray;
+	}
+	.cal_select{
+		font-weight:bold;
+		color:red;
+	}
+	
+	/* TIMETABLE_BOX */
+	#today_container #timetable_box{
+		width:98%;
+		overflow:auto;
+		max-height:800px;
+		border-radius:5px;
+		padding:2%;
+		margin:1% 1%;
+		background:white;
+		display:inline;
+		/* float:left; */
+	}
+	#today_container #timetable_box #today_time{
+		width:100%;
+		text-align:center;
+		display:inline-block;
+		vertical-align:top;
+		position:relative;
+	}
+	#today_container #timetable_box #today_time > div{
+		position:relative;
+		overflow:hidden;
+	}
+	#today_container #timetable_box #today_time div p{
+		width:50px;
+		font-size:14px;
+		position:absolute;
+		left:0;
+		text-align:left;
+		height:41px;
+		line-height:41px;
+		background:white;
+		padding-left:1%;
+	}
+	#today_container #timetable_box #today_time div hr{
+		width:100%;
+		text-align:center;
+		border-color:rgba(0,0,0,0.5);
+	}
+	#today_container #timetable_box #today_time div .hr_over{
+		border-color:rgba(241,95,95,0.5);
+	}
+	#today_container #timetable_box #today_time div .hr_select{
+		border-color:rgba(0,51,153,0.5);
+	}
+	#today_container #timetable_box #today_time .ing_plan{
+		position:absolute;
+		background:black;
+		z-index:99;
+	}
+	
+	
+	/* INSERT_BOX */
+	#today_container #insert_box{
+		width:95%;
+		min-width:320px;
+		border-radius:5px;
+		padding:1%;
+		margin:1%;
+		background:white;
+		display:inline;
+		height: 240px;
+		/* float:left; */
+	}
+	#today_container #insert_box form{
+		width:500px;
+	}
+	
+	#today_container #insert_box .guide{
+		width:20%;
+	}
+	#today_container #insert_box .title{
+		width:75%;
+	}
+	
+	/********************/
+	/**DIARY CSS-1200PX**/
+	/********************/
+	
+	/* BASE AREA */
+	#diray_container{
+		width:1200px;
+		min-width:300px;
+		height:500px;
+		margin:50px auto;
+	}
+	#diray_container .row{
+		width:100%;
+		margin:0;
+		padding:0;
+	}
+	#diray_container .col:first-child{
+		width:30%;
+		float:left;
+	}
+	#diray_container .col:last-child{
+		width:70%;
+		float:right;
+	}
+		
+	/* CALENDAR_BOX */
+	#diray_container #calendar_box{
+		width:96%;
+		min-width:340px;
+		height:240px;
+		margin:0 auto;
+		border-radius:5px;
+		background:white;
+		display:inline;
+		float:left;
+		position:relative;
+	}
+	#diray_container #calendar_box #prevkey{
+		width:10%;
+		height:100%;
+		position:absolute;
+		top:0;
+		left:0;
+	}
+	#diray_container #calendar_box #prevkey img{
+		width:100%;
+	}
+	#diray_container #calendar_box #nextkey{
+		width:10%;
+		height:100%;
+		position:absolute;
+		top:0;
+		right:0;
+	}
+	#diray_container #calendar_box #nextkey img{
+		width:100%;
+	}
+	#diray_container #calendar_box .calendar_table{
+		width:91%;
+		margin:2% auto;
+	}
+	#diray_container #calendar_box .calendar_table th{
+		width:13%;
+		text-align:center;
+	}
+	#diray_container #calendar_box .calendar_table td{
+		text-align:center;
+	}
+	#diray_container #calendar_box .calendar_table .cal_year{
+		font-size:20px;
+	}
+	#diray_container #calendar_box .calendar_table .cal_month{
+		font-size:24px;
+	}
+	#cal_today{
+		background:gray;
+	}
+	.cal_select{
+		font-weight:bold;
+		color:red;
+	}
+	
+	/* DIARY_BOX*/
+	#diray_container #diary_box{
+		width:98%;
+		min-height:800px;
+		margin:0 auto;
+		padding:10px;
+		background:white;
+		border-radius:5px;
+	}
+	#diray_container #diary_box #day{
+		width:25%;
+		height:150px;
+		display:inline-block;
+		vertical-align:top;
+	}
+	#diray_container #diary_box #day p:first-child{
+		width:100%;
+		height:100%;
+		margin:0;
+		font-size:112px;
+		font-weight:bold;
+		text-align:center;
+	}
+	#diray_container #diary_box #day p:last-child{
+		width:100%;
+		margin:0;
+		font-size:36px;
+		font-weight:bold;
+		text-align:center;
+	}
+	#diray_container #diary_box #contents{
+		width:74%;
+		display:inline-block;
+		padding-top:40px;
+		padding-bottom:40px;
+	}
+	#diray_container #diary_box #contents #mark{
+		width:100%;
+	}
+	#diray_container #diary_box #contents #mark img{
+		width:30px;
+	}
+	#diray_container #diary_box #contents #title{
+		width:100%;
+		margin:20px 0;
+	}
+	#diray_container #diary_box #contents #title p{
+		font-size:24px;
+	}
+	#diray_container #diary_box #contents #add_title{
+		display:none;
+		width:95%;
+		font-size:24px;
+	}
+	#diray_container #diary_box #contents #content{
+		width:100%;
+	}
+	#diray_container #diary_box #contents #content p{
+		font-size:18px;
+	}
+	#diray_container #diary_box #contents input{
+		margin-top:20px;
+	}
+	#diray_container #diary_box #contents #modify_content{
+		width:95%;
+		height:500px;
+	}
+	
+	
+	
 }

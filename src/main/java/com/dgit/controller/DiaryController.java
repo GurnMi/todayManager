@@ -2,16 +2,19 @@ package com.dgit.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dgit.domain.DiaryVO;
 import com.dgit.domain.UserVO;
@@ -58,36 +61,7 @@ public class DiaryController {
 		
 		return "diary_main";
 	}
-	
-	@RequestMapping(value="/" ,method=RequestMethod.POST)
-	public String mainPostDiary(HttpServletRequest req, Model model, String today) throws Exception{
-		logger.info("main diary");
 		
-		
-		UserVO uservo = DayUtil.getUser(req);
-		Date date = new Date();
-		if(today!=null||today!=""){
-			date = DayUtil.StringChangeDate(today);
-		}
-		
-		
-		DiaryVO dvo = new DiaryVO();
-		
-		dvo.setUser_id(uservo.getUser_id());
-		dvo.setDiary_day(date);
-		
-		List<DiaryVO> list = diaryService.selectDiary(dvo);
-		if(list.size()==0){
-			model.addAttribute("Diary", false);
-		}else{
-			model.addAttribute("Diary", true);
-			model.addAttribute("list", list);
-		}
-				
-		
-		return "diary_main";
-	}
-	
 	@RequestMapping(value="/register" ,method=RequestMethod.GET)
 	public String regster(HttpServletRequest req, Model model) throws Exception{
 		logger.info("regster GET");

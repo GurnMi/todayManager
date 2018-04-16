@@ -20,7 +20,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- CUSTOM JS -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=3"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/diary_contents.js?var=4"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/diary_contents.js?var=5"></script>
 <script type="text/javascript">
 	$(function(){
 		var date = new Date();
@@ -91,11 +91,54 @@
 				$.ajax({
 					url:"${pageContext.request.contextPath}/diary/?today="+load_diary,
 					type:"post",
+					dataType:"json",
 					success:function(result){
+						console.log(list);
+						$("#diary_box").empty();
+					
+						var str = "";
+						str += "<div id='day'>";
+						str += "<p id='d'></p>";
+						str += "<p id='m'></p>";
+						str += "</div>";
+						str += "<div id='contents'>";
+						str += "<input type='hidden' value='${"+result.dia_no+"}'>";
+						str += "<div id='mark'>";
+						for(var i=0 ; i<result[0].diary_mark ; i++){
+							if(result[0].diary_mark >= i)
+								str += "<img src='${pageContext.request.contextPath}/resources/images/diary_star_select.png' data-value='${" + i + "}''>";
+							else
+								str += "<img src='${pageContext.request.contextPath}/resources/images/diary_star.png' data-value='${" + i + "}'>";
+						}
+						str += "</div>";
+						str += "<div id='title'>";
+						str += "<p>${list[0].diary_title}</p>";
+						str += "</div>";
+						str += "<div id='content'>";
+						str += "<p>${list[0].diary_content}</p>";
+						str += "</div>";
+						str += "<div id='btn'>";
+						str += "<button type='button' class='btn' id='btn_insert'>수정</button>";
+						str += "<button type='button' class='btn' id='btn_cancle'>삭제</button>";
+						str += "</div>";
+						str += "</div>";
 						
+						$("#diary_box").append(str);
 					},
 					error:function(){
+						console.log("error");
+						$("#diary_box").empty();
 						
+						var str = "";
+						str += "<div id='day'>";
+						str += "<p id='d'></p>";
+						str += "<p id='m'></p>";
+						str += "</div>";
+						str += "<div id='contents_empty'>";
+						str += "해당 날짜에 존재하는 일기가 없습니다.<br>";
+						str += "일기를 작성하시겠어요?<br><br>";
+						str += "<button type='button' class='btn' id='btn_insert'>작성</button>";
+						str += "</div>";
 					}
 				})
 			}

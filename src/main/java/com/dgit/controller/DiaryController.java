@@ -67,10 +67,10 @@ public class DiaryController {
 	}
 		
 	@RequestMapping(value="/register" ,method=RequestMethod.GET)
-	public String regster(HttpServletRequest req, Model model) throws Exception{
+	public String regster(HttpServletRequest req, Model model, String select) throws Exception{
 		logger.info("regster GET");
 		
-		
+		model.addAttribute("select", select);
 		
 		return "diary_insert";
 	}
@@ -98,7 +98,7 @@ public class DiaryController {
 	
 	@RequestMapping(value="/delete" ,method=RequestMethod.GET)
 	public String delete(HttpServletRequest req, int diano) throws Exception{
-		logger.info("regster POST");
+		logger.info("delete GET");
 		
 		UserVO uservo = DayUtil.getUser(req);
 		
@@ -113,14 +113,15 @@ public class DiaryController {
 	}
 	
 	@RequestMapping(value="/update" ,method=RequestMethod.GET)
-	public String updateGET(HttpServletRequest req, Model model, int diano) throws Exception{
+	public String updateGET(HttpServletRequest req, Model model, int diano, String select) throws Exception{
 		logger.info("Update POST");
 	
 		DiaryVO dvo = diaryService.selectDiaryByNo(diano);
 		
 		model.addAttribute("DiaryVO", dvo);
+		model.addAttribute("select", select);
 		
-		return "diary/diaryUpdate";
+		return "diary_update";
 	}
 	
 	@RequestMapping(value="/update" ,method=RequestMethod.POST)

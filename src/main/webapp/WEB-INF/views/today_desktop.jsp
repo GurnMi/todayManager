@@ -309,9 +309,9 @@
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="maintest">HOME</a></li>
-						<li><a href="todaytest">TODAY</a></li>
-						<li><a href="diarytest">DIARY</a></li>
+						<li><a href="${pageContext.request.contextPath}/">HOME</a></li>
+						<li><a href="${pageContext.request.contextPath}/today/">TODAY</a></li>
+						<li><a href="${pageContext.request.contextPath}/diary/">DIARY</a></li>
 					</ul>
 				</div>
 			</div>

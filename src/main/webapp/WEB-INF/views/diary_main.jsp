@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -62,6 +63,18 @@
 		
 		// 달력 일 선택
 		$("#calendar").on("click","td",function(){
+			var target = $(this).parent().parent();
+			var sYear = $(target).find(".cal_year").html();
+			var sMonth = $(target).find(".cal_month").html();
+			var sDay = $(this).html();
+			// 달력 선택정보 저장
+			cal_save_select.setFullYear(sYear, sMonth-1, sDay);
+			$("#calendar").find(".cal_select").removeClass("cal_select");
+			$(this).addClass("cal_select");
+		});
+		
+		// 달력 일 선택
+		$("#calendar").on("click","td",function(){
 			if($(this).html() != "&nbsp;"){
 				var target = $(this).parent().parent();
 				var sYear = $(target).find(".cal_year").html();
@@ -95,57 +108,89 @@
 					success:function(result){
 						console.log(result);
 						$("#diary_box").empty();
-					
 						var str = "";
-						str += "<div id='day'>";
-						str += "<p id='d'></p>";
-						str += "<p id='m'></p>";
-						str += "</div>";
-						str += "<div id='contents'>";
-						str += "<input type='hidden' value='${"+result.dia_no+"}'>";
-						str += "<div id='mark'>";
-						for(var i=0 ; i<result[0].diary_mark ; i++){
-							if(result[0].diary_mark >= i)
-								str += "<img src='${pageContext.request.contextPath}/resources/images/diary_star_select.png' data-value='${" + i + "}''>";
-							else
-								str += "<img src='${pageContext.request.contextPath}/resources/images/diary_star.png' data-value='${" + i + "}'>";
+												
+						if(result != ""){
+							
+							str += "<div id='day'>";
+							str += "<p id='d'>"+cal_save_select.getDate()+"</p>";
+							str += "<p id='m'>"+cal_save_select.getFullYear()+"."+(cal_save_select.getMonth()+1)+"</p>";
+							str += "</div>";
+							str += "<div id='contents'>";
+							str += "<input type='hidden' value='"+result[0].dia_no+"'>";
+							str += "<div id='mark'>";
+							for(var i=0 ; i<5 ; i++){
+								if(result[0].diary_mark > i)
+									str += "<img src='${pageContext.request.contextPath}/resources/images/diary_star_select.png' data-value='" + i + "'>";
+								else
+									str += "<img src='${pageContext.request.contextPath}/resources/images/diary_star.png' data-value='" + i + "'>";
+							}
+							str += "</div>";
+							str += "<div id='title'>";
+							str += "<p>"+result[0].diary_title+"</p>";
+							str += "</div>";
+							str += "<div id='content'>";
+							str += "<p>"+result[0].diary_content+"</p>";
+							str += "</div>";
+							str += "<div id='btn'>";
+							str += "<button type='button' class='btn' id='btn_update'>수정</button>";
+							str += "<button type='button' class='btn' id='btn_delete'>삭제</button>";
+							str += "</div>";
+							str += "</div>";
 						}
-						str += "</div>";
-						str += "<div id='title'>";
-						str += "<p>${list[0].diary_title}</p>";
-						str += "</div>";
-						str += "<div id='content'>";
-						str += "<p>${list[0].diary_content}</p>";
-						str += "</div>";
-						str += "<div id='btn'>";
-						str += "<button type='button' class='btn' id='btn_insert'>수정</button>";
-						str += "<button type='button' class='btn' id='btn_cancle'>삭제</button>";
-						str += "</div>";
-						str += "</div>";
+						else{
+							str += "<div id='day'>";
+							str += "<p id='d'>"+cal_save_select.getDate()+"</p>";
+							str += "<p id='m'>"+cal_save_select.getFullYear()+"."+(cal_save_select.getMonth()+1)+"</p>";
+							str += "</div>";
+							str += "<div id='contents_empty'>";
+							str += "해당 날짜에 존재하는 일기가 없습니다.<br>";
+							str += "일기를 작성하시겠어요?<br><br>";
+							str += "<button type='button' class='btn' id='btn_insert'>작성</button>";
+							str += "</div>";
+						}						
 						
 						$("#diary_box").append(str);
-					},
-					error:function(){
-						console.log("error");
-						$("#diary_box").empty();
-						
-						var str = "";
-						str += "<div id='day'>";
-						str += "<p id='d'></p>";
-						str += "<p id='m'></p>";
-						str += "</div>";
-						str += "<div id='contents_empty'>";
-						str += "해당 날짜에 존재하는 일기가 없습니다.<br>";
-						str += "일기를 작성하시겠어요?<br><br>";
-						str += "<button type='button' class='btn' id='btn_insert'>작성</button>";
-						str += "</div>";
 					}
-				})
+				});
 			}
 		});
 		
-		$("#btn_insert").on("click", function(){
-			location.href = "register";
+		// 일기 추가
+		$("#diary_box").on("click", "#btn_insert", function(){
+			var targetDate = "";
+			targetDate += cal_save_select.getFullYear();
+			targetDate += ".";
+			targetDate += (cal_save_select.getMonth()+1);
+			targetDate += ".";
+			targetDate += cal_save_select.getDate();
+			location.href = "register?select="+targetDate;
+		});
+		
+		// 일기 수정
+		$("#diary_box").on("click", "#btn_update", function(){
+			var no = $(this).parent().parent().find("input[type='hidden']").val();
+			var targetDate = "";
+			targetDate += cal_save_select.getFullYear();
+			targetDate += ".";
+			targetDate += (cal_save_select.getMonth()+1);
+			targetDate += ".";
+			targetDate += cal_save_select.getDate();
+			location.href = "update?diano="+no+"&select="+targetDate;
+		});
+		
+		// 일기 삭제
+		$("#diary_box").on("click", "#btn_delete", function(){
+			var no = $(this).parent().parent().find("input[type='hidden']").val();
+			
+			$.ajax({
+				url:"${pageContext.request.contextPath}/diary/delete?diano="+no,
+				type:"get",
+				success:function(result){
+					alert("정상적으로 삭제되었습니다");
+					location.replace("${pageContext.request.contextPath}/diary/");
+				}
+			});
 		});
 	});
 </script>
@@ -159,9 +204,9 @@
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="${pageContext.request.contextPath}/maintest">HOME</a></li>
-						<li><a href="${pageContext.request.contextPath}/todaytest">TODAY</a></li>
-						<li><a href="${pageContext.request.contextPath}/diarytest">DIARY</a></li>
+						<li><a href="${pageContext.request.contextPath}/">HOME</a></li>
+						<li><a href="${pageContext.request.contextPath}/today/">TODAY</a></li>
+						<li><a href="${pageContext.request.contextPath}/diary/">DIARY</a></li>
 					</ul>
 				</div>
 			</div>
@@ -212,8 +257,8 @@
 									<p>${list[0].diary_content}</p>
 								</div>
 								<div id="btn">
-									<button type="button" class="btn" id="btn_insert">수정</button>
-									<button type="button" class="btn" id="btn_cancle">삭제</button>
+									<button type="button" class="btn" id="btn_update">수정</button>
+									<button type="button" class="btn" id="btn_delete">삭제</button>
 								</div>
 							</div>
 						</c:if>

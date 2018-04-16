@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,9 +29,9 @@
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="maintest">HOME</a></li>
-						<li><a href="todaytest">TODAY</a></li>
-						<li><a href="diarytest">DIARY</a></li>
+						<li><a href="${pageContext.request.contextPath}/">HOME</a></li>
+						<li><a href="${pageContext.request.contextPath}/today/">TODAY</a></li>
+						<li><a href="${pageContext.request.contextPath}/diary/">DIARY</a></li>
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">SETTING
 								<span class="caret"></span>
@@ -60,10 +61,12 @@
 				</div>
 			</div>
 			<div class="row">
-				<div id="login">
-					<p>로그인 후 사용할수 있습니다.</p><br><br>
-					<input type="button" value="Login" id="add_memo">
-				</div>
+				<c:if test="${sessionScope.user != null}">			
+					<div id="login">
+						<p>로그인 후 사용할수 있습니다.</p><br><br>
+						<input type="button" value="Login" id="add_memo">
+					</div>
+				</c:if>
 			</div>
 			<div class="row">
 				<div id="notepad">

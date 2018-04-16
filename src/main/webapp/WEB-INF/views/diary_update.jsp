@@ -68,23 +68,6 @@
 			cal_create(year, month, day, pageLoadControl);
 		});
 		
-		// 달력 일 선택
-		$("#calendar").on("click","td",function(){
-			if($(this).html() != "&nbsp;"){
-				var target = $(this).parent().parent();
-				var sYear = $(target).find(".cal_year").html();
-				var sMonth = $(target).find(".cal_month").html();
-				var sDay = $(this).html();
-				// 달력 선택정보 저장
-				cal_save_select.setFullYear(sYear, sMonth-1, sDay);
-				$("#calendar").find(".cal_select").removeClass("cal_select");
-				$(this).addClass("cal_select");
-				// 일기 선택정보 반영
-				$("#day #d").text(sDay);
-				$("#day #m").text(sYear+"."+sMonth);
-			}
-		});
-		
 		// 평점 컨트롤
 		$("#mark img").on("click",function(){
 			var target = $(this);
@@ -92,8 +75,13 @@
 			mark_apply(target);			
 		});
 		
+		// 달력 일 선택
+		$("#calendar").on("click","td",function(){
+			alert("날짜 선택 금지");
+		});
+		
 		// DAIRY 내용 추가
-		$("#btn_insert").on("click",function(){
+		$("#btn_update").on("click",function(){
 			// 날짜 확인
 			if($("input[name='day']").val()==""){
 				var arr = $("#day #m").text().split(".");
@@ -173,24 +161,28 @@
 							<p id="m"></p>
 						</div>
 						<div id="contents">
-							<form method="post" action="${pageContext.request.contextPath}/diary/register" name="f1">
+							<form method="post" action="${pageContext.request.contextPath}/diary/update" name="f1">
+								<input type="hidden" name="dia_no" value="${DiaryVO.dia_no}">
 								<input type="hidden" name="day">
-								<input type="hidden" name="mark">								
+								<input type="hidden" name="mark" value="${DiaryVO.diary_mark}">								
 								<div id="mark">
-									<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="1">
-									<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="2">
-									<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="3">
-									<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="4">
-									<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="5">
+									<c:forEach var="count" begin="1" end="5" step="1">
+										<c:if test="${DiaryVO.diary_mark >= count}">
+											<img src="${pageContext.request.contextPath}/resources/images/diary_star_select.png" data-value="${count}">
+										</c:if>
+										<c:if test="${DiaryVO.diary_mark < count}">
+											<img src="${pageContext.request.contextPath}/resources/images/diary_star.png" data-value="${count}">
+										</c:if>
+									</c:forEach>
 								</div>
 								<div id="title">
-									<input type="text" id="add_title" placeholder="제목을 입력하세요" name="diary_title">
+									<input type="text" id="add_title" placeholder="제목을 입력하세요" name="diary_title" value="${DiaryVO.diary_title}">
 								</div>
 								<div id="content">
-									<textarea id="insert_content" name="diary_content"></textarea>
+									<textarea id="insert_content" name="diary_content">${DiaryVO.diary_content}</textarea>
 								</div>
 								<div id="btn">
-									<button type="button" class="btn" id="btn_insert">저장</button>
+									<button type="button" class="btn" id="btn_update">저장</button>
 									<button type="button" class="btn" id="btn_cancle">취소</button>
 								</div>
 							</form>

@@ -16,11 +16,40 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=2">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=2">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=2">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=2">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=4">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=5">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript">
+	function loginSuccess(id){
+		$("#id").val(id);
+		$("#form").submit();
+	}
+	
+	$(function(){
+		Kakao.init('073bab6d5ebe961bfb1e314c96760511');
+		
+		// 카카오 로그인 버튼을 생성합니다.
+		Kakao.Auth.createLoginButton({
+			container: '#kakao-login-btn',
+			success: function(authObj){
+				Kakao.API.request({
+					url: '/v1/user/me',
+					success: function(res) {
+						console.log(res.kaccount_email);
+		         		loginSuccess(res.kaccount_email);
+		         	}
+	    		})
+	    	},
+		    fail: function(err) {
+		    	alert(JSON.stringify(err));
+			}
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -31,9 +60,9 @@
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="maintest">HOME</a></li>
-						<li><a href="todaytest">TODAY</a></li>
-						<li><a href="diarytest">DIARY</a></li>
+						<li><a href="${pageContext.request.contextPath}/">HOME</a></li>
+						<li><a href="${pageContext.request.contextPath}/today/">TODAY</a></li>
+						<li><a href="${pageContext.request.contextPath}/diary/">DIARY</a></li>
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">SETTING
 								<span class="caret"></span>
@@ -56,24 +85,25 @@
 				</div>
 			</div>
 			<div class="row">
-				<div>
-					Tuesday, 15 November<br>
-					[그림]관악구<br>
-					[그림]서울, 대한민국<br>
+				<div id="weather">
+					<p id="day_info">Tuesday, 15 November</p>
+					<img src="${pageContext.request.contextPath}/resources/images/weather_sun.png">
+					<p id="town_sido">Seoul, Republic Of Korea</p>
+					<p id="town_gungu">Gwanak-gu</p>
+					<br>
+					<br>
+					<button id="find">시도찾기</button>
 				</div>
 			</div>
 			<div class="row">
 				<div id="login">
-					<c:if test="${sessionScope.user.user_id==null }">
-						로그인 후 사용해주세요
+					<c:if test="${sessionScope.user.user_id==null}">
+						<p>로그인 후 사용하실 수 있습니다.</p>
 						<br>
 						<a id="kakao-login-btn"></a>
 					    <a href="http://developers.kakao.com/logout"></a>
-					    
 					    <form action="${pageContext.request.contextPath}/login/" method="post" id="form">
 					    	<input type="text" name="id" id="id" hidden="hidden">
-					    	<!-- <input type="button"  id="kakao-login-btn"/>
-					    	<a href="http://developers.kakao.com/logout"></a> -->
 					    </form>
 					</c:if>
 					<c:if test="${sessionScope.user.user_id!=null }">
@@ -83,148 +113,50 @@
 						<a href="${pageContext.request.contextPath}/login/update">닉네임 변경</a>
 						<a href="${pageContext.request.contextPath}/login/logout">로그아웃</a>
 						<a href="#" id="del">회원 탈퇴</a>
-						
 					</c:if>
-				
-				
-					<!-- <p>로그인 후 사용할수 있습니다.</p><br><br>
-					<input type="button" value="Login" id="add_memo"> -->
 				</div>
 			</div>
 			<div class="row">
-				<div id="notepad">
-					<p>당신의 웹 해마입니다. 무엇을 기억할까요?</p>
-					<ul>
-						<li>메모하자아아아아아아아아아아아</li>
-						<li>메모하자아아아아아아아아아</li>
-						<li>메모하자아아아아아아아</li>
-						<li>메모하자아아아아아</li>
-						<li>메모하자아아아</li>
-					</ul>
-					<input type="button" value="등록하기" id="add_memo">
-				</div>
+				<c:if test="${sessionScope.user.user_id!=null}">
+					<div id="notepad">
+						<p>당신의 웹픽입니다. 무엇을 기억할까요?</p>
+						<ul>
+							<li>메모하자아아아아아아아아아아아</li>
+							<li>메모하자아아아아아아아아아</li>
+							<li>메모하자아아아아아아아</li>
+							<li>메모하자아아아아아</li>
+							<li>메모하자아아아</li>
+						</ul>
+						<input type="button" value="등록하기" id="add_memo">
+					</div>
+				</c:if>
+				<c:if test="${sessionScope.user.user_id==null}">
+					<div id="notepad_nouser">
+						<img src="${pageContext.request.contextPath}/resources/images/webpick_icon.png">
+						<p>웹픽 기능을 사용하시려면 로그인이 필요합니다.</p>
+					</div>
+				</c:if>
 			</div>
-			<div class="row">
-				<div id="notepad">
-					<p>TODAY</p>
-					<ul>
-						<li>메모하자아아아아아아아아아아아</li>
-						<li>메모하자아아아아아아아아아</li>
-						<li>메모하자아아아아아아아</li>
-						<li>메모하자아아아아아</li>
-						<li>메모하자아아아</li>
-						<li>메모하자아아아아아아아아아아아</li>
-						<li>메모하자아아아아아아아아아</li>
-						<li>메모하자아아아아아아아</li>
-						<li>메모하자아아아아아</li>
-						<li>메모하자아아아</li>
-					</ul>
-					<input type="button" value="게시판가기" id="add_memo">
+			<c:if test="${sessionScope.user.user_id!=null}">
+				<div class="row">
+					<div id="notepad">
+						<p>TODAY</p>
+						<ul>
+							<li>메모하자아아아아아아아아아아아</li>
+							<li>메모하자아아아아아아아아아</li>
+							<li>메모하자아아아아아아아</li>
+							<li>메모하자아아아아아</li>
+							<li>메모하자아아아</li>
+							<li>메모하자아아아아아아아아아아아</li>
+							<li>메모하자아아아아아아아아아</li>
+							<li>메모하자아아아아아아아</li>
+							<li>메모하자아아아아아</li>
+							<li>메모하자아아아</li>
+						</ul>
+						<input type="button" value="게시판가기" id="add_memo">
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div id="slick_box">
-					<ul>
-						<li class="arrow_left"><img src="${pageContext.request.contextPath}/resources/left.png"></li>
-						<li>
-							<ul id="first_slick">
-								<li>
-									<div id="today">
-										<div>
-											<h1>TODAY</h1>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div id="memo">
-										<div>
-											<h1>MEMO</h1>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div id="menu_a">
-										<div>
-											<h1>A</h1>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div id="menu_b">
-										<div>
-											<h1>B</h1>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div id="menu_c">
-										<div>
-											<h1>C</h1>
-										</div>
-									</div>
-								</li>						
-							</ul>
-						</li>
-						<li class="arrow_right"><img src="${pageContext.request.contextPath}/resources/right.png"></li>
-					</ul>
-				</div>
-				<script type="text/javascript">
-					$(function(){
-						$("#first_slick").slick({
-							infinite: true,
-							slidesToShow: 3,
-							slidesToScroll: 1,
-							arrows:true,
-							prevArrow:'.arrow_left',
-							nextArrow:'.arrow_right'
-						});
-					});
-					
-					//login
-					//<![CDATA[
-			        // 사용할 앱의 JavaScript 키를 설정해 주세요.
-			        Kakao.init('073bab6d5ebe961bfb1e314c96760511');
-			        // 카카오 로그인 버튼을 생성합니다.
-			        Kakao.Auth.createLoginButton({
-			          container: '#kakao-login-btn',
-			          success: function(authObj) {
-			        	//alert(JSON.stringify(authObj));
-			        	 Kakao.API.request({
-			
-					       url: '/v1/user/me',
-					
-					       success: function(res) {
-					             //alert(JSON.stringify(res)); //<---- kakao.api.request 에서 불러온 결과값 json형태로 출력	
-					             //alert(JSON.stringify(authObj)); //<----Kakao.Auth.createLoginButton에서 불러온 결과값 json형태로 출력		
-					             //console.log(res.id);//<---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
-					             console.log(res.kaccount_email);//<---- 콘솔 로그에 email 정보 출력 (어딨는지 알겠죠?)
-					            // console.log(res.properties['nickname']);//<---- 콘솔 로그에 닉네임 출력(properties에 있는 nickname 접근 
-					         	// res.properties.nickname으로도 접근 가능 )
-					            // console.log(authObj.access_token);//<---- 콘솔 로그에 토큰값 출력
-								//location.href("result");	
-					            
-					            
-					            loginSuccess(res.kaccount_email);
-					            
-					            
-					           }
-					
-					       })
-			          },
-			          fail: function(err) {
-			             alert(JSON.stringify(err));
-			          }
-			        });
-			        
-			        
-			        function loginSuccess(id){
-			        	$("#id").val(id);
-			        	$("#form").submit();
-			        	//$(location).attr("href","result?id="+id);
-			        }
-			        
-				</script>
-			</div>
+			</c:if>
 		</div>
 	</div>
 </body>

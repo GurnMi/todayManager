@@ -2,9 +2,11 @@
 
 @media(min-width:960px){
 	#today_container{
-		width:100%;
+		width:1200px;
 		height:500px;
-		margin-top:50px;
+		/* margin-top:50px; */
+		min-width:300px;
+		margin : 50px auto;
 	}
 	#s_calendar_zone{
 		display:none;
@@ -172,7 +174,7 @@
 		margin:1% 1%;
 		background:white;
 		display:inline;
-		float:right;
+		float:left;
 		position:relative;
 	}
 	#today_container #calendar_box #prevkey{
@@ -276,10 +278,11 @@
 		width:60%;
 		border-radius:5px;
 		padding:1%;
-		margin:1% 1%;
+		margin:1%;
 		background:white;
 		display:inline;
 		float:left;
+		min-height: 240px;
 	}
 	#today_container #insert_box .guide{
 		width:20%;

@@ -8,8 +8,80 @@
 <meta content="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	$(function(){
+			/* $.ajax({
+				//해당 날짜로 값 가져오기
+				url:"${pageContext.request.contextPath}/history/all/2018-04-13",
+				type:"get",
+				headers:{"Content-Type":"application/json"},
+				dataType:"json",
+				success:function(result){
+					console.log(result);
+					
+				}
+			}) */
+		
+			
+			google.charts.load('current', {'packages':['corechart']});
+		      google.charts.setOnLoadCallback(drawChart);
+
+		      function drawChart() {
+		    	  var data2 = "[['Task', 'Hours per Day'],";
+		    	  var dataArr = new Array();
+		    	  dataArr[0] = ['Task', 'Hours per Day'];
+		    	  $.ajax({
+						//해당 날짜로 값 가져오기
+						url:"${pageContext.request.contextPath}/history/all/2018-04-13",
+						type:"get",
+						headers:{"Content-Type":"application/json"},
+						dataType:"json",
+						success:function(result){
+							
+							for(var i=0;i<result.min.length;i++){
+								var dataArr1 = new Array();
+								dataArr1[0] = result.type[i];
+								dataArr1[1] = Number(result.min[i]);
+								dataArr[i+1] = dataArr1;  
+								
+								data2 += "['"+result.type[i]+"',"+Number(result.min[i])+"]";
+								
+								if(i+1<result.min.length){
+									data2 += ",";	
+								}
+							}
+							data2+= "]";
+							console.log(data2+"//////////////");  
+							 
+							
+							chart(dataArr);
+							
+						}
+		    	  })
+		    	  
+		      }
+		      
+		      function chart(data2){
+		    	  var data = google.visualization.arrayToDataTable(data2);
+
+			        var options = {
+			          title: 'My Daily Activities'
+			        };
+
+			        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+			        chart.draw(data, options);
+		      }
+	})
+	
+	
+</script>
 </head>
 <body>
+	
+	  <div id="piechart" style="width: 900px; height: 500px;"></div>
+
 	<c:if test="${Diary }">
 		<table>
 			<c:forEach var="DiaryVO" items="${diarylist }">

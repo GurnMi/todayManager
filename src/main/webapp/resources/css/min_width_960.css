@@ -13,30 +13,25 @@
 	}
 	
 	/*******************/
-	/**MAIN CSS-1200PX**/
+	/**MAIN CSS-960PX**/
 	/*******************/
 	body{
-		background:url("../images/back_day.jpg") no-repeat;
-		background-position:center;
+		background:url("../images/back_day.jpg") no-repeat center center fixed;
 		background-size:cover;
+		--webkit-background-size:cover;
 	}
+	
 	/* BASE AREA */
 	#main_container{
 		width:960px;
-		min-width:300px;
-		height:500px;
-		margin:50px auto;
-	}
-	
-	#main_container #top_box > img{
-		width:100%;
-		height:200px;
+		margin:0 auto;
 	}
 	
 	/* WEATHER */
 	#main_container #weather{
 		width:100%;
 		padding:100px 50px;
+		position:relative;
 	}
 	#main_container #weather #day_info{
 		font-size:40px;
@@ -50,6 +45,7 @@
 		float:left;
 	}
 	#main_container #weather #town_sido{
+		width:25%;
 		font-size:26px;
 		font-weight:bold;
 		color:white;
@@ -58,16 +54,53 @@
 		margin-bottom:0px;
 	}
 	#main_container #weather #town_gungu{
+	width:25%;
 		font-size:26px;
 		font-weight:bold;
 		color:white;
 		margin-left:120px;
 		margin-top:0px;
 	}
+	
+	/* SET_AREA(MODAL) */
+	#set_area #modal_body{
+		position:relative;
+	}
+	#set_area #modal_body #loadingbar{
+		position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		background:rgba(0,0,0,0.6);
+	}
+	#set_area #modal_body #loadingbar > div{
+		width:90%;
+		height:100%;
+		margin:0 auto;
+		position:relative;
+	}
+	#set_area #modal_body #loadingbar > div > div{
+		position:absolute;
+		top:50px;
+		left:0;
+		width:100%;
+	}
+	#set_area #search_area1{
+		width:85%;
+		margin-bottom:10px;
+	}
+	#set_area #search_area2{
+		width:85%;
+		margin-bottom:10px;
+	}
+	#set_area #search_area3{
+		width:85%;
+	}
 
 	/* LOGIN */
 	#main_container #login{
-		width:28%;
+		width:35%;
 		border-radius:10px;
 		padding:2%;
 		margin:1% 2%;

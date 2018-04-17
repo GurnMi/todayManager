@@ -12,26 +12,95 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- CUSTOM CSS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=2">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=2">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=2">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=2">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=4">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=5">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=7">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=7">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=7">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=7">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=7">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=7">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.xdomainajax.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.xdomainajax.js"></script>
 <script type="text/javascript">
 	function loginSuccess(id){
 		$("#id").val(id);
 		$("#form").submit();
 	}
+	function weather_load(zone){
+		$.ajax({
+			url:"http://www.weather.go.kr/wid/queryDFSRSS.jsp?zone="+zone,
+			type:"get",
+			dataType:"xml",
+			success:function(result){
+				var now = $(result.responseText).find("data[seq='0']").find("wfkor").html();
+				weather_background(now);
+				weather_icon(now);
+			}
+		});
+	}
+	function weather_background(str){
+		if(str == "맑음"){
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background-size","cover");
+		}
+		if(str == "구름 조금"){
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background-size","cover");
+		}
+		if(str == "구름 많음"){
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background-size","cover");
+		}
+		if(str == "흐림"){
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background-size","cover");
+		}
+		if(str == "비"){
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background-size","cover");
+		}
+		if(str == "눈/비"){
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background-size","cover");
+		}
+		if(str == "눈"){
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background-size","cover");
+		}
+	}
+	function weather_icon(str){
+		if(str == "맑음"){
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+		}
+		if(str == "구름 조금"){
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+		}
+		if(str == "구름 많음"){
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+		}
+		if(str == "흐림"){
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+		}
+		if(str == "비"){
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+		}
+		if(str == "눈/비"){
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+		}
+		if(str == "눈"){
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+		}
+	}
 	
 	$(function(){
+		// 기본지역 : 대구광역시 남구 대명2동
+		weather_load("2720057100");
+		// 카카오 초기화
 		Kakao.init('073bab6d5ebe961bfb1e314c96760511');
-		
 		// 카카오 로그인 버튼을 생성합니다.
 		Kakao.Auth.createLoginButton({
 			container: '#kakao-login-btn',
@@ -48,51 +117,128 @@
 		    	alert(JSON.stringify(err));
 			}
 		});
+		
+		// 날씨정보 위치
+		$("#town_sido").on("click",function(){
+			$("#loadingbar").css("display","block");
+			console.log("시/도 불러오기 시작");
+			$.ajax({
+				url:"${pageContext.request.contextPath}/parser/sido",
+				type:"get",
+				dataType:"text",
+				success:function(result){
+					$("#search_area1").append(result);
+					$("#loadingbar").css("display","none");
+				}
+			});
+		});
+		$("#select_sido").on("click",function(){
+			$("#loadingbar").css("display","block");
+			console.log("구/군 불러오기 시작");
+			var sido = $("#search_area1").val();
+			$("#search_area1").find("option[selected]").removeAttr("selected");
+			$("#search_area1").find("option").each(function(index, obj){
+				if($(obj).val() == sido){
+					$(obj).attr("selected", "selected");
+				}
+			});
+			$.ajax({
+				url:"${pageContext.request.contextPath}/parser/gungu?sido="+sido,
+				type:"get",
+				dataType:"text",
+				success:function(result){
+					console.log(result);
+					$("#search_area2").empty();
+					$("#search_area2").append(result);
+					$("#loadingbar").css("display","none");
+				}
+			});
+		});
+		$("#select_gugun").on("click",function(){
+			$("#loadingbar").css("display","block");
+			console.log("동 불러오기 시작");
+			var sido = $("#search_area1").val();
+			var gugun = $("#search_area2").val();
+			$("#search_area2").find("option[selected]").removeAttr("selected");
+			$("#search_area2").find("option").each(function(index, obj){
+				if($(obj).val() == gugun){
+					$(obj).attr("selected", "selected");
+				}
+			});
+			$.ajax({
+				url:"${pageContext.request.contextPath}/parser/dong?sido="+sido+"&gugun="+gugun,
+				type:"get",
+				dataType:"text",
+				success:function(result){
+					console.log(result);
+					$("#search_area3").empty();
+					$("#search_area3").append(result);
+					$("#loadingbar").css("display","none");
+				}
+			});
+		});
+		$("#area_save").on("click",function(){
+			var dong = $("#search_area3").val();
+			$("#search_area3").find("option[selected]").removeAttr("selected");
+			$("#search_area3").find("option").each(function(index, obj){
+				if($(obj).val() == dong){
+					$(obj).attr("selected", "selected");
+				}
+			});
+			$("#town_sido").html($("#search_area1").find("option[selected]").text());
+			$("#town_gungu").html($("#search_area2").find("option[selected]").text()+" "+$("#search_area3").find("option[selected]").text());
+			
+			console.log("XML 불러오기 시작");
+			weather_load(dong);
+		});
 	});
 </script>
 </head>
 <body>
-	<div class="container-fluid">
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">HOME</a>
+	<div id="set_area" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">지역을 선택해주세요</h4>
 				</div>
-				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="${pageContext.request.contextPath}/">HOME</a></li>
-						<li><a href="${pageContext.request.contextPath}/today/">TODAY</a></li>
-						<li><a href="${pageContext.request.contextPath}/diary/">DIARY</a></li>
-						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#">SETTING
-								<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu">
-								<li><a href="#">SET1</a></li>
-								<li><a href="#">SET2</a></li>
-								<li><a href="#">SET3</a></li> 
-							</ul>
-						</li>
-						<li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-					</ul>
+				<div class="modal-body" id="modal_body">
+					<div id="loadingbar" class="container">
+						<div>
+							<div class="progress">
+								<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+									LOADING...
+								</div>
+							</div>
+						</div>
+					</div>
+					<select id="search_area1"></select>
+					<button type="button" id="select_sido">검색</button>
+					<br>
+					<select id="search_area2">
+						<option>---</option>
+					</select>
+					<button type="button" id="select_gugun">검색</button>
+					<br>
+					<select id="search_area3">
+						<option>---</option>
+					</select>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="area_save">저장</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
-		</nav>
+		</div>
+	</div>
+	<div id="container">
 		<div id="main_container">
-			<div class="row">
-				<div id="top_box">
-					
-				</div>
-			</div>
 			<div class="row">
 				<div id="weather">
 					<p id="day_info">Tuesday, 15 November</p>
-					<img src="${pageContext.request.contextPath}/resources/images/weather_sun.png">
-					<p id="town_sido">Seoul, Republic Of Korea</p>
-					<p id="town_gungu">Gwanak-gu</p>
-					<br>
-					<br>
-					<button id="find">시도찾기</button>
+					<img id="icon" src="${pageContext.request.contextPath}/resources/images/weather_sun.png">
+					<p id="town_sido" data-toggle="modal" data-target="#set_area">대구광역시</p>
+					<p id="town_gungu" data-toggle="modal" data-target="#set_area">남구 대명2동</p>
 				</div>
 			</div>
 			<div class="row">

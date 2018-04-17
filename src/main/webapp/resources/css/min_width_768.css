@@ -29,112 +29,96 @@
 		display:none;
 	}
 	
-	/************/
-	/**MAIN CSS**/
-	/************/
+	/*******************/
+	/**MAIN CSS-768PX**/
+	/*******************/
 	body{
-		background:url("../images/day.jpg") no-repeat;
-		background-position:center;
+		background:url("../images/day.jpg") no-repeat center center fixed;
 		background-size:cover;
+		--webkit-background-size:cover;
 	}
-	#main_container #top_box > img{
+	
+	/* BASE AREA */
+	#main_container{
+		width:768px;
+		margin:0 auto;
+	}
+	
+	/* WEATHER */
+	#main_container #weather{
 		width:100%;
-		height:200px;
+		padding:100px 50px;
+		position:relative;
 	}
-	#main_container #slick_box{
-		width:100%;
-		height:100%;
+	#main_container #weather #day_info{
+		font-size:40px;
+		font-weight:bold;
+		color:white;
+		margin:20px 0px;
 	}
-	#main_container #slick_box ul{
-		width:100%;
-		height:100%;
-		list-style:none;
-	}
-	#main_container #slick_box ul li{
+	#main_container #weather img{
+		width:100px;
+		display:inline-block;
 		float:left;
 	}
-	#main_container #slick_box ul li:nth-child(1){
-		width:10%;
+	#main_container #weather #town_sido{
+		width:25%;
+		font-size:26px;
+		font-weight:bold;
+		color:white;
+		margin-left:120px;
+		margin-top:25px;
+		margin-bottom:0px;
 	}
-	#main_container #slick_box ul li:nth-child(1) img{
+	#main_container #weather #town_gungu{
+	width:25%;
+		font-size:26px;
+		font-weight:bold;
+		color:white;
+		margin-left:120px;
+		margin-top:0px;
+	}
+	
+	/* SET_AREA(MODAL) */
+	#set_area #modal_body{
+		position:relative;
+	}
+	#set_area #modal_body #loadingbar{
+		position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		background:rgba(0,0,0,0.6);
+	}
+	#set_area #modal_body #loadingbar > div{
+		width:90%;
+		height:100%;
+		margin:0 auto;
+		position:relative;
+	}
+	#set_area #modal_body #loadingbar > div > div{
+		position:absolute;
+		top:50px;
+		left:0;
 		width:100%;
 	}
-	#main_container #slick_box ul li:nth-child(2){
-		width:80%;
+	#set_area #search_area1{
+		width:85%;
+		margin-bottom:10px;
 	}
-	#main_container #slick_box ul li:nth-child(3){
-		width:10%;
+	#set_area #search_area2{
+		width:85%;
+		margin-bottom:10px;
 	}
-	#main_container #slick_box ul li:nth-child(3) img{
-		width:100%;
-	}
-	#main_container #slick_box #today{
-		padding:15px;		
-	}
-	#main_container #slick_box #today div{
-		height:300px;
-		background:white;
-		border-radius:10px;
-		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
-	}
-	#main_container #slick_box #today div h1{
-		padding:20px;
-	}
-	#main_container #slick_box #memo{
-		padding:15px;		
-	}
-	#main_container #slick_box #memo div{
-		height:300px;
-		background:white;
-		border-radius:10px;
-		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
-	}
-	#main_container #slick_box #memo div h1{
-		padding:20px;
-	}
-	#main_container #slick_box #menu_a{
-		padding:15px;		
-	}
-	#main_container #slick_box #menu_a div{
-		height:300px;
-		background:white;
-		border-radius:10px;
-		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
-	}
-	#main_container #slick_box #menu_a div h1{
-		padding:20px;
-	}
-	#main_container #slick_box #menu_b{
-		padding:15px;		
-	}
-	#main_container #slick_box #menu_b div{
-		height:300px;
-		background:white;
-		border-radius:10px;
-		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
-	}
-	#main_container #slick_box #menu_b div h1{
-		padding:20px;
-	}
-	#main_container #slick_box #menu_c{
-		padding:15px;		
-	}
-	#main_container #slick_box #menu_c div{
-		height:300px;
-		background:white;
-		border-radius:10px;
-		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
-	}
-	#main_container #slick_box #menu_c div h1{
-		padding:20px;
+	#set_area #search_area3{
+		width:85%;
 	}
 	
 	/* LOGIN */
 	#main_container #login{
-		width:28%;
-		border:1px solid gray;
+		width:45%;
 		border-radius:10px;
-		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
 		padding:2%;
 		margin:1% 2%;
 		background:white;
@@ -142,23 +126,22 @@
 		float:left;
 	}
 	#main_container #login p{
+		font-size:20px;
+		font-weight:bold;
 		text-align:center;
 	}
-	#main_container #login #add_memo{
-		padding:1%;
+	#kakao-login-btn{
 		display:block;
-		float:right;
+		text-align:center;
 	}
 	
 	/* NOTEPAD */
 	#main_container #notepad{
 		width:55%;
-		border:1px solid gray;
-		border-radius:10px;
-		box-shadow:5px 5px 10px rgba(0,0,0,0.3);
 		padding:2%;
 		margin:1% 2%;
 		background:white;
+		border-radius:10px;
 		display:block;
 		float:right;
 	}
@@ -177,6 +160,24 @@
 		padding:1%;
 		display:block;
 		float:right;
+	}
+	#main_container #notepad_nouser{
+		width:55%;
+		border-radius:10px;
+		padding:2%;
+		margin:1% 2%;
+		background:white;
+		display:block;
+		float:right;
+	}
+	#main_container #notepad_nouser p{
+		text-align:center;
+		font-size:20px;
+		font-weight:bold;
+	}
+	#main_container #notepad_nouser img{
+		display:block;
+		margin:15px auto;
 	}
 	
 	/*************/

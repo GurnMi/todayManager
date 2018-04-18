@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=7">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=7">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=7">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=7">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=8">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -191,6 +191,16 @@
 			console.log("XML 불러오기 시작");
 			weather_load(dong);
 		});
+		
+		$("#move_home").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/";
+		});
+		$("#move_today").on("click",function(){
+			location.href = "today/";
+		});
+		$("#move_diary").on("click",function(){
+			location.href = "diary/";
+		});
 	});
 </script>
 </head>
@@ -232,6 +242,13 @@
 		</div>
 	</div>
 	<div id="container">
+		<div id="menu_container">
+			<div>
+				<img src="${pageContext.request.contextPath}/resources/images/diary_icon.png" id="move_diary">
+				<img src="${pageContext.request.contextPath}/resources/images/today_icon.png" id="move_today">
+				<img src="${pageContext.request.contextPath}/resources/images/home_icon.png" id="move_home">
+			</div>
+		</div>
 		<div id="main_container">
 			<div class="row">
 				<div id="weather">

@@ -102,7 +102,7 @@ public class TodayController {
 		model.addAttribute("list", repeatList);
 		model.addAttribute("tolist", todayList);
 		
-		return "today/todayMain";
+		return "today_desktop";
 	}
 	
 	@RequestMapping(value="/today" ,method=RequestMethod.GET)

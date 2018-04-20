@@ -54,7 +54,7 @@ public class LoginController {
 			//req.setAttribute("id", id);		
 			session.setAttribute("user", vo);
 			
-			return "main_desktop";
+			return "redirect:/";
 		}
 	}
 	
@@ -99,7 +99,7 @@ public class LoginController {
 		//req.setAttribute("id", id);		
 		session.setAttribute("user", vo);
 		
-		return "user/loginResult";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/leave" ,method=RequestMethod.GET)
@@ -110,8 +110,9 @@ public class LoginController {
 		UserVO vo = (UserVO) session.getAttribute("user");
 		
 		service.leaveUser(vo.getUser_id());
+		session.invalidate();
 		
-		return "user/login";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/update" ,method=RequestMethod.GET)
@@ -134,7 +135,7 @@ public class LoginController {
 		HttpSession session=req.getSession();	
 		session.setAttribute("user", vo);
 		
-		return "user/loginResult";
+		return "redirect:/";
 	}
 	
 	
@@ -145,7 +146,7 @@ public class LoginController {
 		HttpSession session = req.getSession();
 		session.invalidate();
 		
-		return "main_desktop";
+		return "redirect:/";
 	}
 	
 }

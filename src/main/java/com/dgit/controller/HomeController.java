@@ -18,4 +18,9 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		return "main_desktop";
 	}
+	
+	@RequestMapping(value = "/repeattest", method = RequestMethod.GET)
+	public String home12(Locale locale, Model model) {
+		return "repeat_desktop";
+	}
 }

@@ -115,6 +115,16 @@
 		$("#btn_cancle").on("click",function(){
 			location.replace("${pageContext.request.contextPath}/diary/");
 		});
+		
+		$("#move_home").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/";
+		});
+		$("#move_today").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/today/";
+		});
+		$("#move_diary").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/diary/";
+		});
 	});
 </script>
 </head>

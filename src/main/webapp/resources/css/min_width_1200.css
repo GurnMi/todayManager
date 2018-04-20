@@ -1,13 +1,7 @@
 @CHARSET "UTF-8";
 
 @media(min-width:1200px){
-	#today_container{
-		width:1200px;
-		height:500px;
-		/* margin-top:50px; */
-		min-width:300px;
-		margin :50px auto;
-	}
+	
 	#s_calendar_zone{
 		display:none;
 	}
@@ -178,10 +172,16 @@
 		margin:15px auto;
 	}
 	
-	/*************/
-	/**TODAY CSS**/
-	/*************/
-		
+	/********************/
+	/**TODAY CSS-1200PX**/
+	/********************/
+	
+	#today_container{
+		width:1200px;
+		height:500px;
+		margin :0 auto;
+	}
+	
 	/* CALENDAR_BOX */
 	#today_container #calendar_box{
 		width:30%;
@@ -318,11 +318,6 @@
 		height:500px;
 		margin:50px auto;
 	}
-	#diray_container .row{
-		width:100%;
-		margin:0;
-		padding:0;
-	}
 	#diray_container .col:first-child{
 		width:30%;
 		float:left;
@@ -335,6 +330,7 @@
 	/* CALENDAR_BOX */
 	#diray_container #calendar_box{
 		width:98%;
+		height:300px;
 		margin:0 auto;
 		border-radius:5px;
 		background:white;
@@ -617,5 +613,20 @@
 	#diray__insert_container #diary_box #contents #btn{
 		width:95%;
 		text-align:right;
+	}
+	
+	/* NICK UPDATE */
+	#nick_container #update{
+		width:28%;
+		border-radius:10px;
+		padding:2%;
+		margin:1% auto;
+		background:white;
+		display:block;
+	}
+	#main_container #login p{
+		font-size:20px;
+		font-weight:bold;
+		text-align:center;
 	}
 }

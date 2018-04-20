@@ -10,11 +10,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- CUSTOM CSS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=1">
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=1"> --%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=5">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=6">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=11">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=11">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=12">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=12">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=11">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -180,6 +180,15 @@
 	         }
 		})
 		
+		$("#move_home").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/";
+		});
+		$("#move_today").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/today/";
+		});
+		$("#move_diary").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/diary/";
+		});
 	});
 	
 	
@@ -300,28 +309,15 @@
 </style>
 </head>
 <body>
-
-	<div class="container-fluid">
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">SUPPORTER</a>
-				</div>
-				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="${pageContext.request.contextPath}/">HOME</a></li>
-						<li><a href="${pageContext.request.contextPath}/today/">TODAY</a></li>
-						<li><a href="${pageContext.request.contextPath}/diary/">DIARY</a></li>
-					</ul>
-				</div>
+	<div id="container">
+		<div id="menu_container">
+			<div>
+				<img src="${pageContext.request.contextPath}/resources/images/diary_icon.png" id="move_diary">
+				<img src="${pageContext.request.contextPath}/resources/images/today_icon.png" id="move_today">
+				<img src="${pageContext.request.contextPath}/resources/images/home_icon.png" id="move_home">
 			</div>
-		</nav>
+		</div>
 		<div id="today_container">
-			<div class="row">
-				<div>
-					임시 메뉴공간 확보하는 구역
-				</div>
-			</div>
 			<div class="row">
 				<div id="insert_box">
 					<form action="${pageContext.request.contextPath}/today/today" method="post">

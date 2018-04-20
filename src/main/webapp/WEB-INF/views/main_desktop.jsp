@@ -13,11 +13,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- CUSTOM CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=7">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=7">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=7">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=7">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=7">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=8">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=10">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=10">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=10">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=10">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=10">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -44,19 +44,19 @@
 	}
 	function weather_background(str){
 		if(str == "맑음"){
-			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_day.jpg') no-repeat center center fixed");
 			$("body").css("background-size","cover");
 		}
 		if(str == "구름 조금"){
-			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_day.jpg') no-repeat center center fixed");
 			$("body").css("background-size","cover");
 		}
 		if(str == "구름 많음"){
-			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_day.jpg') no-repeat center center fixed");
 			$("body").css("background-size","cover");
 		}
 		if(str == "흐림"){
-			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_day.jpg') no-repeat center center fixed");
 			$("body").css("background-size","cover");
 		}
 		if(str == "비"){
@@ -64,35 +64,35 @@
 			$("body").css("background-size","cover");
 		}
 		if(str == "눈/비"){
-			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_lightning.jpg') no-repeat center center fixed");
 			$("body").css("background-size","cover");
 		}
 		if(str == "눈"){
-			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_rain.jpg') no-repeat center center fixed");
+			$("body").css("background", "url('${pageContext.request.contextPath}/resources/images/back_snow.jpg') no-repeat center center fixed");
 			$("body").css("background-size","cover");
 		}
 	}
 	function weather_icon(str){
 		if(str == "맑음"){
-			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_sun.png");
 		}
 		if(str == "구름 조금"){
-			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_sun.png");
 		}
 		if(str == "구름 많음"){
-			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_sun.png");
 		}
 		if(str == "흐림"){
-			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_sun.png");
 		}
 		if(str == "비"){
 			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
 		}
 		if(str == "눈/비"){
-			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_lightning.png");
 		}
 		if(str == "눈"){
-			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_rain.png");
+			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_snow.png");
 		}
 	}
 	
@@ -102,21 +102,23 @@
 		// 카카오 초기화
 		Kakao.init('073bab6d5ebe961bfb1e314c96760511');
 		// 카카오 로그인 버튼을 생성합니다.
-		Kakao.Auth.createLoginButton({
-			container: '#kakao-login-btn',
-			success: function(authObj){
-				Kakao.API.request({
-					url: '/v1/user/me',
-					success: function(res) {
-						console.log(res.kaccount_email);
-		         		loginSuccess(res.kaccount_email);
-		         	}
-	    		})
-	    	},
-		    fail: function(err) {
-		    	alert(JSON.stringify(err));
-			}
-		});
+		if("${user.user_id}" == ""){
+			Kakao.Auth.createLoginButton({
+				container: '#kakao-login-btn',
+				success: function(authObj){
+					Kakao.API.request({
+						url: '/v1/user/me',
+						success: function(res) {
+							console.log(res.kaccount_email);
+			         		loginSuccess(res.kaccount_email);
+			         	}
+		    		})
+		    	},
+			    fail: function(err) {
+			    	alert(JSON.stringify(err));
+				}
+			});
+		}
 		
 		// 날씨정보 위치
 		$("#town_sido").on("click",function(){
@@ -196,10 +198,10 @@
 			location.href = "${pageContext.request.contextPath}/";
 		});
 		$("#move_today").on("click",function(){
-			location.href = "today/";
+			location.href = "${pageContext.request.contextPath}/today/";
 		});
 		$("#move_diary").on("click",function(){
-			location.href = "diary/";
+			location.href = "${pageContext.request.contextPath}/diary/";
 		});
 	});
 </script>
@@ -275,7 +277,7 @@
 						<br>
 						<a href="${pageContext.request.contextPath}/login/update">닉네임 변경</a>
 						<a href="${pageContext.request.contextPath}/login/logout">로그아웃</a>
-						<a href="#" id="del">회원 탈퇴</a>
+						<a href="${pageContext.request.contextPath}/login/leave">회원 탈퇴</a>
 					</c:if>
 				</div>
 			</div>

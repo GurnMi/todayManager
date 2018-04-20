@@ -1,13 +1,6 @@
 @CHARSET "UTF-8";
 
 @media(min-width:960px){
-	#today_container{
-		width:1200px;
-		height:500px;
-		/* margin-top:50px; */
-		min-width:300px;
-		margin : 50px auto;
-	}
 	#s_calendar_zone{
 		display:none;
 	}
@@ -25,6 +18,19 @@
 	#main_container{
 		width:960px;
 		margin:0 auto;
+	}
+	#menu_container{
+		width:960px;
+		height:150px;
+		margin:0 auto;
+	}
+	
+	/* MENU */
+	#menu_container img{
+		width:50px;
+		margin-top:20px;
+		margin-right:20px;
+		float:right;
 	}
 	
 	/* WEATHER */
@@ -167,6 +173,12 @@
 	/**TODAY CSS**/
 	/*************/
 		
+	#today_container{
+		width:960px;
+		height:500px;
+		margin :0 auto;
+	}	
+		
 	/* CALENDAR_BOX */
 	#today_container #calendar_box{
 		width:30%;
@@ -298,7 +310,7 @@
 	
 	/* BASE AREA */
 	#diray_container{
-		width:1200px;
+		width:960px;
 		min-width:300px;
 		height:500px;
 		margin:50px auto;
@@ -313,13 +325,14 @@
 		float:left;
 	}
 	#diray_container .col:last-child{
-		width:70%;
+		width:63%;
 		float:right;
 	}
 		
 	/* CALENDAR_BOX */
 	#diray_container #calendar_box{
-		width:98%;
+		width:340px;
+		height:300px;
 		margin:0 auto;
 		border-radius:5px;
 		background:white;
@@ -452,7 +465,7 @@
 	
 	/* BASE AREA */
 	#diray__insert_container{
-		width:1200px;
+		width:960px;
 		min-width:300px;
 		height:500px;
 		margin:50px auto;
@@ -467,13 +480,14 @@
 		float:left;
 	}
 	#diray__insert_container .col:last-child{
-		width:70%;
+		width:63%;
 		float:right;
 	}
 		
 	/* CALENDAR_BOX */
 	#diray__insert_container #calendar_box{
-		width:98%;
+		width:340px;
+		height:300px;
 		margin:0 auto;
 		border-radius:5px;
 		background:white;
@@ -602,5 +616,20 @@
 	#diray__insert_container #diary_box #contents #btn{
 		width:95%;
 		text-align:right;
+	}
+	
+	/* NICK UPDATE */
+	#nick_container #update{
+		width:28%;
+		border-radius:10px;
+		padding:2%;
+		margin:1% auto;
+		background:white;
+		display:block;
+	}
+	#main_container #login p{
+		font-size:20px;
+		font-weight:bold;
+		text-align:center;
 	}
 }

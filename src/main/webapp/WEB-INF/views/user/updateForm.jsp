@@ -5,9 +5,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta content="UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<!-- PLUGIN CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- CUSTOM CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=11">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=11">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=11">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=11">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=11">
 <style type="text/css">
 	.error{
 		color:red;
@@ -63,7 +74,6 @@
 			return false;
 		})
 		
-		
 		$("form[name='f1']").submit(function(){
 			if(!nickCheck){
 				alert("닉네임 중복을 확인해주세요");
@@ -75,37 +85,38 @@
 				return false;
 			}
 		})
-			
-			
-			
-		
-		
 	})
 </script>
-
 </head>
 <body>
-	
-	이메일 : ${sessionScope.user.user_id }
-	
-	
-	<form action="${pageContext.request.contextPath}/login/update" method="post" name="f1">
-		<p>
-			<label>이메일(아이디)</label>
-			<input type="text" name="user_id" value="${sessionScope.user.user_id }" readonly="readonly">
-		</p>
-		<p>
-			<label>닉네임</label>
-			<input type="text" name="user_nick" value="${sessionScope.user.user_nick}" placeholder="한글,영문,숫자 2-10자리">
-			<button id="nick">닉네임 중복체크</button>
-			<span class="error">이미 존재하는 닉네임 입니다.</span>
-			<span class="success">사용 가능한 닉네임 입니다.</span>
-		</p>
-		<p>
-			<input type="submit" value="닉네임변경">
-		</p>
-	</form>
-	
-	 
+	<div id="menu_container">
+		<div>
+			<img src="${pageContext.request.contextPath}/resources/images/diary_icon.png" id="move_diary">
+			<img src="${pageContext.request.contextPath}/resources/images/today_icon.png" id="move_today">
+			<img src="${pageContext.request.contextPath}/resources/images/home_icon.png" id="move_home">
+		</div>
+	</div>
+	<div id="nick_container">
+		<div class="row">
+			<div id="update">
+				<form action="${pageContext.request.contextPath}/login/update" method="post" name="f1">
+					<p>
+						<label>이메일(아이디)</label>
+						<input type="text" name="user_id" value="${sessionScope.user.user_id }" readonly="readonly">
+					</p>
+					<p>
+						<label>닉네임</label>
+						<input type="text" name="user_nick" value="${sessionScope.user.user_nick}" placeholder="한글,영문,숫자 2-10자리">
+						<button id="nick">닉네임 중복체크</button>
+						<span class="error">이미 존재하는 닉네임 입니다.</span>
+						<span class="success">사용 가능한 닉네임 입니다.</span>
+					</p>
+					<p>
+						<input type="submit" value="닉네임변경">
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

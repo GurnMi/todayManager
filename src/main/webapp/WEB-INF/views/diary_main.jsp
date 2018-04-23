@@ -16,10 +16,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=5">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=5">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=5">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=7">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=8">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <!-- CUSTOM JS -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=3"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/diary_contents.js?var=5"></script>
@@ -191,7 +192,49 @@
 		$("#move_diary").on("click",function(){
 			location.href = "${pageContext.request.contextPath}/diary/";
 		});
+		
+		//차트 생성
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
 	});
+	
+	function drawChart() {
+		var data2 = "[['Task', 'Hours per Day'],";
+		var dataArr = new Array();
+		dataArr[0] = ['Task', 'Hours per Day'];
+		$.ajax({
+			//해당 날짜로 값 가져오기
+			url:"${pageContext.request.contextPath}/history/all/2018-04-13",
+			type:"get",
+			headers:{"Content-Type":"application/json"},
+			dataType:"json",
+			success:function(result){
+				for(var i=0;i<result.min.length;i++){
+					var dataArr1 = new Array();
+					dataArr1[0] = result.type[i];
+					dataArr1[1] = Number(result.min[i]);
+					dataArr[i+1] = dataArr1;
+					data2 += "['"+result.type[i]+"',"+Number(result.min[i])+"]";
+					if(i+1<result.min.length){
+						data2 += ",";	
+					}
+				}
+				data2+= "]";
+				console.log(data2+"//////////////");
+				chart(dataArr);
+			}
+		});
+	}
+	
+	function chart(data2){
+		var data = google.visualization.arrayToDataTable(data2);
+		var options = {legend : {
+			position : 'bottom'
+		}};
+		var chart = new google.visualization.PieChart(document.getElementById('chart'));
+		
+		chart.draw(data, options);
+	}
 </script>
 </head>
 <body>
@@ -215,6 +258,11 @@
 						</div>
 						<div id="nextkey">
 							<img src="${pageContext.request.contextPath}/resources/right.png">
+						</div>
+					</div>
+					<div id="chart_box">
+						<div id="chart">
+					
 						</div>
 					</div>
 				</div>

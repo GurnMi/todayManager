@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=10">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=10">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=10">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=10">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=13">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -95,6 +95,45 @@
 			$("#icon").attr("src", "${pageContext.request.contextPath}/resources/images/weather_snow.png");
 		}
 	}
+	function webnote_load(){
+		var user = "${sessionScope.user.user_id}";
+		if(user != ""){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/webnote/load?id="+user,
+				type:"get",
+				dataType:"json",
+				success:function(result){
+					var str = "";
+					var tempDate = new Date();
+					
+					for(var i=0 ; i<result.length ; i++){
+						tempDate.setTime(result[i].note_date);
+						
+						str += "<li>";
+						str += "<span class='note_content'>";
+						str += result[i].note_content;
+						str += "</span>";
+						str += "<span class='note_date'>";
+						str += tempDate.getFullYear() + "-";
+						if((tempDate.getMonth()+1)<10)
+							str += "0"+(tempDate.getMonth()+1);
+						else
+							str += (tempDate.getMonth()+1);
+						str += "-";
+						if(tempDate.getDate()<10)
+							str += "0"+tempDate.getDate();
+						else
+							str += tempDate.getDate();
+						str += "</span>";
+						str += "<img src='${pageContext.request.contextPath}/resources/images/edit_icon.png' class='note_mod'>";
+						str += "<img src='${pageContext.request.contextPath}/resources/images/del_icon.png' class='note_del'>";
+						str += "</li>";
+					}
+					$("#webnote_content").append(str);
+				}
+			});
+		}
+	}
 	
 	$(function(){
 		// 기본지역 : 대구광역시 남구 대명2동
@@ -119,6 +158,15 @@
 				}
 			});
 		}
+		
+		// 오늘날짜 적용
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = date.getMonth()+1;
+		var day = date.getDate();
+		var dayName = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+		var monthName = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+		$("#day_info").html(dayName[date.getDay()]+", "+date.getDate()+" "+monthName[date.getMonth()]);
 		
 		// 날씨정보 위치
 		$("#town_sido").on("click",function(){
@@ -203,6 +251,32 @@
 		$("#move_diary").on("click",function(){
 			location.href = "${pageContext.request.contextPath}/diary/";
 		});
+		
+		$("#add_memo").on("mouseover",function(){
+			$(this).css("opacity","0.7");
+		});
+		$("#add_memo").on("mouseout",function(){
+			$(this).css("opacity","0.5");
+		});
+		
+		$(document).on("mouseover",".note_del",function(){
+			$(this).css("opacity","0.7");
+			$(this).parent().css("background","rgba(0,0,0,0.1)");
+		});
+		$(document).on("mouseout",".note_del",function(){
+			$(this).css("opacity","0.3");
+			$(this).parent().css("background","white");
+		});
+		$(document).on("mouseover",".note_mod",function(){
+			$(this).css("opacity","0.7");
+			$(this).parent().css("background","rgba(0,0,0,0.1)");
+		});
+		$(document).on("mouseout",".note_mod",function(){
+			$(this).css("opacity","0.3");
+			$(this).parent().css("background","white");
+		});
+		
+		webnote_load();
 	});
 </script>
 </head>
@@ -283,45 +357,24 @@
 			</div>
 			<div class="row">
 				<c:if test="${sessionScope.user.user_id!=null}">
-					<div id="notepad">
-						<p>당신의 웹픽입니다. 무엇을 기억할까요?</p>
-						<ul>
-							<li>메모하자아아아아아아아아아아아</li>
-							<li>메모하자아아아아아아아아아</li>
-							<li>메모하자아아아아아아아</li>
-							<li>메모하자아아아아아</li>
-							<li>메모하자아아아</li>
+					<div id="webnote">
+						<p>
+							<img src="${pageContext.request.contextPath}/resources/images/webpick_icon.png">
+							Web Note
+						</p>
+						<img src="${pageContext.request.contextPath}/resources/images/add_icon.png" id="add_memo">
+						<ul id="webnote_content">
+							
 						</ul>
-						<input type="button" value="등록하기" id="add_memo">
 					</div>
 				</c:if>
 				<c:if test="${sessionScope.user.user_id==null}">
-					<div id="notepad_nouser">
+					<div id="webnote_nouser">
 						<img src="${pageContext.request.contextPath}/resources/images/webpick_icon.png">
 						<p>웹픽 기능을 사용하시려면 로그인이 필요합니다.</p>
 					</div>
 				</c:if>
 			</div>
-			<c:if test="${sessionScope.user.user_id!=null}">
-				<div class="row">
-					<div id="notepad">
-						<p>TODAY</p>
-						<ul>
-							<li>메모하자아아아아아아아아아아아</li>
-							<li>메모하자아아아아아아아아아</li>
-							<li>메모하자아아아아아아아</li>
-							<li>메모하자아아아아아</li>
-							<li>메모하자아아아</li>
-							<li>메모하자아아아아아아아아아아아</li>
-							<li>메모하자아아아아아아아아아</li>
-							<li>메모하자아아아아아아아</li>
-							<li>메모하자아아아아아</li>
-							<li>메모하자아아아</li>
-						</ul>
-						<input type="button" value="게시판가기" id="add_memo">
-					</div>
-				</div>
-			</c:if>
 		</div>
 	</div>
 </body>

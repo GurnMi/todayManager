@@ -24,7 +24,7 @@
 	}
 	#menu_container{
 		width:1200px;
-		height:150px;
+		height:100px;
 		margin:0 auto;
 	}
 	
@@ -39,7 +39,7 @@
 	/* WEATHER */
 	#main_container #weather{
 		width:100%;
-		padding:100px 50px;
+		padding:30px 50px;
 		position:relative;
 	}
 	#main_container #weather #day_info{
@@ -128,32 +128,68 @@
 	}
 	
 	/* NOTEPAD */
-	#main_container #notepad{
-		width:55%;
+	#main_container #webnote{
+		width:100%;
+		height:400px;
 		padding:2%;
 		margin:1% 2%;
 		background:white;
 		border-radius:10px;
 		display:block;
-		float:right;
+		position:relative;
 	}
-	#main_container #notepad ul{
+	#main_container #webnote img{
+		width:35px;
+		margin:0;
+	}
+	#main_container #webnote p{
+		font-weight:bold;
+		font-size:24px;
+	}
+	#main_container #webnote #add_memo{
+		width:20px;
+		margin:0;
+		position:absolute;
+		right:40px;
+		top:40px;
+		opacity:0.5;
+	}
+	#main_container #webnote ul{
 		list-style:none;
 		width:100%;
+		height:85%;
+		overflow:auto;
 	}
-	#main_container #notepad ul li{
-		padding:1%;
+	#main_container #webnote ul li{
+		padding:5px 20px;
 		border-bottom:1px solid gray;
+		position:relative;
 	}
-	#main_container #notepad ul li:first-child{
+	#main_container #webnote ul li .note_content{
+		
+	}
+	#main_container #webnote ul li .note_date{
+		float:right;
+		font-size:12px;
+		color:gray;
+		padding-right:30px;
+	}
+	#main_container #webnote ul li .note_del{
+		width:20px;
+		position:absolute;
+		right:5px;
+		opacity:0.3;
+	}
+	#main_container #webnote ul li .note_mod{
+		width:20px;
+		position:absolute;
+		right:25px;
+		opacity:0.3;
+	}
+	#main_container #webnote ul li:first-child{
 		border-top:1px solid gray;
 	}
-	#main_container #notepad #add_memo{
-		padding:1%;
-		display:block;
-		float:right;
-	}
-	#main_container #notepad_nouser{
+	#main_container #webnote_nouser{
 		width:55%;
 		border-radius:10px;
 		padding:2%;
@@ -162,12 +198,12 @@
 		display:block;
 		float:right;
 	}
-	#main_container #notepad_nouser p{
+	#main_container #webnote_nouser p{
 		text-align:center;
 		font-size:20px;
 		font-weight:bold;
 	}
-	#main_container #notepad_nouser img{
+	#main_container #webnote_nouser img{
 		display:block;
 		margin:15px auto;
 	}
@@ -383,6 +419,21 @@
 	.cal_select{
 		font-weight:bold;
 		color:red;
+	}
+	
+	/* CALENDAR_BOX */
+	#diray_container #chart_box{
+		width:98%;
+		margin:10px auto;
+		border-radius:5px;
+		background:white;
+		display:block;
+		float:left;
+	}
+	#diray_container #chart_box > div{
+		width:90%;
+		height:350px;
+		margin:0 auto;
 	}
 	
 	/* DIARY_BOX*/

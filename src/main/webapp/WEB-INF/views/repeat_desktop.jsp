@@ -21,7 +21,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 <!-- CUSTOM JS -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/repeat_insert.js?var=3"></script>
-
 <script type="text/javascript">
 
 </script>

@@ -154,8 +154,6 @@
 			}
 		});
 		
-	
-		
 		$.ajax({
 			//해당 날짜로 값 가져오기
 			url:"${pageContext.request.contextPath}/today/all/2018-04-13",
@@ -167,8 +165,7 @@
 				draw_getTime(result);
 				
 			}
-		})
-		
+		});
 		
 		$(document).on("click",".load_plan",function(){
 			var id = $(this).attr("id");
@@ -190,8 +187,6 @@
 			location.href = "${pageContext.request.contextPath}/diary/";
 		});
 	});
-	
-	
 	
 	function draw_getTime(result){
 		//console.log(result);
@@ -243,7 +238,6 @@
 		//alert(start_time);
 		
 	}
-	
 	
 	function draw_plan(stime , etime, plan_type, pri_no, plan_title,plan_content){
 		   var planstart = finder_timeposition(stime);

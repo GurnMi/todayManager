@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=10">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=10">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=10">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=13">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=14">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -276,6 +276,10 @@
 			$(this).parent().css("background","white");
 		});
 		
+		$("#add_memo").mouseover(function(){
+			
+		});
+		
 		webnote_load();
 	});
 </script>
@@ -363,6 +367,11 @@
 							Web Note
 						</p>
 						<img src="${pageContext.request.contextPath}/resources/images/add_icon.png" id="add_memo">
+						<div id="input_box">
+							<input type="text">
+							<img src="${pageContext.request.contextPath}/resources/images/check_icon.png">
+							<img src="${pageContext.request.contextPath}/resources/images/cancle_icon.png">
+						</div>
 						<ul id="webnote_content">
 							
 						</ul>

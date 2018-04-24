@@ -154,6 +154,27 @@
 		top:40px;
 		opacity:0.5;
 	}
+	#main_container #webnote #input_box{
+		display:none;
+		width:750px;
+		height:25px;
+		line-height:25px;
+		margin:0;
+		position:absolute;
+		right:40px;
+		top:35px;
+		background:white;
+	}
+	#main_container #webnote #input_box input{
+		width:690px;
+		margin:0;
+		border-radius:5px;
+	}
+	#main_container #webnote #input_box img{
+		width:20px;
+		margin:0;
+		opacity:0.5;
+	}
 	#main_container #webnote ul{
 		list-style:none;
 		width:100%;

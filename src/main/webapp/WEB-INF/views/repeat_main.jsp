@@ -10,17 +10,17 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- CUSTOM CSS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=1ㄴ">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=3">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=2">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=2">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=2">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=3">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 <!-- CUSTOM JS -->
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/repeat_insert.js?var=3"></script> --%>
 <style type="text/css">
 
 	#weektable,#test{
@@ -398,7 +398,7 @@
 		})
 		
 		
-		$("#test").html(date+"/////////"+day+"<br>"+"start : "+startdate);
+		//$("#test").html(date+"/////////"+day+"<br>"+"start : "+startdate);
 		$("#weektable").html(weekTb);
 	}
 	
@@ -534,81 +534,76 @@
 	
 </script>
 </head>
-
-
 <body>
-
 	<!-- 모달 -->
 	<div id="my-dialog">
-	    
 	    <form method="post" action="${pageContext.request.contextPath}/repeat/insert" name="f1">
-		<p>
-			<label>종류</label>
-			<select name="rep_type">
-							<option value="수면">수면</option>
-							<option value="휴식">휴식</option>
-							<option value="일">일</option>
-							<option value="공부">공부</option>
-							<option value="운동">운동</option>
-							<option value="취미">취미</option>
-							<option value="기타">기타</option>							
-			</select>
-		</p>
-		<p>
-			<label>제목</label>
-			<input type="text" name="rep_title">
-		</p>
-		<p>
-			<label>요일</label>
-			<input type="text" name="rep_day">
-		</p>
-		<p>
-			<label>시작일</label>
-			<input type="date" name="rep_start_day" id="rep_start_day">
-		</p>
-		<p>
-			<label>종료일</label>
-			<input type="date" name="rep_end_day">
-		</p>
-		<p>
-			<label>시작시간</label>
-			<input type="time" name="rep_start_time">
-		</p>
-		<p>
-			<label>종료시간</label>
-			<input type="time" name="rep_end_time">
-		</p>
-		<p>
-			<input type="submit" value="추가">
-			<button id="btn-close-dialog">입력취소</button>
-		
-		<input type="datetime" name="rep_start" class="repdate">
-		<input type="datetime" name="rep_end" class="repdate">
-	</form>
-	
-	
-	    
+			<p>
+				<label>종류</label>
+				<select name="rep_type">
+					<option value="수면">수면</option>
+					<option value="휴식">휴식</option>
+					<option value="일">일</option>
+					<option value="공부">공부</option>
+					<option value="운동">운동</option>
+					<option value="취미">취미</option>
+					<option value="기타">기타</option>							
+				</select>
+			</p>
+			<p>
+				<label>제목</label>
+				<input type="text" name="rep_title">
+			</p>
+			<p>
+				<label>요일</label>
+				<input type="text" name="rep_day">
+			</p>
+			<p>
+				<label>시작일</label>
+				<input type="date" name="rep_start_day" id="rep_start_day">
+			</p>
+			<p>
+				<label>종료일</label>
+				<input type="date" name="rep_end_day">
+			</p>
+			<p>
+				<label>시작시간</label>
+				<input type="time" name="rep_start_time">
+			</p>
+			<p>
+				<label>종료시간</label>
+				<input type="time" name="rep_end_time">
+			</p>
+			<p>
+				<input type="submit" value="추가">
+				<button id="btn-close-dialog">입력취소</button>
+			</p>
+			<input type="datetime" name="rep_start" class="repdate">
+			<input type="datetime" name="rep_end" class="repdate">
+		</form>
 	</div>
 	<div id="dialog-background"></div>
 
+	<!-- <div id="test"></div> -->
 
-
-
-	<div id="test">
-	
-	</div>
-	<div id="img">
-		<img src="${pageContext.request.contextPath}/resources/left.png" id="left">
-		<img src="${pageContext.request.contextPath}/resources/right.png" id="right">
-	</div>
-	<!-- 테이블  -->
-	<div id="weektable">
+	<div id="container">
+		<div id="menu_container">
+			<div>
+				<img src="${pageContext.request.contextPath}/resources/images/diary_icon.png" id="move_repeat">
+				<img src="${pageContext.request.contextPath}/resources/images/diary_icon.png" id="move_diary">
+				<img src="${pageContext.request.contextPath}/resources/images/today_icon.png" id="move_today">
+				<img src="${pageContext.request.contextPath}/resources/images/home_icon.png" id="move_home">
+			</div>
+		</div>
+		<div id="repeat_container">
+			<div id="img">
+				<img src="${pageContext.request.contextPath}/resources/left.png" id="left">
+				<img src="${pageContext.request.contextPath}/resources/right.png" id="right">
+			</div>
+			<div id="weektable">
 		
-	
+			</div>
+		</div>
 	</div>
-	
-	
-	
-	
 </body>
 </html>

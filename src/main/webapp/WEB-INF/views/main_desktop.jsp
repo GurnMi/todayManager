@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=10">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=10">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=10">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=14">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=16">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -125,8 +125,10 @@
 						else
 							str += tempDate.getDate();
 						str += "</span>";
+						str += "<img src='${pageContext.request.contextPath}/resources/images/check_icon.png' class='mod_ok' data-no='"+result[i].note_no+"'>";
+						str += "<img src='${pageContext.request.contextPath}/resources/images/cancle_icon.png' class='mod_cancle' data-no='"+result[i].note_no+"'>";
 						str += "<img src='${pageContext.request.contextPath}/resources/images/edit_icon.png' class='note_mod'>";
-						str += "<img src='${pageContext.request.contextPath}/resources/images/del_icon.png' class='note_del'>";
+						str += "<img src='${pageContext.request.contextPath}/resources/images/del_icon.png' class='note_del' data-no='"+result[i].note_no+"'>";
 						str += "</li>";
 					}
 					$("#webnote_content").append(str);
@@ -252,32 +254,126 @@
 			location.href = "${pageContext.request.contextPath}/diary/";
 		});
 		
-		$("#add_memo").on("mouseover",function(){
+		$("#add_memo").on("mouseover",function(){$(this).css("opacity","0.7");});
+		$("#add_memo").on("mouseout",function(){$(this).css("opacity","0.5");});
+		$("#add_memo").on("click",function(){
 			$(this).css("opacity","0.7");
-		});
-		$("#add_memo").on("mouseout",function(){
-			$(this).css("opacity","0.5");
+			$("#input_box").css("width","0px");
+			$("#input_box").css("display","block");
+			$("#input_box").animate({width:"750px"}, 500);
 		});
 		
-		$(document).on("mouseover",".note_del",function(){
+		$(document).on("mouseover",".note_del",function(){$(this).css("opacity","0.7");});
+		$(document).on("mouseout",".note_del",function(){$(this).css("opacity","0.3");});
+		$(document).on("mouseover",".note_mod",function(){$(this).css("opacity","0.7");});
+		$(document).on("mouseout",".note_mod",function(){$(this).css("opacity","0.3");});
+		
+		$(document).on("mouseover",".mod_ok",function(){$(this).css("opacity","0.7");});
+		$(document).on("mouseout",".mod_ok",function(){$(this).css("opacity","0.3");});
+		$(document).on("mouseover",".mod_cancle",function(){$(this).css("opacity","0.7");});
+		$(document).on("mouseout",".mod_cancle",function(){$(this).css("opacity","0.3");});
+		
+		$("#webnote_content").on("mouseover","li",function(){$(this).css("background","rgba(0,0,0,0.1)");});
+		$("#webnote_content").on("mouseout","li",function(){$(this).css("background","white");});
+		
+		$("#add_ok").on("mouseover",function(){
 			$(this).css("opacity","0.7");
-			$(this).parent().css("background","rgba(0,0,0,0.1)");
 		});
-		$(document).on("mouseout",".note_del",function(){
+		$("#add_ok").on("mouseout",function(){
 			$(this).css("opacity","0.3");
-			$(this).parent().css("background","white");
 		});
-		$(document).on("mouseover",".note_mod",function(){
+		$("#add_cancle").on("mouseover",function(){
 			$(this).css("opacity","0.7");
-			$(this).parent().css("background","rgba(0,0,0,0.1)");
 		});
-		$(document).on("mouseout",".note_mod",function(){
+		$("#add_cancle").on("mouseout",function(){
 			$(this).css("opacity","0.3");
-			$(this).parent().css("background","white");
+		});
+		$("#add_cancle").on("click",function(){
+			$(this).css("opacity","0.3");
+			$("#input_box").animate({width:"0px"}, 500, function(){
+				$("#input_box").css("display","none");
+			});
 		});
 		
-		$("#add_memo").mouseover(function(){
-			
+		$("#webnote_content").on("click",".note_mod",function(){
+			var content = $(this).parent().find(".note_content").html();
+			$(this).parent().find(".note_content").remove();
+			var tag = "<input type='text' value='"+content+"' id='mod_input'>";
+			tag += "<input type='hidden' value='"+content+"' id='mod_restore'>";
+			$(this).parent().prepend(tag);
+			$(this).css("display","none");
+			$(this).parent().find(".note_del").css("display","none");
+			$(this).parent().find(".mod_ok").css("display","inline");
+			$(this).parent().find(".mod_cancle").css("display","inline");
+		});
+		$("#webnote_content").on("click",".mod_ok",function(){
+			var temp1 = $(this).parent().find("#mod_input").val();
+			var temp2 = $(this).parent().find("#mod_restore").val();
+			var note_no = $(this).attr("data-no");
+			var note_content = $(this).parent().find("#mod_input").val();
+			if(temp1 == temp2){
+				console.log("호출 중지");
+			}else{
+				$.ajax({
+					url:"${pageContext.request.contextPath}/webnote/modify?no="+note_no+"&content="+note_content,
+					type:"get",
+					dataType:"text",
+					success:function(result){
+						console.log(result);
+					}
+				});
+			}
+			$(this).parent().find("#mod_input").remove();
+			var tag = "<span class='note_content'>"+note_content+"</span>";
+			$(this).parent().prepend(tag);
+			$(this).css("display","none");
+			$(this).parent().find(".mod_cancle").css("display","none");
+			$(this).parent().find(".note_del").css("display","inline");
+			$(this).parent().find(".note_mod").css("display","inline");
+		});
+		$("#webnote_content").on("click",".mod_cancle",function(){
+			var content = $(this).parent().find("#mod_restore").val();
+			$(this).parent().find("#mod_input").remove();
+			var tag = "<span class='note_content'>"+content+"</span>";
+			$(this).parent().prepend(tag);
+			$(this).css("display","none");
+			$(this).parent().find(".mod_ok").css("display","none");
+			$(this).parent().find(".note_del").css("display","inline");
+			$(this).parent().find(".note_mod").css("display","inline");
+		});
+		$("#webnote_content").on("click",".note_del",function(){
+			var str = "해당 기록을 정말로 삭제하시겠습니까?";
+			if(confirm(str)){
+				var note_no = $(this).attr("data-no");
+				var target = $(this);
+				$.ajax({
+					url:"${pageContext.request.contextPath}/webnote/delete?no="+note_no,
+					type:"get",
+					dataType:"text",
+					success:function(result){
+						console.log(result);
+						$(target).parent().remove();
+					}
+				});	
+			}
+		});
+		$("#add_ok").on("click",function(){
+			var content = $("#input_box input").val();
+			if(content == ""){
+				alert("추가할 내용이 존재하지 않습니다.\n내용을 작성해주세요.");
+			}else{
+				$.ajax({
+					url:"${pageContext.request.contextPath}/webnote/insert?content="+content,
+					type:"get",
+					dataType:"text",
+					success:function(result){
+						console.log(result);
+						$("#webnote_content").empty();
+						$("#input_box input").val("");
+						webnote_load();
+					}
+				});
+			}
 		});
 		
 		webnote_load();
@@ -332,7 +428,10 @@
 		<div id="main_container">
 			<div class="row">
 				<div id="weather">
-					<p id="day_info">Tuesday, 15 November</p>
+					<p id="day_info">
+						Tuesday, 15 November
+						<img src="${pageContext.request.contextPath}/resources/images/map_icon.png">
+					</p>
 					<img id="icon" src="${pageContext.request.contextPath}/resources/images/weather_sun.png">
 					<p id="town_sido" data-toggle="modal" data-target="#set_area">대구광역시</p>
 					<p id="town_gungu" data-toggle="modal" data-target="#set_area">남구 대명2동</p>
@@ -368,9 +467,9 @@
 						</p>
 						<img src="${pageContext.request.contextPath}/resources/images/add_icon.png" id="add_memo">
 						<div id="input_box">
-							<input type="text">
-							<img src="${pageContext.request.contextPath}/resources/images/check_icon.png">
-							<img src="${pageContext.request.contextPath}/resources/images/cancle_icon.png">
+							<input type="text" placeholder=" 추가할 내용을 입력해주세요.">
+							<img src="${pageContext.request.contextPath}/resources/images/check_icon.png" id="add_ok">
+							<img src="${pageContext.request.contextPath}/resources/images/cancle_icon.png" id="add_cancle">
 						</div>
 						<ul id="webnote_content">
 							

@@ -59,4 +59,9 @@ public class HomeController {
 	public String diaryinserttest(){
 		return "diary_insert";
 	}
+	
+	/*@RequestMapping(value = "/repeattest1", method = RequestMethod.GET)
+	public String repeatmaintest(){
+		return "repeat_main";
+	}*/
 }

@@ -1,5 +1,6 @@
 package com.dgit.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -10,12 +11,16 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dgit.domain.DiaryVO;
 import com.dgit.domain.RepeatVO;
 import com.dgit.domain.UserVO;
 import com.dgit.service.RepeatService;
@@ -61,7 +66,53 @@ public class RepeatController {
 		
 		System.out.println(vo.toString());
 		
+		//return "repeat_main";
 		return "redirect:/repeat/list";
+	}
+	
+	
+	@RequestMapping(value="/repeatlist/{date}",method=RequestMethod.GET)
+	public ResponseEntity<List<RepeatVO>> listResponseEntity(HttpServletRequest req,@PathVariable("date") String date) throws ParseException{
+		logger.info("listResponseEntity");
+		
+		UserVO uservo = DayUtil.getUser(req);
+		Date start_date = null;
+		
+		RepeatVO rvo= new RepeatVO();
+		
+		if(date==""||date==null){
+			start_date = new Date();
+		}else{
+			start_date = DayUtil.StringChangeDate(date);
+		}
+		
+		int day = start_date.getDay();
+		
+		start_date.setDate(start_date.getDate()-day);
+		
+		Date end_date = new Date();
+		end_date.setDate(start_date.getDate()+7);
+		
+		rvo.setUser_id(uservo.getUser_id());
+		rvo.setRep_start(start_date);
+		rvo.setRep_end(end_date);
+		
+		ResponseEntity<List<RepeatVO>> entity = null;
+		try{
+			System.out.println(rvo.toString());
+			
+			List<RepeatVO> list = service.selectRepeat(rvo);
+			
+			System.out.println(list.size() + "--------------");
+			
+			entity = new ResponseEntity<List<RepeatVO>>(list, HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<List<RepeatVO>>(HttpStatus.BAD_REQUEST);
+		}
+		//System.out.println(entity+"///////////////////////");
+		return entity;
+		
 	}
 	
 	
@@ -78,7 +129,8 @@ public class RepeatController {
 		
 		model.addAttribute("list", repeatList);
 		
-		return "repeat/list";
+		return "repeat_main";
+		//return "repeat/list";
 	}
 	
 	@RequestMapping(value="/delete" ,method=RequestMethod.GET)

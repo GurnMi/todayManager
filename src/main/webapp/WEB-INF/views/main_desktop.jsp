@@ -253,6 +253,9 @@
 		$("#move_diary").on("click",function(){
 			location.href = "${pageContext.request.contextPath}/diary/";
 		});
+		$("#move_repeat").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/repeat/list";
+		});
 		
 		$("#add_memo").on("mouseover",function(){$(this).css("opacity","0.7");});
 		$("#add_memo").on("mouseout",function(){$(this).css("opacity","0.5");});
@@ -420,6 +423,7 @@
 	<div id="container">
 		<div id="menu_container">
 			<div>
+				<img src="${pageContext.request.contextPath}/resources/images/diary_icon.png" id="move_repeat">
 				<img src="${pageContext.request.contextPath}/resources/images/diary_icon.png" id="move_diary">
 				<img src="${pageContext.request.contextPath}/resources/images/today_icon.png" id="move_today">
 				<img src="${pageContext.request.contextPath}/resources/images/home_icon.png" id="move_home">

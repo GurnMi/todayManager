@@ -18,7 +18,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slick.js"></script>
 <!-- CUSTOM JS -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=3"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_timeplan.js?var=2"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_timeplan.js?var=3"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_insert.js?var=4"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar_s.js?var=3"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_size.js?var=3"></script>
@@ -234,6 +234,7 @@
 		});
 		
 		$(document).on("click",".load_plan",function(){
+			var id = $(this).attr("id");
 			if(eventChecker == 0){
 				if(confirm("정말 삭제하시겠습니까?")){
 		            $(location).attr('href', "${pageContext.request.contextPath}/today/delete?prino="+id);

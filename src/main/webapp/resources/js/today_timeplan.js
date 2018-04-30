@@ -50,7 +50,7 @@ function insert_end(target){
 		$(target).parent().append(tag);
 		$(".ing_plan").css("top",startpos+20);
 		$(".ing_plan").css("left","100px");
-		$(".ing_plan").css("width","75%");
+		$(".ing_plan").css("width","85%");
 		var height = (endpos - startpos) + "px";
 		$(".ing_plan").css("height",height);
 		

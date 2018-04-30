@@ -23,12 +23,13 @@
 <!-- CUSTOM JS -->
 <style type="text/css">
 
-	#weektable,#test{
+	#weektable{
 		background: white;
-	}
-	table{
 		max-width: 1024px;
+		padding-top: 50px;
+		padding : 40px;
 	}
+	
 	td{
 		border: 1px solid black;
 		margin: 10px;
@@ -53,7 +54,8 @@
 	#my-dialog {
 	    display: none;
 	    position: fixed;
-	    left: calc( 50% - 160px ); top: calc( 50% - 70px );
+	    left: calc( 50% - 160px ); 
+	    top: calc( 50% - 70px );
 	    width: 320px; 
 	    height: 400px; 
 	    background: #fff;
@@ -89,13 +91,13 @@
 	}
 	#right{
 		position: relative;
-		top:38px;
-		right:-950px;
+		top:78px;
+		right:-920px;
 	}
 	#left{
 		position: relative;
-		top:38px;
-		left:60px;
+		top:78px;
+		left:100px;
 	}
 	.test{
  		background: blue;
@@ -156,8 +158,6 @@
 		
 		//삽입 클릭
 		$(document).on("click",".dt",function(){
-			
-			
 			
 			if(index==0){
 				if($(this).hasClass("selected")){
@@ -311,8 +311,6 @@
 		/* $(document).on("click",".selected",function(){
 			alert("삭제");
 		}) */
-		
-		
 		
 	})
 	

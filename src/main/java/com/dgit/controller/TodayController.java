@@ -237,8 +237,10 @@ public class TodayController {
 		if(todayList.size()>0){
 			for(TodayVO t : todayList){
 				//System.out.println("=======ddddddd==========");
-				System.out.println(t.toString());
-				todayService.deleteToday(t);
+				if(t.getPlan_type().equals("dump")){
+					todayService.deleteToday(t);
+				}
+				
 			}
 		}
 		

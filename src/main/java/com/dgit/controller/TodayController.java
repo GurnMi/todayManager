@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dgit.domain.RepeatVO;
 import com.dgit.domain.TodayVO;
@@ -202,7 +203,7 @@ public class TodayController {
 	
 	
 	@RequestMapping(value="/today" ,method=RequestMethod.POST)
-	public String todayinsertPost(HttpServletRequest req, TodayVO vo, String today, String time_start, String time_end, Model model) throws Exception{
+	public String todayinsertPost(HttpServletRequest req, TodayVO vo, String today, String time_start, String time_end, String date, Model model) throws Exception{
 		logger.info("today main");
 		
 		UserVO uservo = DayUtil.getUser(req);
@@ -245,7 +246,7 @@ public class TodayController {
 		
 		//List<TodayVO> todayList = todayService.selectToday(vo);
 		
-		return "redirect:/today/today";
+		return "redirect:/today/todayview";
 	}
 	
 	@RequestMapping(value="/delete" ,method=RequestMethod.GET)
@@ -355,6 +356,7 @@ public class TodayController {
 		return "redirect:/today/";
 	}*/
 	
+	@ResponseBody
 	@RequestMapping(value="/all/{date}",method=RequestMethod.GET)
 	public ResponseEntity<List<TodayVO>> list(HttpServletRequest req,@PathVariable("date") String date) throws ParseException{
 		
@@ -375,7 +377,16 @@ public class TodayController {
 		
 		try{
 			List<TodayVO> list = todayService.selectToday(tvo);
-			entity = new ResponseEntity<List<TodayVO>>(list, HttpStatus.OK);
+			if(list.size()>=1){
+				for(TodayVO tVo : list){
+					System.out.println(tVo.getPlan_type()+"////////////////");
+					if(tVo.getPlan_type().equals("dump")){
+						entity = new ResponseEntity<List<TodayVO>>(HttpStatus.OK);
+					}else{
+						entity = new ResponseEntity<List<TodayVO>>(list, HttpStatus.OK);
+					}
+				}
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<List<TodayVO>>(HttpStatus.BAD_REQUEST);
@@ -383,7 +394,10 @@ public class TodayController {
 		return entity;
 	}
 	
-	
+	@RequestMapping(value="/todayview",method=RequestMethod.GET)
+	public String view() throws ParseException{
+		return "today_desktop";
+	}
 	
 	public Date StringChangeDate(String today) throws ParseException{
 		Date start_date = new Date();

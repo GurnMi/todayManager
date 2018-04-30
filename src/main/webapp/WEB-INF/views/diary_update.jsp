@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=2">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=3">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -126,7 +127,7 @@
 			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_home.png");
 		});
 		$("#move_today").on("click",function(){
-			location.href = "${pageContext.request.contextPath}/today/";
+			location.href = "${pageContext.request.contextPath}/today/todayview";
 		});
 		$("#move_today").on("mouseover",function(){
 			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_today_over.png");

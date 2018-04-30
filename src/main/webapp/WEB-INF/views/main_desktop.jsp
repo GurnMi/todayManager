@@ -254,7 +254,7 @@
 			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_home.png");
 		});
 		$("#move_today").on("click",function(){
-			location.href = "${pageContext.request.contextPath}/today/";
+			location.href = "${pageContext.request.contextPath}/today/todayview";
 		});
 		$("#move_today").on("mouseover",function(){
 			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_today_over.png");

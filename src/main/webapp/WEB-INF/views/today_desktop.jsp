@@ -41,6 +41,28 @@
 			pageLoadControl = 1;
 			draw_time();
 			
+			var searchDate = year + "-";
+			if(month < 10)
+				searchDate += "0"+month+"-";
+			else
+				searchDate += month+"-";
+			if(day < 10)
+				searchDate += "0"+day;
+			else
+				searchDate += day;
+			$("input[name='today']").val(searchDate);
+			$.ajax({
+				//해당 날짜로 값 가져오기
+				url:"${pageContext.request.contextPath}/today/all/"+searchDate,
+				type:"get",
+				headers:{"Content-Type":"application/json"},
+				dataType:"json",
+				success:function(result){
+					console.log(result);
+					draw_getTime(result);
+				}
+			});
+			
 			// 크기 재조절 구역
 			resize_insertbox();
 		}
@@ -97,6 +119,34 @@
 			cal_save_select.setFullYear(sYear, sMonth-1, sDay);
 			$("#calendar").find(".cal_select").removeClass("cal_select");
 			$(this).addClass("cal_select");
+			
+			var searchDate = "";
+			searchDate += sYear + "-";
+			if(sMonth < 10)
+				searchDate += "0"+sMonth+"-";
+			else
+				searchDate += sMonth+"-";
+			if(sDay < 10)
+				searchDate += "0"+sDay;
+			else
+				searchDate += sDay;
+			$("input[name='today']").val(searchDate);
+			$.ajax({
+				//해당 날짜로 값 가져오기
+				url:"${pageContext.request.contextPath}/today/all/"+searchDate,
+				type:"get",
+				headers:{"Content-Type":"application/json"},
+				dataType:"json",
+				success:function(result){
+					console.log(result);
+					$("div[class='load_plan']").remove();
+					draw_getTime(result);
+				},
+				error:function(){
+					console.log("error");
+					$("div[class='load_plan']").remove();
+				}
+			});
 		});
 		
 		// 소형달력 일 선택
@@ -154,28 +204,20 @@
 			}
 		});
 		
-		$.ajax({
-			//해당 날짜로 값 가져오기
-			url:"${pageContext.request.contextPath}/today/all/2018-04-13",
-			type:"get",
-			headers:{"Content-Type":"application/json"},
-			dataType:"json",
-			success:function(result){
-				console.log(result);
-				draw_getTime(result);
-				
-			}
-		});
-		
 		$(document).on("click",".load_plan",function(){
 			var id = $(this).attr("id");
-			if(confirm("정말 삭제하시겠습니까?")){
-	            //alert(path);
-	            $(location).attr('href', "${pageContext.request.contextPath}/today/delete?prino="+id);
-	         }else{
-	            return;
-	         }
-		})
+			if($("#time_start").val() != ""){
+				$("#time_start").val("");
+			}
+			else{
+				if(confirm("정말 삭제하시겠습니까?")){
+		            //alert(path);
+		            $(location).attr('href', "${pageContext.request.contextPath}/today/delete?prino="+id);
+		        }else{
+		            return;
+		        }
+			}
+		});
 				
 		$("#move_home").on("click",function(){
 			location.href = "${pageContext.request.contextPath}/";
@@ -187,7 +229,7 @@
 			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_home.png");
 		});
 		$("#move_today").on("click",function(){
-			location.href = "${pageContext.request.contextPath}/today/";
+			location.href = "${pageContext.request.contextPath}/today/todayview";
 		});
 		$("#move_today").on("mouseover",function(){
 			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_today_over.png");
@@ -213,6 +255,27 @@
 		$("#move_repeat").on("mouseout",function(){
 			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_repeat.png");
 		});
+		
+		$("input[type='reset']").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/today/todayview";
+		});
+		/* $("input[type='reset']").on("click",function(){
+			var tempDate = cal_save_select.getFullYear()+"-";
+			if(cal_save_select.getMonth()+1 < 10)
+				tempDate += "0"+(cal_save_select.getMonth()+1);
+			else
+				tempDate += cal_save_select.getMonth()+1;
+			
+			tempDate += "-";
+			
+			if(cal_save_select.getDate() < 10)
+				tempDate += "0"+cal_save_select.getDate();
+			else
+				tempDate += cal_save_select.getDate();
+			console.log(tempDate);
+			$("input[name='today']").val(tempDate);
+			$("div[class='ing_plan']").remove();
+		}); */
 	});
 	
 	function draw_getTime(result){
@@ -324,7 +387,6 @@
       position : absolute;
       background : red;
       z-index:99;
-      
    } */
 	
 </style>
@@ -342,7 +404,7 @@
 		<div id="today_container">
 			<div class="row">
 				<div id="insert_box">
-					<form action="${pageContext.request.contextPath}/today/today" method="post">
+					<form action="${pageContext.request.contextPath}/today/today" method="post" id="insertForm">
 						<label class="guide">카테고리</label>
 						<select name="plan_type">
 							<option value="수면">수면</option>
@@ -361,7 +423,7 @@
 						<input type="text" class="content" placeholder="세부내용을 입력해 주세요" name="plan_content">
 						<br>
 						<label class="guide">날짜</label>
-						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly" value="2018-04-13" name="today">
+						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly" name="today">
 						<br>
 						<label class="guide">시작시간</label>
 						<input type="text" placeholder="시간표에서 선택해주세요." readonly="readonly" id="time_start" name="time_start">

@@ -447,9 +447,11 @@
 	<div id="container">
 		<div id="menu_container">
 			<div>
-				<img src="${pageContext.request.contextPath}/resources/images/menu_repeat.png" id="move_repeat">
-				<img src="${pageContext.request.contextPath}/resources/images/menu_diary.png" id="move_diary">
-				<img src="${pageContext.request.contextPath}/resources/images/menu_today.png" id="move_today">
+				<c:if test="${sessionScope.user.user_id!=null}">
+					<img src="${pageContext.request.contextPath}/resources/images/menu_repeat.png" id="move_repeat">
+					<img src="${pageContext.request.contextPath}/resources/images/menu_diary.png" id="move_diary">
+					<img src="${pageContext.request.contextPath}/resources/images/menu_today.png" id="move_today">
+				</c:if>
 				<img src="${pageContext.request.contextPath}/resources/images/menu_home.png" id="move_home">
 			</div>
 		</div>

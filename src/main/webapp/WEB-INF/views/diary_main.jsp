@@ -25,6 +25,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=3"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/diary_contents.js?var=5"></script>
 <script type="text/javascript">
+	var setDate = "";
+	
 	$(function(){
 		var date = new Date();
 		var baseDate = date;
@@ -32,6 +34,8 @@
 		var month = date.getMonth()+1;
 		var day = date.getDate();
 		var pageLoadControl = 0;
+		
+		setDate = year +"-"+ month +"-"+ day;
 
 		// 페이지 최초 로드시 달력 자동 생성
 		if(pageLoadControl == 0){
@@ -90,6 +94,10 @@
 				else
 					load_diary += "-"+sDay;
 				
+				setDate = load_diary;
+				//차트 생성
+				google.charts.load('current', {'packages':['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
 				//해당 날짜로 값 가져오기
 				$.ajax({
 					url:"${pageContext.request.contextPath}/diary/today/"+load_diary,
@@ -241,7 +249,7 @@
 		dataArr[0] = ['Task', 'Hours per Day'];
 		$.ajax({
 			//해당 날짜로 값 가져오기
-			url:"${pageContext.request.contextPath}/history/all/2018-04-13",
+			url:"${pageContext.request.contextPath}/history/all/" + setDate,
 			type:"get",
 			headers:{"Content-Type":"application/json"},
 			dataType:"json",

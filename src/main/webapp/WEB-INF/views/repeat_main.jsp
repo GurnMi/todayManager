@@ -128,8 +128,15 @@
 </style>
 <script type="text/javascript">
 	$(function(){
-		var date = new Date();
 		
+		var today = "${today}";
+		if(today!=""){
+			var date = new Date(today);
+		}else{
+			var date = new Date();
+		}
+		
+		//alert(today);
 		makeWeekTable(date);
 		
 		//이전주
@@ -164,7 +171,12 @@
 					var result = confirm("삭제하시겠습니까?");
 					if(result){
 						var repno = $(this).attr("repno");
-						$(location).attr('href', "delete?repno="+repno);
+						
+						var y = date.getFullYear();
+						var m = date.getMonth()+1;
+						var d = date.getDate();
+						
+						$(location).attr('href', "delete?repno="+repno+"&date="+y+"-"+m+"-"+d);
 						//alert("확인" + repno);
 					}else{
 						//alert("취소했습니다.");
@@ -266,10 +278,6 @@
 				}else{
 					endtime = eTArr[0] + ":" +eTArr[1];	
 				}
-				
-				
-				
-				
 				$("input[name='rep_start_time']").val(starttime);
 				$("input[name='rep_end_time']").val(endtime);
 			}
@@ -401,6 +409,7 @@
 				
 				var month = startdate.getMonth()+1;
 				var date1 = startdate.getDate();
+				
 				if(month<10){
 					month = "0"+month;
 				}
@@ -408,7 +417,7 @@
 					date1 = "0"+date1;
 				}
 				var c = startdate.getFullYear()+"-"+month+"-"+date1;
-				weekTb += "<td sel='"+i+startdate.getDate() +"' data-time='"+ct+"'data-date='"+c+"'class='dt "+"t"+i+date1+"'"+"'>"+""+"</td>"; 
+				weekTb += "<td sel='"+i+date1 +"' data-time='"+ct+"'data-date='"+c+"'class='dt "+"t"+i+date1+"'"+"'>"+""+"</td>"; 
 				startdate.setDate(startdate.getDate()+1);
 			} 
 			weekTb += "</tr>";
@@ -417,8 +426,9 @@
 		
 		
 		weekTb += "</table>";
-		
+		//console.log("시작읾어리ㅏㅁㄴ어리 : " + startdate.getDate());
 		startdate.setDate(startdate.getDate()-7);
+		//console.log("시작읾어리ㅏㅁㄴ어리 : " + startdate.getDate());
 		$.ajax({
 			url:"${pageContext.request.contextPath}/repeat/repeatlist/"+c,
 			type:"get",
@@ -452,19 +462,20 @@
 					dayIndex = k;
 				}
 			}
-			console.log("요일숫자 : " + dayIndex);
+			//console.log("요일숫자 : " + dayIndex);
+			
 			
 			var dateIndex = 0;
 			for(var k=0;k<7;k++){
-				startdate.setDate(startdate.getDate()+1);
 				if(startdate.getDay() == dayIndex){
 					dateIndex = startdate.getDate();
 				}
+				startdate.setDate(startdate.getDate()+1);
 			}
 			startdate.setDate(startdate.getDate()-7);
 			
-			console.log("startDate : " + startdate);
-			console.log("date : " + dateIndex);
+			/* console.log("startDate : " + startdate);*/
+			console.log("date : " + dateIndex+ "////"+ startdate.getDate()); 
 			
 			
 			//시간
@@ -486,7 +497,7 @@
 				}
 			}
 			
-			console.log("s :"+ start_sel);
+			//console.log("s :"+ start_sel);
 			
 			
 			var ehours = end_time.getHours();
@@ -500,16 +511,20 @@
 					++end_sel;
 				}
 			}
-			console.log("e :"+ end_sel);
+			//console.log("e :"+ end_sel);
 			
 			
 			//var className = "t"+ end_sel + dateIndex;
 			
-			sn = Number(start_sel + "" + dateIndex) ;
-			en = Number(end_sel + "" +dateIndex);
+			if(dateIndex<10){
+				sn = Number(start_sel + "0" + dateIndex) ;
+				en = Number(end_sel + "0" +dateIndex);
+			}else{
+				sn = Number(start_sel + "" + dateIndex) ;
+				en = Number(end_sel + "" +dateIndex);
+			}
 			
-			
-			console.log("sn:"+ sn + "/en" + en + "/");
+			//console.log("sn:"+ sn + "/en" + en + "/");
 			
 			/* if(en==sn){
 				var className = "t"+sn;
@@ -524,7 +539,7 @@
 			} */
 			var jIndex = Number(end_sel-start_sel);
 			for(var j=0; j<= jIndex ; j++){
-				console.log("클래스이름jj  : " + (en-sn));
+				//console.log("클래스이름jj  : " + (en-sn));
 				if(dateIndex<10){
 					dateIndex = "0"+dateIndex;
 				}
@@ -639,5 +654,12 @@
 			</div>
 		</div>
 	</div>
+	
+	<c:if test="${insertresult =='error'}">
+		<script type="text/javascript">
+			alert("겹치는 시간이 존재합니다");
+		</script>
+	</c:if>
+	
 </body>
 </html>

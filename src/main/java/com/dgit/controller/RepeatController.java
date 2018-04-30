@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dgit.domain.DiaryVO;
@@ -31,7 +32,7 @@ import com.dgit.util.DayUtil;
 @RequestMapping("/repeat/*")
 public class RepeatController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	private static final Logger logger = LoggerFactory.getLogger(RepeatController.class);
 	
 	@Autowired
 	private RepeatService service;
@@ -43,6 +44,7 @@ public class RepeatController {
 		return "repeat/insert";
 	}
 	
+
 	@RequestMapping(value="/insert" ,method=RequestMethod.POST)
 	public String insertPost(HttpServletRequest req, RepeatVO vo, Model model,RedirectAttributes rttr) throws Exception{
 		logger.info("insert post");
@@ -58,16 +60,21 @@ public class RepeatController {
 //		}
 		
 		if(testList.size()>0){
-			rttr.addFlashAttribute("result", "error");
+			rttr.addFlashAttribute("insertresult", "error");
 		}else{
 			service.insertRepeat(vo);
-			rttr.addFlashAttribute("result", "success");
+			rttr.addFlashAttribute("insertresult", "success");
 		}
 		
 		System.out.println(vo.toString());
 		
+		Date date = vo.getRep_start();
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
+		  
 		//return "repeat_main";
-		return "redirect:/repeat/list";
+		return "redirect:/repeat/list" +"?date=" +dateformat.format(date);
 	}
 	
 	
@@ -90,8 +97,14 @@ public class RepeatController {
 		
 		start_date.setDate(start_date.getDate()-day);
 		
-		Date end_date = new Date();
-		end_date.setDate(start_date.getDate()+7);
+		System.out.println("ssssssssssss"+start_date);
+		
+		Date end_date = new Date(start_date.getTime());
+		end_date.setDate(end_date.getDate()+7);
+		
+		System.out.println("ssssssssssss11111"+start_date);
+		
+		System.out.println("ssssssssssss"+end_date);
 		
 		rvo.setUser_id(uservo.getUser_id());
 		rvo.setRep_start(start_date);
@@ -117,24 +130,49 @@ public class RepeatController {
 	
 	
 	@RequestMapping(value="/list" ,method=RequestMethod.GET)
-	public String listGet(HttpServletRequest req,Model model) throws Exception{
+	public String listGet(HttpServletRequest req,Model model, String date) throws Exception{
 		logger.info("list");
 		
 		UserVO uservo = DayUtil.getUser(req);
 		
-		RepeatVO repeatvo = new RepeatVO();
-		repeatvo.setUser_id(uservo.getUser_id());
+		RepeatVO rvo = new RepeatVO();
+		Date start_date = null;
 		
-		List<RepeatVO> repeatList = service.selectRepeat(repeatvo);
+		if(date==""||date==null){
+			start_date = new Date();
+		}else{
+			start_date = DayUtil.StringChangeDate(date);
+		}
+		
+		int day = start_date.getDay();
+		
+		start_date.setDate(start_date.getDate()-day);
+		
+		System.out.println("ssssssssssss"+start_date);
+		
+		Date end_date = new Date(start_date.getTime());
+		end_date.setDate(end_date.getDate()+7);
+		
+		System.out.println("ssssssssssss11111"+start_date);
+		
+		System.out.println("ssssssssssss"+end_date);
+		
+		rvo.setUser_id(uservo.getUser_id());
+		rvo.setRep_start(start_date);
+		rvo.setRep_end(end_date);
+		rvo.setUser_id(uservo.getUser_id());
+		
+		List<RepeatVO> repeatList = service.selectRepeat(rvo);
 		
 		model.addAttribute("list", repeatList);
+		model.addAttribute("today", date);
 		
 		return "repeat_main";
 		//return "repeat/list";
 	}
 	
 	@RequestMapping(value="/delete" ,method=RequestMethod.GET)
-	public String delete(HttpServletRequest req, Model model, int repno) throws Exception{
+	public String delete(HttpServletRequest req, Model model, int repno,String date) throws Exception{
 		logger.info("delete");
 		
 		UserVO uservo = DayUtil.getUser(req);
@@ -149,9 +187,11 @@ public class RepeatController {
 		
 		List<RepeatVO> repeatList = service.selectRepeat(repeatvo);
 		
-		model.addAttribute("list", repeatList);
+		//model.addAttribute("list", repeatList);
 		
-		return "redirect:/repeat/list";
+		  
+		//return "repeat_main";
+		return "redirect:/repeat/list"+"?date="+date;	
 	}
 	
 	@RequestMapping("/listDay")

@@ -119,31 +119,52 @@
 		$("#move_home").on("click",function(){
 			location.href = "${pageContext.request.contextPath}/";
 		});
+		$("#move_home").on("mouseover",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_home_over.png");
+		});
+		$("#move_home").on("mouseout",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_home.png");
+		});
 		$("#move_today").on("click",function(){
 			location.href = "${pageContext.request.contextPath}/today/";
 		});
+		$("#move_today").on("mouseover",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_today_over.png");
+		});
+		$("#move_today").on("mouseout",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_today.png");
+		});
 		$("#move_diary").on("click",function(){
 			location.href = "${pageContext.request.contextPath}/diary/";
+		});
+		$("#move_diary").on("mouseover",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_diary_over.png");
+		});
+		$("#move_diary").on("mouseout",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_diary.png");
+		});
+		$("#move_repeat").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/repeat/list";
+		});
+		$("#move_repeat").on("mouseover",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_repeat_over.png");
+		});
+		$("#move_repeat").on("mouseout",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_repeat.png");
 		});
 	});
 </script>
 </head>
 <body>
 	<div class="container-fluid">
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">DIARY</a>
-				</div>
-				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="${pageContext.request.contextPath}/">HOME</a></li>
-						<li><a href="${pageContext.request.contextPath}/today/">TODAY</a></li>
-						<li><a href="${pageContext.request.contextPath}/diary/">DIARY</a></li>
-					</ul>
-				</div>
+		<div id="menu_container">
+			<div>
+				<img src="${pageContext.request.contextPath}/resources/images/menu_repeat.png" id="move_repeat">
+				<img src="${pageContext.request.contextPath}/resources/images/menu_diary.png" id="move_diary">
+				<img src="${pageContext.request.contextPath}/resources/images/menu_today.png" id="move_today">
+				<img src="${pageContext.request.contextPath}/resources/images/menu_home.png" id="move_home">
 			</div>
-		</nav>
+		</div>
 		<div id="diray__insert_container">
 			<div class="row">
 				<div>

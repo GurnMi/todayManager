@@ -247,14 +247,38 @@
 		$("#move_home").on("click",function(){
 			location.href = "${pageContext.request.contextPath}/";
 		});
+		$("#move_home").on("mouseover",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_home_over.png");
+		});
+		$("#move_home").on("mouseout",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_home.png");
+		});
 		$("#move_today").on("click",function(){
 			location.href = "${pageContext.request.contextPath}/today/";
+		});
+		$("#move_today").on("mouseover",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_today_over.png");
+		});
+		$("#move_today").on("mouseout",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_today.png");
 		});
 		$("#move_diary").on("click",function(){
 			location.href = "${pageContext.request.contextPath}/diary/";
 		});
+		$("#move_diary").on("mouseover",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_diary_over.png");
+		});
+		$("#move_diary").on("mouseout",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_diary.png");
+		});
 		$("#move_repeat").on("click",function(){
 			location.href = "${pageContext.request.contextPath}/repeat/list";
+		});
+		$("#move_repeat").on("mouseover",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_repeat_over.png");
+		});
+		$("#move_repeat").on("mouseout",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_repeat.png");
 		});
 		
 		$("#add_memo").on("mouseover",function(){$(this).css("opacity","0.7");});
@@ -423,10 +447,10 @@
 	<div id="container">
 		<div id="menu_container">
 			<div>
-				<img src="${pageContext.request.contextPath}/resources/images/diary_icon.png" id="move_repeat">
-				<img src="${pageContext.request.contextPath}/resources/images/diary_icon.png" id="move_diary">
-				<img src="${pageContext.request.contextPath}/resources/images/today_icon.png" id="move_today">
-				<img src="${pageContext.request.contextPath}/resources/images/home_icon.png" id="move_home">
+				<img src="${pageContext.request.contextPath}/resources/images/menu_repeat.png" id="move_repeat">
+				<img src="${pageContext.request.contextPath}/resources/images/menu_diary.png" id="move_diary">
+				<img src="${pageContext.request.contextPath}/resources/images/menu_today.png" id="move_today">
+				<img src="${pageContext.request.contextPath}/resources/images/menu_home.png" id="move_home">
 			</div>
 		</div>
 		<div id="main_container">

@@ -350,18 +350,25 @@
 		   $("#pri_no"+pri_no+"").css("height",height);
 		   if(plan_type == "공부"){
 			   $("#pri_no"+pri_no+"").css("background","rgba(255,0,0,0.5)");
+			   $("#pri_no"+pri_no+"").css("color","white");
 		   }else if(plan_type == "일"){
 			   $("#pri_no"+pri_no+"").css("background","rgba(255,94,0,0.5)");
+			   $("#pri_no"+pri_no+"").css("color","white");
 		   }else if(plan_type == "운동"){
 			   $("#pri_no"+pri_no+"").css("background","rgba(255,228,0,0.5)");
+			   $("#pri_no"+pri_no+"").css("color","white");
 		   }else if(plan_type == "취미"){
 			   $("#pri_no"+pri_no+"").css("background","rgba(29,219,22,0.5)");
+			   $("#pri_no"+pri_no+"").css("color","white");
 		   }else if(plan_type == "휴식"){
 			   $("#pri_no"+pri_no+"").css("background","rgba(0,84,255,0.5)");
+			   $("#pri_no"+pri_no+"").css("color","white");
 		   }else if(plan_type == "수면"){
 			   $("#pri_no"+pri_no+"").css("background","rgba(1,0,255,0.5)");
+			   $("#pri_no"+pri_no+"").css("color","white");
 		   }else if(plan_type == "기타"){
 			   $("#pri_no"+pri_no+"").css("background","rgba(95,0,255,0.5)");
+			   $("#pri_no"+pri_no+"").css("color","white");
 		   }
 		 
 		   

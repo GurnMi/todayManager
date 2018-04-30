@@ -109,24 +109,31 @@
 	}
 	.type1{
 		background: rgba(255,0,0,0.5);
+		color:white;
 	}
 	.type2{
 		background: rgba(255,94,0,0.5);
+		color:white;
 	}
 	.type3{
 		background: rgba(255,228,0,0.5);
+		color:white;
 	}
 	.type4{
 		background: rgba(29,219,22,0.5);
+		color:white;
 	}
 	.type5{
 		background: rgba(0,84,255,0.5);
+		color:white;
 	}
 	.type6{
 		background: rgba(1,0,255,0.5);
+		color:white;
 	}
 	.type7{
 		background: rgba(95,0,255,0.5);
+		color:white;
 	}
 </style>
 <script type="text/javascript">
@@ -541,7 +548,7 @@
 				jIndex = (en-sn)/100;
 			} */
 			var jIndex = Number(end_sel-start_sel);
-			for(var j=0; j<= jIndex ; j++){
+			for(var j=0; j< jIndex ; j++){
 				//console.log("클래스이름jj  : " + (en-sn));
 				if(dateIndex<10){
 					dateIndex = "0"+dateIndex;

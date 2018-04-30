@@ -63,8 +63,8 @@
 			or (date(rep_start) <![CDATA[<=]]> date(#{rep_end}) and date(rep_end) >= date(#{rep_end}))
 			or (date(rep_start) >= date(#{rep_start}) and date(rep_end) <![CDATA[<=]]> date(#{rep_end})))
 			
-			and ((TIME_TO_SEC(rep_start) <![CDATA[<=]]> TIME_TO_SEC(#{rep_start}) and TIME_TO_SEC(rep_end) >= TIME_TO_SEC(#{rep_start}))
-			or (TIME_TO_SEC(rep_start) <![CDATA[<=]]> TIME_TO_SEC(#{rep_end}) and TIME_TO_SEC(rep_end) >= TIME_TO_SEC(#{rep_end}))
+			and ((TIME_TO_SEC(rep_start) <![CDATA[<=]]> TIME_TO_SEC(#{rep_start}) and TIME_TO_SEC(rep_end) > TIME_TO_SEC(#{rep_start}))
+			or (TIME_TO_SEC(rep_start) <![CDATA[<]]> TIME_TO_SEC(#{rep_end}) and TIME_TO_SEC(rep_end) >= TIME_TO_SEC(#{rep_end}))
 			or (TIME_TO_SEC(rep_start) >= TIME_TO_SEC(#{rep_start}) and TIME_TO_SEC(rep_end) <![CDATA[<=]]> TIME_TO_SEC(#{rep_end})))
 		</if>
 		<!-- <if test="rep_start !=null">

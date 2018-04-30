@@ -22,7 +22,7 @@
 <!-- CUSTOM JS -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar.js?var=3"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_timeplan.js?var=2"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_insert.js?var=3"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_insert.js?var=4"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_calendar_s.js?var=3"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/today_size.js?var=3"></script>
 <script type="text/javascript">
@@ -33,6 +33,7 @@
 		var month = date.getMonth()+1;
 		var day = date.getDate();
 		var pageLoadControl = 0;
+		var eventChecker = 0;
 
 		// 페이지 최초 로드시 달력 자동 생성
 		if(pageLoadControl == 0){
@@ -171,22 +172,64 @@
 		$("#today_time").on("mouseout","div",function(){
 			$(this).find("hr").removeClass("hr_over");
 		});
+		
 		// 선택한 시간을 컨트롤창의 입력창에 적용
 		$("#today_time").on("click","div",function(){
-			var checker = $("#today_time").find(".hr_select");			
+			eventChecker = 0;
+			var checker = $("#today_time").find(".hr_select");
+			// LOAD PLAN 파악
+			var loadCount = $(".load_plan").length;
+			var loadPlan = new Array(loadCount);
+			for(var i=0 ; i<loadCount ; i++){
+				var targetPlan = new Array(2);
+				targetPlan[0] = $(".load_plan").eq(i).attr("data-start");
+				targetPlan[1] = $(".load_plan").eq(i).attr("data-end");
+				loadPlan[i] = targetPlan;
+			}
 			// 시작시간이 존재할 경우 종료시간으로 설정
 			if(checker.size()>0){
 				var end = $(this).find("p").text();
 				var start = $("#time_start").val();
 				
+				if(start == end){
+					alert("동 시간은 선택할 수 없습니다.\n다시 선택해 주세요.");
+					$("#today_time").find(".hr_select").removeClass("hr_select");
+					startpos = 0;
+					$("#time_start").val("");
+					$("#time_end").val("");
+					return;
+				}
+				
 				// 시작시간보다 더 이른경우일 때 예외처리 필요
 				if(time_compare_string(start, end)){
-					var target = $(this);
-					insert_end(target);
-					$("#time_end").val(end);
+					var compareTime = new Array(2);
+					compareTime[0] = start;
+					compareTime[1] = end;
+					var err_acc = 0;
+					for(var i=0 ; i<loadCount ; i++){
+						if(timeToTime_compare(compareTime,loadPlan[i]))
+							err_acc += 0;
+						else
+							err_acc ++;
+					}
+					if(err_acc == 0 && !$(this).hasClass("load_plan")){
+						var target = $(this);
+						insert_end(target);
+						$("#time_end").val(end);
+					}
+					else{
+						alert("중복되는 시간이 존재합니다.\n시간을 재설정 해주세요.");
+						$("#today_time").find(".hr_select").removeClass("hr_select");
+						startpos = 0;
+						$("#time_start").val("");
+						$("#time_end").val("");
+						eventChecker = 1;
+					}
 				}
 				else{
 					alert("종료시간이 시작시간보다 빠릅니다.");
+					$("#today_time").find(".hr_select").removeClass("hr_select");
+					startpos = 0;
 					$("#time_start").val("");
 					$("#time_end").val("");
 				}
@@ -200,18 +243,13 @@
 			}
 			// 작성중인 계획표 존재 시
 			else{
-				alert("이미 작성중인 계획이 존재합니다.\n작성중인 계획을 완료해주시거나, 초기화버튼을 눌러주세요.")				
+				alert("작성중인 계획이 존재합니다.");				
 			}
 		});
 		
 		$(document).on("click",".load_plan",function(){
-			var id = $(this).attr("id");
-			if($("#time_start").val() != ""){
-				$("#time_start").val("");
-			}
-			else{
+			if(eventChecker == 0){
 				if(confirm("정말 삭제하시겠습니까?")){
-		            //alert(path);
 		            $(location).attr('href', "${pageContext.request.contextPath}/today/delete?prino="+id);
 		        }else{
 		            return;
@@ -259,30 +297,9 @@
 		$("input[type='reset']").on("click",function(){
 			location.href = "${pageContext.request.contextPath}/today/todayview";
 		});
-		/* $("input[type='reset']").on("click",function(){
-			var tempDate = cal_save_select.getFullYear()+"-";
-			if(cal_save_select.getMonth()+1 < 10)
-				tempDate += "0"+(cal_save_select.getMonth()+1);
-			else
-				tempDate += cal_save_select.getMonth()+1;
-			
-			tempDate += "-";
-			
-			if(cal_save_select.getDate() < 10)
-				tempDate += "0"+cal_save_select.getDate();
-			else
-				tempDate += cal_save_select.getDate();
-			console.log(tempDate);
-			$("input[name='today']").val(tempDate);
-			$("div[class='ing_plan']").remove();
-		}); */
 	});
 	
 	function draw_getTime(result){
-		//console.log(result);
-		/* var start_time;
-		var end_time; */
-		
 		for(var i=0;i<result.length;i++){
 			var start_time = new Date(result[i].start_date);
 			var end_time = new Date(result[i].end_date);
@@ -321,11 +338,8 @@
 			var plan_title = result[i].plan_title;
 			var plan_content = result[i].plan_content;
 			
-			
-			draw_plan(stime , etime, plan_type, pri_no, plan_title,plan_content)
-			//alert(stime);
+			draw_plan(stime , etime, plan_type, pri_no, plan_title,plan_content);
 		}
-		//alert(start_time);
 		
 	}
 	
@@ -334,7 +348,7 @@
 		   var planend = finder_timeposition(etime);
 		   
 		   
-		   var tag = "<div class='load_plan' id='pri_no"+pri_no+"'>";
+		   var tag = "<div class='load_plan' id='pri_no"+pri_no+"' data-start='"+stime+"' data-end='"+etime+"'>";
 		   tag += plan_type+"<br>"+ plan_title+"<br>"+plan_content;
 		   //데이터 받아와서
 		   tag += "</div>";

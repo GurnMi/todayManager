@@ -25,7 +25,8 @@
 
 	#weektable{
 		background: white;
-		max-width: 1024px;
+		max-width: 1200px;
+		border-radius:5px;
 		padding-top: 50px;
 		padding : 40px;
 	}
@@ -84,19 +85,23 @@
 	.getDate6 {
 		color: blue;
 	}
-	#right, #left{
-		width: 30px;
-		position: relative;
-		top:35px;
+	#img{
+		width:1200px;
+		height:50px;
+		position:relative;
+		top:0px;
+		left:0px;
 	}
 	#right{
-		position: relative;
-		top:78px;
-		right:-920px;
+		width:30px;
+		position: absolute;
+		top:97px;
+		right:50px;
 	}
 	#left{
-		position: relative;
-		top:78px;
+		width: 30px;
+		position: absolute;
+		top:97px;
 		left:100px;
 	}
 	.test{
@@ -123,8 +128,6 @@
 	.type7{
 		background: rgba(95,0,255,0.5);
 	}
-	
-	
 </style>
 <script type="text/javascript">
 	$(function(){

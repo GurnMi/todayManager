@@ -254,19 +254,23 @@
 			headers:{"Content-Type":"application/json"},
 			dataType:"json",
 			success:function(result){
-				for(var i=0;i<result.min.length;i++){
-					var dataArr1 = new Array();
-					dataArr1[0] = result.type[i];
-					dataArr1[1] = Number(result.min[i]);
-					dataArr[i+1] = dataArr1;
-					data2 += "['"+result.type[i]+"',"+Number(result.min[i])+"]";
-					if(i+1<result.min.length){
-						data2 += ",";	
+				if(result.type == "dump")
+					return;
+				else{
+					for(var i=0;i<result.min.length;i++){
+						var dataArr1 = new Array();
+						dataArr1[0] = result.type[i];
+						dataArr1[1] = Number(result.min[i]);
+						dataArr[i+1] = dataArr1;
+						data2 += "['"+result.type[i]+"',"+Number(result.min[i])+"]";
+						if(i+1<result.min.length){
+							data2 += ",";	
+						}
 					}
+					data2+= "]";
+					console.log(data2+"//////////////");
+					chart(dataArr);
 				}
-				data2+= "]";
-				console.log(data2+"//////////////");
-				chart(dataArr);
 			}
 		});
 	}

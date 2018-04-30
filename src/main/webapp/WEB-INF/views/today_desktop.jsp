@@ -11,10 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- CUSTOM CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=11">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=11">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=12">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=12">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=11">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=15">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -112,6 +109,9 @@
 		
 		// 달력 일 선택
 		$("#calendar").on("click","td",function(){
+			if($(this).html() == "&nbsp;")
+				return;
+			
 			var target = $(this).parent().parent();
 			var sYear = $(target).find(".cal_year").html();
 			var sMonth = $(target).find(".cal_month").html();
@@ -148,20 +148,6 @@
 					$("div[class='load_plan']").remove();
 				}
 			});
-		});
-		
-		// 소형달력 일 선택
-		$(".s_date_slick").on("click","td",function(){
-			var target = $(this).parent().parent();
-			$(target).find(".s_cal_month").html(cal_s_change_string($(this).attr("value")));
-			
-			var sYear = $(target).find(".s_cal_year").html();
-			var sMonth = $(target).find(".s_cal_month").html();
-			var sDay = $(this).html();
-			// 달력 선택정보 저장
-			s_cal_save_select.setFullYear(sYear, sMonth-1, sDay);
-			$(".s_date_slick").find(".s_cal_select").removeClass("s_cal_select");
-			$(this).addClass("s_cal_select");
 		});
 		
 		// 마우스가 올라갈 시 시각효과를 위해 CSS 재 적용(선택)
@@ -349,7 +335,7 @@
 		   
 		   
 		   var tag = "<div class='load_plan' id='pri_no"+pri_no+"' data-start='"+stime+"' data-end='"+etime+"'>";
-		   tag += plan_type+"<br>"+ plan_title+"<br>"+plan_content;
+		   tag += "<span class='load_type'>["+plan_type+"]</span> <span class='load_title'>"+plan_title+"</span>";
 		   //데이터 받아와서
 		   tag += "</div>";
 		   
@@ -359,7 +345,7 @@
 		   $("#pri_no"+pri_no+"").css("top",planstart+20);
 		   
 		   $("#pri_no"+pri_no+"").css("left","100px");
-		   $("#pri_no"+pri_no+"").css("width","75%");
+		   $("#pri_no"+pri_no+"").css("width","85%");
 		   var height = (planend - planstart) + "px";
 		   $("#pri_no"+pri_no+"").css("height",height);
 		   if(plan_type == "공부"){
@@ -397,12 +383,6 @@
 	#today_container #timetable_box #today_time{
 		position: relative;
 	}
-	/* #today_container #timetable_box #today_time .load_plan{
-      position : absolute;
-      background : red;
-      z-index:99;
-   } */
-	
 </style>
 </head>
 <body>

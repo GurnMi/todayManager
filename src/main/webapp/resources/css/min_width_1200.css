@@ -255,10 +255,10 @@
 	
 	/* CALENDAR_BOX */
 	#today_container #calendar_box{
-		width:30%;
+		width:38%;
 		border-radius:5px;
 		padding:1%;
-		margin:1% 1%;
+		margin:1% 0% 1% 1%;
 		background:white;
 		display:inline;
 		float:left;
@@ -266,9 +266,9 @@
 	}
 	#today_container #calendar_box #prevkey{
 		width:10%;
-		height:100%;
+		height:20%;
 		position:absolute;
-		top:0;
+		top:95px;
 		left:0;
 	}
 	#today_container #calendar_box #prevkey img{
@@ -276,9 +276,9 @@
 	}
 	#today_container #calendar_box #nextkey{
 		width:10%;
-		height:100%;
+		height:20%;
 		position:absolute;
-		top:0;
+		top:95px;
 		right:0;
 	}
 	#today_container #calendar_box #nextkey img{
@@ -310,12 +310,12 @@
 	
 	/* TIMETABLE_BOX */
 	#today_container #timetable_box{
-		width:60%;
+		width:100%;
 		overflow:auto;
 		max-height:800px;
 		border-radius:5px;
 		padding:2%;
-		margin:1% 1%;
+		margin:auto;
 		background:white;
 		display:inline;
 		float:left;
@@ -358,14 +358,23 @@
 		background:black;
 		z-index:99;
 	}
-	
+	#today_container #timetable_box #today_time .load_plan .load_type{
+		color:white;
+		font-weight:bold;
+		font-size:24px;
+	}
+	#today_container #timetable_box #today_time .load_plan .load_title{
+		color:white;
+		font-weight:bold;
+		font-size:24px;
+	}
 	
 	/* INSERT_BOX */
 	#today_container #insert_box{
 		width:60%;
 		border-radius:5px;
 		padding:1%;
-		margin:1%;
+		margin:1% 1% 1% 0%;
 		background:white;
 		display:inline;
 		float:left;

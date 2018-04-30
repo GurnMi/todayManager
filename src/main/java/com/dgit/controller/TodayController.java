@@ -204,7 +204,7 @@ public class TodayController {
 	
 	@RequestMapping(value="/today" ,method=RequestMethod.POST)
 	public String todayinsertPost(HttpServletRequest req, TodayVO vo, String today, String time_start, String time_end, String date, Model model) throws Exception{
-		logger.info("today main");
+		logger.info("today main insert");
 		
 		UserVO uservo = DayUtil.getUser(req);
 		vo.setUser_id(uservo.getUser_id());
@@ -232,7 +232,7 @@ public class TodayController {
 		System.out.println(vo.toString()+"////////////////////////////");
 		
 		//중복처리
-		/*List<TodayVO> todayList =  todayService.repeatTest(vo);
+		List<TodayVO> todayList =  todayService.repeatTest(vo);
 		System.out.println(todayList.size()+"/////////////////////");
 		if(todayList.size()>0){
 			for(TodayVO t : todayList){
@@ -240,7 +240,7 @@ public class TodayController {
 				System.out.println(t.toString());
 				todayService.deleteToday(t);
 			}
-		}*/
+		}
 		
 		todayService.insertToday(vo);
 		
@@ -358,8 +358,8 @@ public class TodayController {
 	
 	@ResponseBody
 	@RequestMapping(value="/all/{date}",method=RequestMethod.GET)
-	public ResponseEntity<List<TodayVO>> list(HttpServletRequest req,@PathVariable("date") String date) throws ParseException{
-		
+	public ResponseEntity<List<TodayVO>> list(HttpServletRequest req,@PathVariable("date") String date) throws Exception{
+		logger.info("today main todayview date");
 		UserVO uservo = DayUtil.getUser(req);
 		Date start_date = null;
 		
@@ -371,6 +371,39 @@ public class TodayController {
 		
 		ResponseEntity<List<TodayVO>> entity = null;
 		
+		//반복땡기기
+		RepeatVO repeatvo = new RepeatVO();
+		
+		repeatvo.setUser_id(uservo.getUser_id());
+		repeatvo.setRep_start(start_date);
+		repeatvo.setRep_end(start_date);
+		int dayInt = start_date.getDay();
+		String day = dayArr[dayInt];
+		repeatvo.setRep_day(day);
+		
+		System.out.println(repeatvo.toString()+"===========");
+		
+		List<RepeatVO> repeatList = repeatService.selectRepeat(repeatvo);
+		
+		TodayVO todayVO = new TodayVO();
+		todayVO.setUser_id(uservo.getUser_id());
+		todayVO.setStart_date(start_date);
+		List<TodayVO> todayList = todayService.selectToday(todayVO);
+		
+		System.out.println(todayList.size()+"////////////////");
+		
+		//반복 있을경우 today에 추가
+		if(todayList.size()==0&&repeatList.size()>0){
+			for(RepeatVO rVo : repeatList){
+				System.out.println("=============");
+				System.out.println(rVo.toString());
+				TodayVO tVo = repeatVOChangeTodayVO(rVo,start_date, uservo);
+				todayService.insertToday(tVo);
+				todayList = todayService.selectToday(todayVO);
+			}
+		}
+		
+		//오늘날짜 세팅
 		TodayVO tvo = new TodayVO();
 		tvo.setUser_id(uservo.getUser_id());
 		tvo.setStart_date(start_date);
@@ -396,6 +429,7 @@ public class TodayController {
 	
 	@RequestMapping(value="/todayview",method=RequestMethod.GET)
 	public String view() throws ParseException{
+		logger.info("today main todayview");
 		return "today_desktop";
 	}
 	

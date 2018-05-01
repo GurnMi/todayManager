@@ -13,10 +13,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- CUSTOM CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=7">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=10">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=10">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=10">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=10">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=10">
 <style type="text/css">
 	.error{
@@ -85,15 +81,53 @@
 				return false;
 			}
 		})
+		
+		$("#move_home").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/";
+		});
+		$("#move_home").on("mouseover",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_home_over.png");
+		});
+		$("#move_home").on("mouseout",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_home.png");
+		});
+		$("#move_today").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/today/todayview";
+		});
+		$("#move_today").on("mouseover",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_today_over.png");
+		});
+		$("#move_today").on("mouseout",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_today.png");
+		});
+		$("#move_diary").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/diary/";
+		});
+		$("#move_diary").on("mouseover",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_diary_over.png");
+		});
+		$("#move_diary").on("mouseout",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_diary.png");
+		});
+		$("#move_repeat").on("click",function(){
+			location.href = "${pageContext.request.contextPath}/repeat/list";
+		});
+		$("#move_repeat").on("mouseover",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_repeat_over.png");
+		});
+		$("#move_repeat").on("mouseout",function(){
+			$(this).attr("src", "${pageContext.request.contextPath}/resources/images/menu_repeat.png");
+		});
 	})
 </script>
 </head>
 <body>
 	<div id="menu_container">
 		<div>
-			<img src="${pageContext.request.contextPath}/resources/images/diary_icon.png" id="move_diary">
-			<img src="${pageContext.request.contextPath}/resources/images/today_icon.png" id="move_today">
-			<img src="${pageContext.request.contextPath}/resources/images/home_icon.png" id="move_home">
+			<img src="${pageContext.request.contextPath}/resources/images/menu_repeat.png" id="move_repeat">
+			<img src="${pageContext.request.contextPath}/resources/images/menu_diary.png" id="move_diary">
+			<img src="${pageContext.request.contextPath}/resources/images/menu_today.png" id="move_today">
+			<img src="${pageContext.request.contextPath}/resources/images/menu_home.png" id="move_home">
 		</div>
 	</div>
 	<div id="nick_container">

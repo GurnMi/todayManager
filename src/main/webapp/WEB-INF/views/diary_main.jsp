@@ -12,10 +12,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- CUSTOM CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css?var=4">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_320.css?var=5">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_512.css?var=5">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_768.css?var=5">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_960.css?var=5">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min_width_1200.css?var=8">
 <!-- PLUGIN JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

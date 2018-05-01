@@ -407,6 +407,9 @@
 			<div class="row">
 				<div id="insert_box">
 					<form action="${pageContext.request.contextPath}/today/today" method="post" id="insertForm">
+						<br>
+						
+						
 						<label class="guide">카테고리</label>
 						<select name="plan_type">
 							<option value="수면">수면</option>
@@ -421,9 +424,9 @@
 						<label class="guide">제목</label>
 						<input type="text" class="title" placeholder="화면에 표시될 제목을 입력해주세요." name="plan_title">
 						<br>
-						<label class="guide">내용</label>
+						<!-- <label class="guide">내용</label>
 						<input type="text" class="content" placeholder="세부내용을 입력해 주세요" name="plan_content">
-						<br>
+						<br> -->
 						<label class="guide">날짜</label>
 						<input type="text" placeholder="달력에서 선택해주세요." readonly="readonly" name="today">
 						<br>
